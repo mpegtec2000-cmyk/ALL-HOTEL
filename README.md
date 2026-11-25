@@ -5,7 +5,7 @@
 Plataforma hotelera Full-Stack construida en **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**.
 
 ## Identidad de Marca Aplicada
-- **Verde Lima Neón:** `#39FF14` (RGB `57, 255, 20`)
+- **Verde Lima Neón:** `#B0E454` (RGB `57, 255, 20`)
 - **Negro Obsidiana:** `#0B0B0B` (RGB `11, 11, 11`)
 - **Blanco Puro:** `#FFFFFF` (RGB `255, 255, 255`)
 - **Tipografía:** `Montserrat` + detalles script y barras geométricas diagonales oficiales.

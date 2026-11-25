@@ -70,12 +70,12 @@ export default function ConciergeWidget() {
         <div className="w-[330px] sm:w-[375px] rounded-3xl bg-[#000000] border border-white/20 shadow-[0_25px_70px_rgba(0,0,0,0.92)] overflow-hidden">
           <div className="bg-[#000000] border-b border-white/10 px-4 py-3.5 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#39FF14] text-[#000000] flex items-center justify-center font-black">
+              <div className="w-9 h-9 rounded-xl bg-[#B0E454] text-[#000000] flex items-center justify-center font-black">
                 <Sparkles className="w-5 h-5" />
               </div>
               <div>
                 <p className="text-sm font-extrabold text-white">Concierge All Rent</p>
-                <p className="text-[11px] text-[#39FF14] font-semibold">En línea · Av. Bulnes 119</p>
+                <p className="text-[11px] text-[#B0E454] font-semibold">En línea · Av. Bulnes 119</p>
               </div>
             </div>
             <div className="flex items-center gap-1">
@@ -84,7 +84,7 @@ export default function ConciergeWidget() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="WhatsApp Central de Reservas"
-                className="p-2 rounded-lg bg-white/5 text-[#39FF14] hover:bg-white/10"
+                className="p-2 rounded-lg bg-white/5 text-[#B0E454] hover:bg-white/10"
               >
                 <Phone className="w-4 h-4" />
               </a>
@@ -104,7 +104,7 @@ export default function ConciergeWidget() {
                 key={idx}
                 className={`p-3 rounded-2xl whitespace-pre-line leading-relaxed ${
                   m.role === 'user'
-                    ? 'bg-[#39FF14] text-[#000000] font-semibold ml-8'
+                    ? 'bg-[#B0E454] text-[#000000] font-semibold ml-8'
                     : 'bg-[#000000] text-white/90 border border-white/10 mr-4'
                 }`}
               >
@@ -126,14 +126,14 @@ export default function ConciergeWidget() {
                 key={q}
                 type="button"
                 onClick={() => sendQuery(q)}
-                className="shrink-0 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-semibold text-white/80 hover:border-[#39FF14] hover:text-[#39FF14] cursor-pointer"
+                className="shrink-0 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-semibold text-white/80 hover:border-[#B0E454] hover:text-[#B0E454] cursor-pointer"
               >
                 {q}
               </button>
             ))}
             <Link
               href="/reservar"
-              className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#39FF14]/20 border border-[#39FF14]/40 text-[11px] font-bold text-[#39FF14]"
+              className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#B0E454]/20 border border-[#B0E454]/40 text-[11px] font-bold text-[#B0E454]"
             >
               <CalendarCheck className="w-3 h-3" /> Reservar
             </Link>
@@ -151,11 +151,11 @@ export default function ConciergeWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Consulta tarifas o servicios..."
-              className="flex-1 bg-[#000000] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#39FF14]"
+              className="flex-1 bg-[#000000] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#B0E454]"
             />
             <button
               type="submit"
-              className="p-2.5 rounded-xl bg-[#39FF14] text-[#000000] font-bold hover:bg-[#52ff33] cursor-pointer"
+              className="p-2.5 rounded-xl bg-[#B0E454] text-[#000000] font-bold hover:bg-[#BEEB6B] cursor-pointer"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -168,13 +168,13 @@ export default function ConciergeWidget() {
         type="button"
         onClick={() => setOpen(!open)}
         aria-label="Abrir Concierge Virtual"
-        className="group h-13 px-4 rounded-full bg-[#000000] backdrop-blur-xl border border-[#39FF14]/60 text-white shadow-[0_8px_30px_rgba(0,0,0,0.85)] hover:bg-[#39FF14] hover:text-[#000000] flex items-center gap-2.5 transition-all cursor-pointer"
+        className="group h-13 px-4 rounded-full bg-[#000000] backdrop-blur-xl border border-[#B0E454]/60 text-white shadow-[0_8px_30px_rgba(0,0,0,0.85)] hover:bg-[#B0E454] hover:text-[#000000] flex items-center gap-2.5 transition-all cursor-pointer"
       >
-        <span className="w-2.5 h-2.5 rounded-full bg-[#39FF14] group-hover:bg-[#000000] animate-pulse" />
+        <span className="w-2.5 h-2.5 rounded-full bg-[#B0E454] group-hover:bg-[#000000] animate-pulse" />
         <span className="text-xs font-extrabold tracking-wide hidden sm:inline">
           Concierge & WhatsApp
         </span>
-        {open ? <X className="w-5 h-5" /> : <MessageCircle className="w-5 h-5 text-[#39FF14] group-hover:text-[#000000]" />}
+        {open ? <X className="w-5 h-5" /> : <MessageCircle className="w-5 h-5 text-[#B0E454] group-hover:text-[#000000]" />}
       </button>
     </div>
   )

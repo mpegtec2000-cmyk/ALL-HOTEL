@@ -521,20 +521,20 @@ export default function AdminSaaSPage() {
               onChange={(e) => setPinInput(e.target.value)}
               placeholder="PIN de Acceso (Ej: 2026 o admin)"
               autoFocus
-              className="w-full bg-[#000000] border border-white/20 rounded-xl px-4 py-3.5 text-center text-lg font-bold tracking-widest text-white focus:border-[#39FF14] focus:outline-none"
+              className="w-full bg-[#000000] border border-white/20 rounded-xl px-4 py-3.5 text-center text-lg font-bold tracking-widest text-white focus:border-[#B0E454] focus:outline-none"
             />
             {loginError && <p className="text-xs text-red-400 font-semibold">{loginError}</p>}
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#52ff33] cursor-pointer"
+              className="w-full py-3.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#BEEB6B] cursor-pointer"
             >
               Ingresar al Panel Administrativo
             </button>
           </form>
 
           <p className="text-[11px] text-white/45">
-            Acceso rápido demo habilitado: PIN <strong className="text-[#39FF14]">2026</strong> o{' '}
-            <strong className="text-[#39FF14]">1234</strong>
+            Acceso rápido demo habilitado: PIN <strong className="text-[#B0E454]">2026</strong> o{' '}
+            <strong className="text-[#B0E454]">1234</strong>
           </p>
 
           <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-white/60 hover:text-white">
@@ -579,7 +579,7 @@ export default function AdminSaaSPage() {
                 className="object-contain object-left"
               />
             </Link>
-            <span className="px-2 py-0.5 rounded-md bg-[#39FF14]/15 text-[#39FF14] text-[10px] font-black uppercase">
+            <span className="px-2 py-0.5 rounded-md bg-[#B0E454]/15 text-[#B0E454] text-[10px] font-black uppercase">
               PMS Pro
             </span>
           </div>
@@ -596,7 +596,7 @@ export default function AdminSaaSPage() {
                   onClick={() => setActiveTab(item.id)}
                   className={`shrink-0 flex items-center justify-between gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                     active
-                      ? 'bg-[#39FF14] text-[#000000] shadow-[0_0_20px_rgba(57,255,20,0.28)]'
+                      ? 'bg-[#B0E454] text-[#000000] shadow-[0_0_20px_rgba(176,228,84,0.28)]'
                       : 'text-white/75 hover:bg-white/5 hover:text-white'
                   }`}
                 >
@@ -607,7 +607,7 @@ export default function AdminSaaSPage() {
                   {item.badge !== undefined && item.badge > 0 && (
                     <span
                       className={`px-1.5 py-0.5 rounded-full text-[10px] font-black ${
-                        active ? 'bg-[#000000] text-[#39FF14]' : 'bg-white/10 text-[#39FF14]'
+                        active ? 'bg-[#000000] text-[#B0E454]' : 'bg-white/10 text-[#B0E454]'
                       }`}
                     >
                       {item.badge}
@@ -625,7 +625,7 @@ export default function AdminSaaSPage() {
             <p className="text-white/55">Check-in 12:00 / Out 12:00</p>
           </div>
           <div className="flex items-center justify-between pt-1">
-            <Link href="/" className="text-white/65 hover:text-[#39FF14] inline-flex items-center gap-1">
+            <Link href="/" className="text-white/65 hover:text-[#B0E454] inline-flex items-center gap-1">
               <ExternalLink className="w-3.5 h-3.5" /> Ver Web
             </Link>
             <button
@@ -658,22 +658,22 @@ export default function AdminSaaSPage() {
           <div className="flex items-center gap-3">
             {weather && (
               <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#000000] border border-white/10 text-xs">
-                <Sun className="w-4 h-4 text-[#39FF14]" />
+                <Sun className="w-4 h-4 text-[#B0E454]" />
                 <span>
                   Quintero <strong>{weather.tempC}°C</strong>
                 </span>
               </div>
             )}
-            <div className="px-3.5 py-2 rounded-xl bg-[#000000] border border-white/10 text-xs font-mono text-[#39FF14] font-bold">
+            <div className="px-3.5 py-2 rounded-xl bg-[#000000] border border-white/10 text-xs font-mono text-[#B0E454] font-bold">
               {clock}
             </div>
             <button
               type="button"
               onClick={refreshAll}
-              className="p-2.5 rounded-xl bg-[#000000] border border-white/15 text-white hover:border-[#39FF14] hover:text-[#39FF14] cursor-pointer"
+              className="p-2.5 rounded-xl bg-[#000000] border border-white/15 text-white hover:border-[#B0E454] hover:text-[#B0E454] cursor-pointer"
               title="Actualizar datos"
             >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-[#39FF14]' : ''}`} />
+              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-[#B0E454]' : ''}`} />
             </button>
           </div>
         </div>
@@ -682,9 +682,9 @@ export default function AdminSaaSPage() {
         {activeTab === 'dashboard' && metrics && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-              <div className="p-5 rounded-2xl bg-[#000000] border border-[#39FF14]/40">
+              <div className="p-5 rounded-2xl bg-[#000000] border border-[#B0E454]/40">
                 <span className="text-xs font-bold uppercase text-white/60">Balance Disponible Caja</span>
-                <p className="text-3xl font-black text-[#39FF14] mt-1">
+                <p className="text-3xl font-black text-[#B0E454] mt-1">
                   {formatCLP(metrics.cash.availableBalance)}
                 </p>
                 <p className="text-xs text-white/60 mt-1">
@@ -695,7 +695,7 @@ export default function AdminSaaSPage() {
               <div className="p-5 rounded-2xl bg-[#000000] border border-white/12">
                 <span className="text-xs font-bold uppercase text-white/60">Ocupación Rack Hoy</span>
                 <p className="text-3xl font-black text-white mt-1">{metrics.occupancyRate}%</p>
-                <p className="text-xs text-[#39FF14] mt-1">
+                <p className="text-xs text-[#B0E454] mt-1">
                   {metrics.availableUnits} libres · {metrics.occupiedUnits} ocupadas · {metrics.cleaningUnits} aseo
                 </p>
               </div>
@@ -708,7 +708,7 @@ export default function AdminSaaSPage() {
 
               <div className="p-5 rounded-2xl bg-[#000000] border border-white/12">
                 <span className="text-xs font-bold uppercase text-white/60">Sync Automático Airbnb</span>
-                <p className="text-3xl font-black text-[#39FF14] mt-1">{metrics.airbnbSyncedTotal}</p>
+                <p className="text-3xl font-black text-[#B0E454] mt-1">{metrics.airbnbSyncedTotal}</p>
                 <p className="text-xs text-white/60 mt-1">
                   Comprobantes de correo procesados
                 </p>
@@ -723,7 +723,7 @@ export default function AdminSaaSPage() {
                   <button
                     type="button"
                     onClick={() => setActiveTab('reservas')}
-                    className="text-xs font-bold text-[#39FF14] cursor-pointer"
+                    className="text-xs font-bold text-[#B0E454] cursor-pointer"
                   >
                     Ver todas →
                   </button>
@@ -738,7 +738,7 @@ export default function AdminSaaSPage() {
                       <div>
                         <div className="flex items-center gap-2">
                           <strong className="text-sm text-white">{b.clientName}</strong>
-                          <span className="text-[11px] font-mono text-[#39FF14]">{b.id}</span>
+                          <span className="text-[11px] font-mono text-[#B0E454]">{b.id}</span>
                           {b.externalCode && (
                             <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-bold">
                               Airbnb {b.externalCode}
@@ -750,7 +750,7 @@ export default function AdminSaaSPage() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <strong className="text-sm font-black text-[#39FF14]">
+                        <strong className="text-sm font-black text-[#B0E454]">
                           {formatCLP(b.totalAmount)}
                         </strong>
                         <span className="block text-[10px] uppercase text-white/60">{b.status}</span>
@@ -766,10 +766,10 @@ export default function AdminSaaSPage() {
                   <div>
                     <div className="flex justify-between mb-1">
                       <span>Web Directa + Pasarela Webpay</span>
-                      <strong className="text-[#39FF14]">{metrics.bySource.web_online} reservas</strong>
+                      <strong className="text-[#B0E454]">{metrics.bySource.web_online} reservas</strong>
                     </div>
                     <div className="h-2.5 rounded-full bg-[#000000] overflow-hidden">
-                      <div className="h-full bg-[#39FF14] w-1/2" />
+                      <div className="h-full bg-[#B0E454] w-1/2" />
                     </div>
                   </div>
                   <div>
@@ -796,17 +796,17 @@ export default function AdminSaaSPage() {
                   <button
                     type="button"
                     onClick={() => setActiveTab('airbnb')}
-                    className="p-3 rounded-xl bg-[#000000] border border-white/15 hover:border-[#39FF14] text-left cursor-pointer"
+                    className="p-3 rounded-xl bg-[#000000] border border-white/15 hover:border-[#B0E454] text-left cursor-pointer"
                   >
-                    <MailCheck className="w-5 h-5 text-[#39FF14] mb-1" />
+                    <MailCheck className="w-5 h-5 text-[#B0E454] mb-1" />
                     <span className="text-xs font-bold block">Probar Sync Airbnb</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveTab('rack')}
-                    className="p-3 rounded-xl bg-[#000000] border border-white/15 hover:border-[#39FF14] text-left cursor-pointer"
+                    className="p-3 rounded-xl bg-[#000000] border border-white/15 hover:border-[#B0E454] text-left cursor-pointer"
                   >
-                    <BedDouble className="w-5 h-5 text-[#39FF14] mb-1" />
+                    <BedDouble className="w-5 h-5 text-[#B0E454] mb-1" />
                     <span className="text-xs font-bold block">Abrir Rack 12 Hab.</span>
                   </button>
                 </div>
@@ -827,7 +827,7 @@ export default function AdminSaaSPage() {
                   const cat = categories.find((c) => c.slug === u.categorySlug)
                   const badgeStyle =
                     u.status === 'disponible'
-                      ? 'bg-[#39FF14]/15 text-[#39FF14] border-[#39FF14]/40'
+                      ? 'bg-[#B0E454]/15 text-[#B0E454] border-[#B0E454]/40'
                       : u.status === 'ocupada'
                       ? 'bg-sky-500/15 text-sky-300 border-sky-400/40'
                       : u.status === 'aseo_pendiente'
@@ -857,7 +857,7 @@ export default function AdminSaaSPage() {
                               onClick={() => handleUnitStatusChange(u.id, st)}
                               className={`px-2 py-1 rounded-lg text-[10px] font-bold uppercase cursor-pointer ${
                                 u.status === st
-                                  ? 'bg-[#39FF14] text-[#000000]'
+                                  ? 'bg-[#B0E454] text-[#000000]'
                                   : 'bg-[#000000] text-white/65 border border-white/10 hover:text-white'
                               }`}
                             >
@@ -883,7 +883,7 @@ export default function AdminSaaSPage() {
                     key={cat.slug}
                     className="p-4 rounded-2xl bg-[#000000] border border-white/10 space-y-2"
                   >
-                    <span className="text-[11px] font-bold text-[#39FF14] uppercase">
+                    <span className="text-[11px] font-bold text-[#B0E454] uppercase">
                       {cat.bathroomLabel}
                     </span>
                     <h3 className="text-base font-extrabold text-white">{cat.name}</h3>
@@ -916,7 +916,7 @@ export default function AdminSaaSPage() {
                     value={bookingSearch}
                     onChange={(e) => setBookingSearch(e.target.value)}
                     placeholder="Buscar nombre, ARH o código Airbnb..."
-                    className="bg-[#000000] border border-white/15 rounded-xl pl-9 pr-4 py-2 text-xs text-white w-64 focus:border-[#39FF14] focus:outline-none"
+                    className="bg-[#000000] border border-white/15 rounded-xl pl-9 pr-4 py-2 text-xs text-white w-64 focus:border-[#B0E454] focus:outline-none"
                   />
                 </div>
                 {(['all', 'web_online', 'airbnb_email', 'recepcion_directa'] as const).map((src) => (
@@ -926,7 +926,7 @@ export default function AdminSaaSPage() {
                     onClick={() => setSourceFilter(src)}
                     className={`px-3 py-2 rounded-xl text-xs font-bold cursor-pointer ${
                       sourceFilter === src
-                        ? 'bg-[#39FF14] text-[#000000]'
+                        ? 'bg-[#B0E454] text-[#000000]'
                         : 'bg-[#000000] text-white/70 border border-white/10'
                     }`}
                   >
@@ -944,7 +944,7 @@ export default function AdminSaaSPage() {
               <button
                 type="button"
                 onClick={() => setNewBookingOpen(!newBookingOpen)}
-                className="px-4 py-2.5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <Plus className="w-4 h-4" /> Nueva Reserva Recepción
               </button>
@@ -953,7 +953,7 @@ export default function AdminSaaSPage() {
             {newBookingOpen && (
               <form
                 onSubmit={handleCreateWalkIn}
-                className="p-5 rounded-2xl bg-[#000000] border border-[#39FF14]/50 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-3 items-end"
+                className="p-5 rounded-2xl bg-[#000000] border border-[#B0E454]/50 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-3 items-end"
               >
                 <input
                   type="text"
@@ -998,7 +998,7 @@ export default function AdminSaaSPage() {
                 />
                 <button
                   type="submit"
-                  className="py-2.5 px-4 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase cursor-pointer"
+                  className="py-2.5 px-4 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase cursor-pointer"
                 >
                   Guardar Reserva
                 </button>
@@ -1013,7 +1013,7 @@ export default function AdminSaaSPage() {
                 >
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-xs font-black text-[#39FF14]">{b.id}</span>
+                      <span className="font-mono text-xs font-black text-[#B0E454]">{b.id}</span>
                       {b.externalCode && (
                         <span className="px-2 py-0.5 rounded bg-rose-500/20 border border-rose-500/40 text-rose-200 text-[11px] font-bold">
                           Airbnb: {b.externalCode}
@@ -1035,7 +1035,7 @@ export default function AdminSaaSPage() {
 
                   <div className="flex flex-wrap items-center gap-3">
                     <div className="text-right mr-2">
-                      <p className="text-base font-black text-[#39FF14]">{formatCLP(b.totalAmount)}</p>
+                      <p className="text-base font-black text-[#B0E454]">{formatCLP(b.totalAmount)}</p>
                       <p className="text-[11px] text-white/60">
                         Pagado: {formatCLP(b.amountPaid)} ({b.paymentStatus})
                       </p>
@@ -1056,7 +1056,7 @@ export default function AdminSaaSPage() {
                     <Link
                       href={`/mi-reserva?codigo=${b.id}`}
                       target="_blank"
-                      className="p-2 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:text-[#39FF14]"
+                      className="p-2 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:text-[#B0E454]"
                       title="Abrir Pase QR"
                     >
                       <QrCode className="w-4 h-4" />
@@ -1072,9 +1072,9 @@ export default function AdminSaaSPage() {
         {activeTab === 'airbnb' && (
           <div className="space-y-6">
             {/* Banner Explanation */}
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-[#000000] to-[#000000] border border-[#39FF14]/40 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-[#000000] to-[#000000] border border-[#B0E454]/40 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div className="space-y-1.5">
-                <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#39FF14]">
+                <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#B0E454]">
                   <Sparkles className="w-4 h-4" /> Automatización Airbnb → Correo → Base de Datos
                 </span>
                 <h2 className="text-xl font-black text-white">
@@ -1086,7 +1086,7 @@ export default function AdminSaaSPage() {
               </div>
               <div className="shrink-0 px-4 py-3 rounded-2xl bg-[#000000] border border-white/15 text-xs">
                 <span className="text-white/55 block">Endpoint Webhook Activo</span>
-                <code className="text-[#39FF14] font-mono text-[11px]">{webhookEndpointUrl}</code>
+                <code className="text-[#B0E454] font-mono text-[11px]">{webhookEndpointUrl}</code>
               </div>
             </div>
 
@@ -1110,7 +1110,7 @@ export default function AdminSaaSPage() {
                           setEmailSubject(tpl.subject)
                           setEmailBody(tpl.body)
                         }}
-                        className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-semibold text-white/80 hover:border-[#39FF14] hover:text-[#39FF14] cursor-pointer"
+                        className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-semibold text-white/80 hover:border-[#B0E454] hover:text-[#B0E454] cursor-pointer"
                       >
                         Ejemplo {i + 1}
                       </button>
@@ -1151,12 +1151,12 @@ export default function AdminSaaSPage() {
                     rows={8}
                     value={emailBody}
                     onChange={(e) => setEmailBody(e.target.value)}
-                    className="w-full bg-[#000000] border border-white/15 rounded-xl p-3 text-xs font-mono text-white/90 focus:border-[#39FF14] focus:outline-none"
+                    className="w-full bg-[#000000] border border-white/15 rounded-xl p-3 text-xs font-mono text-white/90 focus:border-[#B0E454] focus:outline-none"
                   />
                 </div>
 
                 {syncFeedback && (
-                  <div className="p-3.5 rounded-xl bg-[#000000] border border-[#39FF14]/50 text-xs font-bold text-[#39FF14]">
+                  <div className="p-3.5 rounded-xl bg-[#000000] border border-[#B0E454]/50 text-xs font-bold text-[#B0E454]">
                     {syncFeedback}
                   </div>
                 )}
@@ -1164,7 +1164,7 @@ export default function AdminSaaSPage() {
                 <button
                   type="submit"
                   disabled={syncingEmail}
-                  className="w-full py-3.5 px-5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#52ff33] cursor-pointer"
+                  className="w-full py-3.5 px-5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#BEEB6B] cursor-pointer"
                 >
                   {syncingEmail ? (
                     <>
@@ -1197,7 +1197,7 @@ export default function AdminSaaSPage() {
                         setCopiedScript(true)
                         setTimeout(() => setCopiedScript(false), 2500)
                       }}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#39FF14] text-[#000000] text-xs font-black cursor-pointer"
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#B0E454] text-[#000000] text-xs font-black cursor-pointer"
                     >
                       {copiedScript ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                       {copiedScript ? 'Copiado' : 'Copiar Script Gmail'}
@@ -1226,7 +1226,7 @@ export default function AdminSaaSPage() {
                     type="button"
                     disabled={imapRunning}
                     onClick={handleImapSync}
-                    className="w-full py-2.5 px-4 rounded-xl border border-white/20 bg-white/5 text-xs font-bold text-white hover:border-[#39FF14] hover:text-[#39FF14] cursor-pointer"
+                    className="w-full py-2.5 px-4 rounded-xl border border-white/20 bg-white/5 text-xs font-bold text-white hover:border-[#B0E454] hover:text-[#B0E454] cursor-pointer"
                   >
                     {imapRunning ? 'Conectando a IMAP...' : 'Escanear Correos Airbnb Ahora'}
                   </button>
@@ -1246,7 +1246,7 @@ export default function AdminSaaSPage() {
                     className="p-3.5 rounded-2xl bg-[#000000] border border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs"
                   >
                     <div>
-                      <span className="font-mono font-bold text-[#39FF14] mr-2">{log.airbnbCode}</span>
+                      <span className="font-mono font-bold text-[#B0E454] mr-2">{log.airbnbCode}</span>
                       <strong className="text-white">{log.guestName}</strong>
                       <span className="text-white/60 ml-2">{log.rawSnippet}</span>
                     </div>
@@ -1265,7 +1265,7 @@ export default function AdminSaaSPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-5 bg-[#000000] border border-white/15 rounded-3xl p-6 space-y-4">
               <h2 className="text-base font-extrabold text-white flex items-center gap-2">
-                <QrCode className="w-5 h-5 text-[#39FF14]" /> Validador Rápido de Pase QR Recepción
+                <QrCode className="w-5 h-5 text-[#B0E454]" /> Validador Rápido de Pase QR Recepción
               </h2>
               <input
                 type="text"
@@ -1275,8 +1275,8 @@ export default function AdminSaaSPage() {
                 className="w-full bg-[#000000] border border-white/15 rounded-xl px-4 py-3 text-sm font-mono font-bold text-white"
               />
               {scannedBooking ? (
-                <div className="p-4 rounded-2xl bg-[#000000] border border-[#39FF14]/40 space-y-2 text-xs">
-                  <p className="text-sm font-black text-[#39FF14]">
+                <div className="p-4 rounded-2xl bg-[#000000] border border-[#B0E454]/40 space-y-2 text-xs">
+                  <p className="text-sm font-black text-[#B0E454]">
                     {scannedBooking.clientName} · Hab. {scannedBooking.assignedRoomNumber || 'Por asignar'}
                   </p>
                   <p className="text-white/75">
@@ -1288,7 +1288,7 @@ export default function AdminSaaSPage() {
                   <button
                     type="button"
                     onClick={() => handleBookingStatusChange(scannedBooking.id, 'checked_in')}
-                    className="mt-2 w-full py-2.5 rounded-xl bg-[#39FF14] text-[#000000] font-black uppercase cursor-pointer"
+                    className="mt-2 w-full py-2.5 rounded-xl bg-[#B0E454] text-[#000000] font-black uppercase cursor-pointer"
                   >
                     Registrar Ingreso 12:00 (Check-in)
                   </button>
@@ -1303,7 +1303,7 @@ export default function AdminSaaSPage() {
               className="lg:col-span-7 bg-[#000000] border border-white/15 rounded-3xl p-6 space-y-4"
             >
               <h2 className="text-base font-extrabold text-white flex items-center gap-2">
-                <ClipboardCheck className="w-5 h-5 text-[#39FF14]" /> Ticket de Alistamiento / Revisión Check-out 12:00
+                <ClipboardCheck className="w-5 h-5 text-[#B0E454]" /> Ticket de Alistamiento / Revisión Check-out 12:00
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <select
@@ -1344,7 +1344,7 @@ export default function AdminSaaSPage() {
                           setChecklist(next)
                         }}
                         className={`px-2.5 py-1 rounded font-bold cursor-pointer ${
-                          item.status === 'ok' ? 'bg-[#39FF14] text-[#000000]' : 'bg-white/10 text-white/60'
+                          item.status === 'ok' ? 'bg-[#B0E454] text-[#000000]' : 'bg-white/10 text-white/60'
                         }`}
                       >
                         OK
@@ -1377,7 +1377,7 @@ export default function AdminSaaSPage() {
 
               <button
                 type="submit"
-                className="px-5 py-3 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase cursor-pointer"
+                className="px-5 py-3 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase cursor-pointer"
               >
                 Guardar Ticket de Habitación
               </button>
@@ -1390,7 +1390,7 @@ export default function AdminSaaSPage() {
                       <span>
                         {t.id} · Hab. {t.roomNumber || '-'} ({t.clientName})
                       </span>
-                      <strong className="text-[#39FF14] uppercase">{t.status}</strong>
+                      <strong className="text-[#B0E454] uppercase">{t.status}</strong>
                     </div>
                   ))}
                 </div>
@@ -1410,7 +1410,7 @@ export default function AdminSaaSPage() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <strong className="text-base text-white">{sol.nombre}</strong>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#39FF14]/15 text-[#39FF14] text-[11px] font-bold uppercase">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#B0E454]/15 text-[#B0E454] text-[11px] font-bold uppercase">
                       {sol.estado}
                     </span>
                   </div>
@@ -1445,7 +1445,7 @@ export default function AdminSaaSPage() {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3.5 py-2 rounded-xl bg-[#39FF14] text-[#000000] text-xs font-black"
+                    className="px-3.5 py-2 rounded-xl bg-[#B0E454] text-[#000000] text-xs font-black"
                   >
                     WhatsApp
                   </a>
@@ -1459,9 +1459,9 @@ export default function AdminSaaSPage() {
         {activeTab === 'caja' && cashSummary && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-              <div className="p-4 rounded-2xl bg-[#000000] border border-[#39FF14]/40">
+              <div className="p-4 rounded-2xl bg-[#000000] border border-[#B0E454]/40">
                 <span className="text-xs text-white/60">Saldo Disponible</span>
-                <p className="text-2xl font-black text-[#39FF14]">{formatCLP(cashSummary.availableBalance)}</p>
+                <p className="text-2xl font-black text-[#B0E454]">{formatCLP(cashSummary.availableBalance)}</p>
               </div>
               <div className="p-4 rounded-2xl bg-[#000000] border border-white/10">
                 <span className="text-xs text-white/60">Ingresos Webpay</span>
@@ -1519,7 +1519,7 @@ export default function AdminSaaSPage() {
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2.5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs cursor-pointer"
+                  className="px-4 py-2.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs cursor-pointer"
                 >
                   Registrar
                 </button>
@@ -1538,7 +1538,7 @@ export default function AdminSaaSPage() {
                       {t.date} · {t.operator} · Comprobante: {t.receiptNumber || '-'}
                     </p>
                   </div>
-                  <strong className={t.amount >= 0 ? 'text-[#39FF14] text-sm' : 'text-red-400 text-sm'}>
+                  <strong className={t.amount >= 0 ? 'text-[#B0E454] text-sm' : 'text-red-400 text-sm'}>
                     {t.amount >= 0 ? `+${formatCLP(t.amount)}` : `-${formatCLP(Math.abs(t.amount))}`}
                   </strong>
                 </div>
@@ -1554,7 +1554,7 @@ export default function AdminSaaSPage() {
               <div key={c.id} className="p-5 rounded-2xl bg-[#000000] border border-white/12 space-y-2">
                 <div className="flex items-center justify-between">
                   <strong className="text-base text-white">{c.name}</strong>
-                  <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-[#39FF14] text-[11px] font-bold">
+                  <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-[#B0E454] text-[11px] font-bold">
                     {c.origin}
                   </span>
                 </div>
@@ -1563,7 +1563,7 @@ export default function AdminSaaSPage() {
                 </p>
                 <div className="flex justify-between pt-2 border-t border-white/10 text-xs">
                   <span>Estadías: <strong>{c.totalStays}</strong> ({c.favoriteRoom || '-'})</span>
-                  <strong className="text-[#39FF14]">{formatCLP(c.totalSpent)}</strong>
+                  <strong className="text-[#B0E454]">{formatCLP(c.totalSpent)}</strong>
                 </div>
               </div>
             ))}
@@ -1602,7 +1602,7 @@ export default function AdminSaaSPage() {
               />
               <button
                 type="submit"
-                className="py-2.5 px-4 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase cursor-pointer"
+                className="py-2.5 px-4 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase cursor-pointer"
               >
                 Registrar Ingreso Vehículo
               </button>
@@ -1615,7 +1615,7 @@ export default function AdminSaaSPage() {
                   className="p-4 rounded-2xl bg-[#000000] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs"
                 >
                   <div>
-                    <span className="px-2.5 py-1 rounded bg-[#39FF14] text-[#000000] font-mono font-black mr-2">
+                    <span className="px-2.5 py-1 rounded bg-[#B0E454] text-[#000000] font-mono font-black mr-2">
                       {p.vehiclePlate}
                     </span>
                     <strong className="text-white">{p.guestName}</strong>
@@ -1684,7 +1684,7 @@ export default function AdminSaaSPage() {
               </select>
               <button
                 type="submit"
-                className="py-2.5 px-4 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase cursor-pointer"
+                className="py-2.5 px-4 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase cursor-pointer"
               >
                 Bloquear Fecha
               </button>
@@ -1697,7 +1697,7 @@ export default function AdminSaaSPage() {
                   className="p-3.5 rounded-xl bg-[#000000] border border-white/10 flex items-center justify-between text-xs"
                 >
                   <span>
-                    <strong className="text-[#39FF14]">{b.date}</strong> · {b.roomCategory} · {b.reason}
+                    <strong className="text-[#B0E454]">{b.date}</strong> · {b.roomCategory} · {b.reason}
                   </span>
                   <button
                     type="button"
@@ -1720,7 +1720,7 @@ export default function AdminSaaSPage() {
           <div className="max-w-4xl bg-[#000000] border border-white/15 rounded-3xl overflow-hidden flex flex-col h-[560px]">
             <div className="p-4 bg-[#000000] border-b border-white/10 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2.5">
-                <Bot className="w-5 h-5 text-[#39FF14]" />
+                <Bot className="w-5 h-5 text-[#B0E454]" />
                 <strong className="text-sm text-white">Copiloto IA Ejecutivo All Rent Hoteles</strong>
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -1730,7 +1730,7 @@ export default function AdminSaaSPage() {
                       key={chip}
                       type="button"
                       onClick={() => handleSendCopilot(chip)}
-                      className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] text-white/80 hover:border-[#39FF14] cursor-pointer"
+                      className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] text-white/80 hover:border-[#B0E454] cursor-pointer"
                     >
                       {chip}
                     </button>
@@ -1745,7 +1745,7 @@ export default function AdminSaaSPage() {
                   key={idx}
                   className={`p-4 rounded-2xl whitespace-pre-line leading-relaxed ${
                     m.role === 'user'
-                      ? 'bg-[#39FF14] text-[#000000] font-bold ml-12'
+                      ? 'bg-[#B0E454] text-[#000000] font-bold ml-12'
                       : 'bg-[#000000] border border-white/10 text-white/90 mr-8'
                   }`}
                 >
@@ -1767,11 +1767,11 @@ export default function AdminSaaSPage() {
                 value={aiInput}
                 onChange={(e) => setAiInput(e.target.value)}
                 placeholder="Pregunta por habitaciones libres, ingresos Webpay, Airbnb o reservas..."
-                className="flex-1 bg-[#000000] border border-white/15 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:border-[#39FF14] focus:outline-none"
+                className="flex-1 bg-[#000000] border border-white/15 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:border-[#B0E454] focus:outline-none"
               />
               <button
                 type="submit"
-                className="px-5 py-2.5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase inline-flex items-center gap-1.5 cursor-pointer"
+                className="px-5 py-2.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <Send className="w-4 h-4" /> Consultar
               </button>

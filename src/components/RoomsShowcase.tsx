@@ -53,24 +53,24 @@ export default function RoomsShowcase() {
           <div>
             <div className="inline-flex items-center gap-3 mb-3 px-4 py-1.5 rounded-full bg-[#000000] backdrop-blur-md border border-white/15">
               <div className="brand-stripes" aria-hidden="true">
-                <span className="bg-[#39FF14]" />
-                <span className="bg-[#39FF14]" />
+                <span className="bg-[#B0E454]" />
+                <span className="bg-[#B0E454]" />
                 <span className="bg-white" />
               </div>
-              <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#39FF14]">
+              <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#B0E454]">
                 5 Categorías Oficiales
               </span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black tracking-[-0.025em] text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]">
-              Habitaciones & <span className="text-[#39FF14]">Tarifas</span>
+              Habitaciones & <span className="text-[#B0E454]">Tarifas</span>
             </h2>
             <p className="mt-3 text-white/90 max-w-2xl text-sm sm:text-base font-medium drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
               Todas nuestras habitaciones incluyen estacionamiento privado gratuito, Wi-Fi fibra óptica, acceso a kitchenette y patio.
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#000000] backdrop-blur-md border border-[#39FF14]/45 text-xs font-extrabold text-white self-start lg:self-auto">
-            <Clock className="w-4 h-4 text-[#39FF14]" />
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#000000] backdrop-blur-md border border-[#B0E454]/45 text-xs font-extrabold text-white self-start lg:self-auto">
+            <Clock className="w-4 h-4 text-[#B0E454]" />
             <span>Check-in: 12:00 hrs · Check-out: 12:00 hrs</span>
           </div>
         </Reveal>
@@ -91,8 +91,8 @@ export default function RoomsShowcase() {
                 as="article"
                 className={`${colSpanClass} group rounded-3xl overflow-hidden bg-[#000000] backdrop-blur-xl border transition-all duration-300 flex flex-col justify-between ${
                   isPrivateEnSuite
-                    ? 'border-[#39FF14]/40 shadow-[0_14px_45px_rgba(57,255,20,0.08)] hover:border-[#39FF14]'
-                    : 'border-white/15 hover:border-[#39FF14]/60'
+                    ? 'border-[#B0E454]/40 shadow-[0_14px_45px_rgba(176,228,84,0.08)] hover:border-[#B0E454]'
+                    : 'border-white/15 hover:border-[#B0E454]/60'
                 }`}
               >
                 <div>
@@ -112,7 +112,7 @@ export default function RoomsShowcase() {
                       <span
                         className={`whitespace-nowrap px-3.5 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider ${
                           isPrivateEnSuite
-                            ? 'bg-[#39FF14] text-[#000000]'
+                            ? 'bg-[#B0E454] text-[#000000]'
                             : 'bg-[#000000] text-white border border-white/25 backdrop-blur-md'
                         }`}
                       >
@@ -127,7 +127,7 @@ export default function RoomsShowcase() {
                           type="button"
                           onClick={(e) => cycleCardPhoto(room.slug, room.gallery.length, -1, e)}
                           aria-label="Foto anterior"
-                          className="opacity-0 group-hover:opacity-100 absolute left-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#39FF14] transition cursor-pointer"
+                          className="opacity-0 group-hover:opacity-100 absolute left-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#B0E454] transition cursor-pointer"
                         >
                           <ChevronLeft className="w-4 h-4" />
                         </button>
@@ -135,7 +135,7 @@ export default function RoomsShowcase() {
                           type="button"
                           onClick={(e) => cycleCardPhoto(room.slug, room.gallery.length, 1, e)}
                           aria-label="Siguiente foto"
-                          className="opacity-0 group-hover:opacity-100 absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#39FF14] transition cursor-pointer"
+                          className="opacity-0 group-hover:opacity-100 absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#B0E454] transition cursor-pointer"
                         >
                           <ChevronRight className="w-4 h-4" />
                         </button>
@@ -149,9 +149,9 @@ export default function RoomsShowcase() {
                         setPreviewRoom(room)
                         setModalPhotoIdx(activeIdx)
                       }}
-                      className="absolute bottom-3.5 right-3.5 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#000000] backdrop-blur-md border border-white/20 text-xs font-bold text-white hover:border-[#39FF14] hover:text-[#39FF14] transition cursor-pointer"
+                      className="absolute bottom-3.5 right-3.5 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#000000] backdrop-blur-md border border-white/20 text-xs font-bold text-white hover:border-[#B0E454] hover:text-[#B0E454] transition cursor-pointer"
                     >
-                      <Eye className="w-3.5 h-3.5 text-[#39FF14]" /> {activeIdx + 1}/{room.gallery.length}
+                      <Eye className="w-3.5 h-3.5 text-[#B0E454]" /> {activeIdx + 1}/{room.gallery.length}
                     </button>
 
                     {/* Price Overlay */}
@@ -168,10 +168,10 @@ export default function RoomsShowcase() {
                   {/* Body */}
                   <div className="p-6 space-y-4">
                     <div>
-                      <h3 className="text-xl font-extrabold text-white group-hover:text-[#39FF14] transition-colors">
+                      <h3 className="text-xl font-extrabold text-white group-hover:text-[#B0E454] transition-colors">
                         {room.name}
                       </h3>
-                      <p className="text-xs font-semibold text-[#39FF14]/90 mt-1">
+                      <p className="text-xs font-semibold text-[#B0E454]/90 mt-1">
                         ({room.bathroomLabel}) · {formatCLP(room.pricePerNight)} / noche
                       </p>
                     </div>
@@ -179,14 +179,14 @@ export default function RoomsShowcase() {
                     {/* Specs Row */}
                     <div className="flex flex-wrap gap-1.5 text-xs text-white/80 font-medium">
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10">
-                        <Users className="w-3.5 h-3.5 text-[#39FF14]" />{' '}
+                        <Users className="w-3.5 h-3.5 text-[#B0E454]" />{' '}
                         {room.maxGuests === 1 ? '1 persona' : `Hasta ${room.maxGuests} personas`}
                       </span>
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10">
-                        <BedDouble className="w-3.5 h-3.5 text-[#39FF14]" /> {room.bedConfig}
+                        <BedDouble className="w-3.5 h-3.5 text-[#B0E454]" /> {room.bedConfig}
                       </span>
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10">
-                        <Maximize2 className="w-3.5 h-3.5 text-[#39FF14]" /> {room.sizeM2} m²
+                        <Maximize2 className="w-3.5 h-3.5 text-[#B0E454]" /> {room.sizeM2} m²
                       </span>
                     </div>
 
@@ -200,7 +200,7 @@ export default function RoomsShowcase() {
                           key={item}
                           className="flex items-center gap-2 text-xs text-white/85 font-medium"
                         >
-                          <Check className="w-3.5 h-3.5 text-[#39FF14] shrink-0 stroke-[3]" />
+                          <Check className="w-3.5 h-3.5 text-[#B0E454] shrink-0 stroke-[3]" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -212,7 +212,7 @@ export default function RoomsShowcase() {
                 <div className="px-6 pb-6 pt-2">
                   <Link
                     href={`/reservar?room=${room.slug}`}
-                    className="w-full py-3.5 px-4 rounded-xl bg-[#39FF14] text-[#000000] hover:bg-[#52ff33] font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_22px_rgba(57,255,20,0.22)] transition-all"
+                    className="w-full py-3.5 px-4 rounded-xl bg-[#B0E454] text-[#000000] hover:bg-[#BEEB6B] font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_22px_rgba(176,228,84,0.22)] transition-all"
                   >
                     <span>Reservar por {formatCLP(room.pricePerNight)}</span>
                     <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -245,7 +245,7 @@ export default function RoomsShowcase() {
               <button
                 type="button"
                 onClick={() => setPreviewRoom(null)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#39FF14]"
+                className="absolute top-4 right-4 p-2 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#B0E454]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -259,7 +259,7 @@ export default function RoomsShowcase() {
                     type="button"
                     onClick={() => setModalPhotoIdx(i)}
                     className={`relative w-20 h-14 rounded-xl overflow-hidden border-2 transition cursor-pointer ${
-                      i === modalPhotoIdx ? 'border-[#39FF14]' : 'border-white/15 opacity-60'
+                      i === modalPhotoIdx ? 'border-[#B0E454]' : 'border-white/15 opacity-60'
                     }`}
                   >
                     <Image src={img} alt="" fill sizes="80px" className="object-cover" />
@@ -269,7 +269,7 @@ export default function RoomsShowcase() {
 
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-white/10">
                 <div>
-                  <span className="text-xs font-bold text-[#39FF14] uppercase">
+                  <span className="text-xs font-bold text-[#B0E454] uppercase">
                     {previewRoom.bathroomLabel} · Check-in 12:00 a 12:00
                   </span>
                   <h3 className="text-2xl font-black text-white">{previewRoom.name}</h3>
@@ -279,13 +279,13 @@ export default function RoomsShowcase() {
                 <div className="flex items-center gap-4">
                   <div className="text-right">
                     <span className="text-xs text-white/60 block">Tarifa Noche</span>
-                    <strong className="text-2xl font-black text-[#39FF14]">
+                    <strong className="text-2xl font-black text-[#B0E454]">
                       {formatCLP(previewRoom.pricePerNight)}
                     </strong>
                   </div>
                   <Link
                     href={`/reservar?room=${previewRoom.slug}`}
-                    className="px-5 py-3.5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#52ff33]"
+                    className="px-5 py-3.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#BEEB6B]"
                   >
                     Reservar Ahora
                   </Link>

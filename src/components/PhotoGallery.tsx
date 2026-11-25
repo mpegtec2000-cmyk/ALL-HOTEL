@@ -123,16 +123,16 @@ export default function PhotoGallery() {
           <div>
             <div className="inline-flex items-center gap-3 mb-3">
               <div className="brand-stripes" aria-hidden="true">
-                <span className="bg-[#39FF14]" />
-                <span className="bg-[#39FF14]" />
+                <span className="bg-[#B0E454]" />
+                <span className="bg-[#B0E454]" />
                 <span className="bg-white" />
               </div>
-              <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#39FF14]">
+              <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#B0E454]">
                 Galería Fotográfica Real
               </span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-[-0.025em]">
-              Conoce <span className="text-[#39FF14]">All Rent Hoteles</span>
+              Conoce <span className="text-[#B0E454]">All Rent Hoteles</span>
             </h2>
           </div>
 
@@ -153,8 +153,8 @@ export default function PhotoGallery() {
                 }}
                 className={`px-4 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition cursor-pointer ${
                   filter === tab.id
-                    ? 'bg-[#39FF14] text-[#000000] shadow-[0_0_18px_rgba(57,255,20,0.3)]'
-                    : 'bg-[#000000] text-white/75 border border-white/15 hover:border-[#39FF14]/50'
+                    ? 'bg-[#B0E454] text-[#000000] shadow-[0_0_18px_rgba(176,228,84,0.3)]'
+                    : 'bg-[#000000] text-white/75 border border-white/15 hover:border-[#B0E454]/50'
                 }`}
               >
                 {tab.label}
@@ -173,7 +173,7 @@ export default function PhotoGallery() {
                 key={item.src}
                 type="button"
                 onClick={() => setLightboxIdx(idx)}
-                className={`group relative ${colSpan} rounded-2xl overflow-hidden border border-white/12 hover:border-[#39FF14] text-left cursor-pointer transition-all`}
+                className={`group relative ${colSpan} rounded-2xl overflow-hidden border border-white/12 hover:border-[#B0E454] text-left cursor-pointer transition-all`}
               >
                 <Image
                   src={item.src}
@@ -183,12 +183,12 @@ export default function PhotoGallery() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/92 via-[#000000]/15 to-transparent" />
-                <span className="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-full bg-[#000000] backdrop-blur-md border border-white/15 text-[10px] font-extrabold uppercase tracking-wider text-[#39FF14]">
+                <span className="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-full bg-[#000000] backdrop-blur-md border border-white/15 text-[10px] font-extrabold uppercase tracking-wider text-[#B0E454]">
                   {item.tag}
                 </span>
                 <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between gap-2">
                   <span className="text-sm font-bold text-white">{item.title}</span>
-                  <span className="p-2 rounded-full bg-[#000000] border border-white/15 text-[#39FF14] group-hover:bg-[#39FF14] group-hover:text-[#000000] transition">
+                  <span className="p-2 rounded-full bg-[#000000] border border-white/15 text-[#B0E454] group-hover:bg-[#B0E454] group-hover:text-[#000000] transition">
                     <ZoomIn className="w-4 h-4" />
                   </span>
                 </div>
@@ -206,13 +206,13 @@ export default function PhotoGallery() {
         >
           <div className="relative max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-3 text-xs font-bold text-white/80">
-              <span className="text-[#39FF14] font-mono">
+              <span className="text-[#B0E454] font-mono">
                 FOTO {lightboxIdx + 1} DE {filtered.length}
               </span>
               <button
                 type="button"
                 onClick={() => setLightboxIdx(null)}
-                className="inline-flex items-center gap-1.5 text-sm font-bold text-white hover:text-[#39FF14] cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-white hover:text-[#B0E454] cursor-pointer"
               >
                 <X className="w-5 h-5" /> Cerrar
               </button>
@@ -231,7 +231,7 @@ export default function PhotoGallery() {
                   setLightboxIdx((lightboxIdx - 1 + filtered.length) % filtered.length)
                 }
                 aria-label="Anterior"
-                className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#39FF14] cursor-pointer"
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#B0E454] cursor-pointer"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -239,7 +239,7 @@ export default function PhotoGallery() {
                 type="button"
                 onClick={() => setLightboxIdx((lightboxIdx + 1) % filtered.length)}
                 aria-label="Siguiente"
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#39FF14] cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#B0E454] cursor-pointer"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>

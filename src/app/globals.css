@@ -2,11 +2,11 @@
 
 /* =====================================================================
    ALL RENT HOTELES — DESIGN TOKENS (Guía de Marca Oficial)
-   Verde Lima #39FF14 · Negro #000000 · Blanco #FFFFFF · Montserrat
+   Verde Lima #B0E454 · Negro #000000 · Blanco #FFFFFF · Montserrat
    ===================================================================== */
 :root {
-  --brand-lime: #39FF14;
-  --brand-lime-hover: #52ff33;
+  --brand-lime: #B0E454;
+  --brand-lime-hover: #BEEB6B;
   --brand-black: #000000;
   --brand-surface: #000000;
   --brand-card: #000000;
@@ -36,7 +36,7 @@ body {
 
 /* Accesible focus ring (WCAG 2.2 visible focus) */
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {
-  outline: 2px solid #39FF14;
+  outline: 2px solid #B0E454;
   outline-offset: 3px;
   border-radius: 10px;
 }
@@ -132,5 +132,5 @@ body {
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #39FF14;
+  background: #B0E454;
 }

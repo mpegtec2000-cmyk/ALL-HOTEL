@@ -81,16 +81,16 @@ export default function AmenitiesSection() {
         <Reveal className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-3 mb-3 px-4 py-1.5 rounded-full bg-[#000000] backdrop-blur-md border border-white/15">
             <div className="brand-stripes" aria-hidden="true">
-              <span className="bg-[#39FF14]" />
-              <span className="bg-[#39FF14]" />
+              <span className="bg-[#B0E454]" />
+              <span className="bg-[#B0E454]" />
               <span className="bg-white" />
             </div>
-            <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#39FF14]">
+            <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#B0E454]">
               Iconografía & Servicios Oficiales
             </span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-[-0.025em] drop-shadow-[0_4px_20px_rgba(0,0,0,0.88)]">
-            Todo pensado para <span className="text-[#39FF14]">tu tranquilidad</span>
+            Todo pensado para <span className="text-[#B0E454]">tu tranquilidad</span>
           </h2>
           <p className="mt-3 text-white/90 font-medium text-base drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]">
             Comodidad costera, seguridad superior y tecnología de reserva directa sin comisiones ocultas.
@@ -104,14 +104,14 @@ export default function AmenitiesSection() {
               <Reveal
                 key={item.title}
                 delay={idx * 50}
-                className="group p-6 rounded-3xl bg-[#000000] backdrop-blur-xl border border-white/15 hover:border-[#39FF14]/65 transition-all duration-300 flex flex-col justify-between shadow-xl"
+                className="group p-6 rounded-3xl bg-[#000000] backdrop-blur-xl border border-white/15 hover:border-[#B0E454]/65 transition-all duration-300 flex flex-col justify-between shadow-xl"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-2xl bg-[#000000] border border-white/15 group-hover:border-[#39FF14] flex items-center justify-center transition-colors">
-                      <Icon className="w-6 h-6 text-white group-hover:text-[#39FF14] stroke-[1.75] transition-colors" />
+                    <div className="w-12 h-12 rounded-2xl bg-[#000000] border border-white/15 group-hover:border-[#B0E454] flex items-center justify-center transition-colors">
+                      <Icon className="w-6 h-6 text-white group-hover:text-[#B0E454] stroke-[1.75] transition-colors" />
                     </div>
-                    <span className="font-mono text-xs font-bold text-white/35 group-hover:text-[#39FF14] transition-colors">
+                    <span className="font-mono text-xs font-bold text-white/35 group-hover:text-[#B0E454] transition-colors">
                       {item.num}
                     </span>
                   </div>

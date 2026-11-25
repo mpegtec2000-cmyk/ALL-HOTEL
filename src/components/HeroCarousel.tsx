@@ -181,7 +181,7 @@ export default function HeroCarousel() {
             <p className="mt-5 text-base sm:text-lg text-white max-w-2xl font-semibold leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]">
               Hotel boutique en <strong className="text-white font-extrabold">Av. Bulnes 119</strong>,
               frente a la{' '}
-              <strong className="text-white underline decoration-[#39FF14] decoration-2 underline-offset-4">
+              <strong className="text-white underline decoration-[#B0E454] decoration-2 underline-offset-4">
                 playa principal de Quintero
               </strong>
               . Un entorno seguro junto a la Armada, con estacionamiento gratuito y atención
@@ -191,19 +191,19 @@ export default function HeroCarousel() {
             {/* Refined Architectural Highlights Bar */}
             <div className="mt-7 grid grid-cols-2 sm:flex sm:flex-wrap gap-2.5 text-xs font-bold">
               <div className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#000000] backdrop-blur-md border border-white/12 text-white/95">
-                <Waves className="w-4 h-4 text-[#39FF14] shrink-0" />
+                <Waves className="w-4 h-4 text-[#B0E454] shrink-0" />
                 <span>Playa al Frente</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#000000] backdrop-blur-md border border-white/12 text-white/95">
-                <ShieldCheck className="w-4 h-4 text-[#39FF14] shrink-0" />
+                <ShieldCheck className="w-4 h-4 text-[#B0E454] shrink-0" />
                 <span>Zona Naval Segura</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#000000] backdrop-blur-md border border-white/12 text-white/95">
-                <Clock className="w-4 h-4 text-[#39FF14] shrink-0" />
+                <Clock className="w-4 h-4 text-[#B0E454] shrink-0" />
                 <span>Check-in 12:00 a 12:00</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#000000] backdrop-blur-md border border-white/12 text-white/95">
-                <Car className="w-4 h-4 text-[#39FF14] shrink-0" />
+                <Car className="w-4 h-4 text-[#B0E454] shrink-0" />
                 <span>Parking Gratis</span>
               </div>
             </div>
@@ -211,7 +211,7 @@ export default function HeroCarousel() {
 
           {/* Right Column: Official Framed Square Brand Logo Plaque */}
           <div className="lg:col-span-4 flex justify-center lg:justify-end">
-            <div className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-[2rem] bg-black border border-white/25 ring-1 ring-[#39FF14]/30 shadow-[0_25px_70px_rgba(0,0,0,0.9),0_0_45px_rgba(57,255,20,0.16)] overflow-hidden p-4 flex items-center justify-center">
+            <div className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-[2rem] bg-black border border-white/25 ring-1 ring-[#B0E454]/30 shadow-[0_25px_70px_rgba(0,0,0,0.9),0_0_45px_rgba(176,228,84,0.16)] overflow-hidden p-4 flex items-center justify-center">
               <Image
                 src="/brand/logo-square.png"
                 alt="All Rent Hoteles Logo Oficial"
@@ -238,13 +238,13 @@ export default function HeroCarousel() {
                 htmlFor="hero-room"
                 className="flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-white/70 mb-1.5"
               >
-                <BedDouble className="w-3.5 h-3.5 text-[#39FF14]" /> Categoría de Habitación
+                <BedDouble className="w-3.5 h-3.5 text-[#B0E454]" /> Categoría de Habitación
               </label>
               <select
                 id="hero-room"
                 value={selectedRoom}
                 onChange={(e) => setSelectedRoom(e.target.value as RoomCategorySlug)}
-                className="w-full h-12 bg-[#000000] border border-white/15 rounded-xl px-3.5 text-sm font-bold text-white focus:outline-none focus:border-[#39FF14]"
+                className="w-full h-12 bg-[#000000] border border-white/15 rounded-xl px-3.5 text-sm font-bold text-white focus:outline-none focus:border-[#B0E454]"
               >
                 {OFFICIAL_ROOM_CATEGORIES.map((cat) => (
                   <option key={cat.slug} value={cat.slug}>
@@ -260,14 +260,14 @@ export default function HeroCarousel() {
                 htmlFor="hero-checkin"
                 className="flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-white/70 mb-1.5"
               >
-                <Calendar className="w-3.5 h-3.5 text-[#39FF14]" /> Check-in (12:00)
+                <Calendar className="w-3.5 h-3.5 text-[#B0E454]" /> Check-in (12:00)
               </label>
               <input
                 id="hero-checkin"
                 type="date"
                 value={checkIn}
                 onChange={(e) => setCheckIn(e.target.value)}
-                className="w-full h-12 bg-[#000000] border border-white/15 rounded-xl px-3 text-xs sm:text-sm font-bold text-white focus:outline-none focus:border-[#39FF14] [color-scheme:dark]"
+                className="w-full h-12 bg-[#000000] border border-white/15 rounded-xl px-3 text-xs sm:text-sm font-bold text-white focus:outline-none focus:border-[#B0E454] [color-scheme:dark]"
               />
             </div>
 
@@ -277,7 +277,7 @@ export default function HeroCarousel() {
                 htmlFor="hero-checkout"
                 className="flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-white/70 mb-1.5"
               >
-                <Calendar className="w-3.5 h-3.5 text-[#39FF14]" /> Check-out (12:00)
+                <Calendar className="w-3.5 h-3.5 text-[#B0E454]" /> Check-out (12:00)
               </label>
               <input
                 id="hero-checkout"
@@ -285,7 +285,7 @@ export default function HeroCarousel() {
                 min={checkIn}
                 value={checkOut}
                 onChange={(e) => setCheckOut(e.target.value)}
-                className="w-full h-12 bg-[#000000] border border-white/15 rounded-xl px-3 text-xs sm:text-sm font-bold text-white focus:outline-none focus:border-[#39FF14] [color-scheme:dark]"
+                className="w-full h-12 bg-[#000000] border border-white/15 rounded-xl px-3 text-xs sm:text-sm font-bold text-white focus:outline-none focus:border-[#B0E454] [color-scheme:dark]"
               />
             </div>
 
@@ -294,7 +294,7 @@ export default function HeroCarousel() {
               <span className="text-[10px] font-bold uppercase tracking-wider text-white/55">
                 {liveQuote ? `Total ${liveQuote.nightsCount} ${liveQuote.nightsCount === 1 ? 'noche' : 'noches'}` : 'Tarifa Noche'}
               </span>
-              <strong className="text-base font-black text-[#39FF14] leading-tight">
+              <strong className="text-base font-black text-[#B0E454] leading-tight">
                 {liveQuote ? formatCLP(liveQuote.totalAmount) : '$63.500'}
               </strong>
             </div>
@@ -303,7 +303,7 @@ export default function HeroCarousel() {
             <div className="md:col-span-2">
               <button
                 type="submit"
-                className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#52ff33] shadow-[0_0_25px_rgba(57,255,20,0.38)] transition cursor-pointer"
+                className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#BEEB6B] shadow-[0_0_25px_rgba(176,228,84,0.38)] transition cursor-pointer"
               >
                 <span>Reservar</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -313,14 +313,14 @@ export default function HeroCarousel() {
 
           <div className="mt-3.5 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs text-white/65 pr-16 sm:pr-44">
             <span className="inline-flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#39FF14] shrink-0" />
+              <Sparkles className="w-3.5 h-3.5 text-[#B0E454] shrink-0" />
               <span>
                 Reserva online directa con <strong className="text-white">Pasarela Webpay, Tarjetas o Abono 50%</strong> · Confirmación y QR al instante
               </span>
             </span>
             <Link
               href="#habitaciones"
-              className="font-bold text-white/85 hover:text-[#39FF14] transition"
+              className="font-bold text-white/85 hover:text-[#B0E454] transition"
             >
               Ver las 5 categorías ($39.500 a $79.500) →
             </Link>

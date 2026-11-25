@@ -12,17 +12,17 @@ export default function LocationMapFooter() {
             <Reveal className="lg:col-span-5 space-y-5">
               <div className="inline-flex items-center gap-3">
                 <div className="brand-stripes" aria-hidden="true">
-                  <span className="bg-[#39FF14]" />
-                  <span className="bg-[#39FF14]" />
+                  <span className="bg-[#B0E454]" />
+                  <span className="bg-[#B0E454]" />
                   <span className="bg-white" />
                 </div>
-                <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#39FF14]">
+                <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#B0E454]">
                   Ubicación Estratégica
                 </span>
               </div>
 
               <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight tracking-[-0.025em]">
-                Av. Bulnes 119, <span className="text-[#39FF14]">Quintero</span>
+                Av. Bulnes 119, <span className="text-[#B0E454]">Quintero</span>
               </h2>
               <p className="text-white/70 text-sm sm:text-base leading-relaxed">
                 Justo enfrente de la playa principal de Quintero, a unos 10 minutos caminando de la Plaza de Quintero y resguardados junto al recinto de los marinos.
@@ -31,12 +31,12 @@ export default function LocationMapFooter() {
               {/* Proximity Pills */}
               <div className="grid grid-cols-2 gap-3 pt-1">
                 <div className="p-3.5 rounded-2xl bg-[#000000] border border-white/10">
-                  <Waves className="w-4 h-4 text-[#39FF14] mb-1" />
+                  <Waves className="w-4 h-4 text-[#B0E454] mb-1" />
                   <p className="text-xs font-extrabold text-white">Playa Principal</p>
                   <p className="text-[11px] text-white/60">Cruzando la calle (1 min)</p>
                 </div>
                 <div className="p-3.5 rounded-2xl bg-[#000000] border border-white/10">
-                  <Compass className="w-4 h-4 text-[#39FF14] mb-1" />
+                  <Compass className="w-4 h-4 text-[#B0E454] mb-1" />
                   <p className="text-xs font-extrabold text-white">Plaza de Quintero</p>
                   <p className="text-[11px] text-white/60">10 minutos a pie</p>
                 </div>
@@ -44,21 +44,21 @@ export default function LocationMapFooter() {
 
               <div className="space-y-2.5 pt-1 text-sm">
                 <div className="flex items-center gap-3 text-white/90">
-                  <MapPin className="w-4 h-4 text-[#39FF14] shrink-0" />
+                  <MapPin className="w-4 h-4 text-[#B0E454] shrink-0" />
                   <span>Av. Bulnes 119, 2500000 Quintero, Región de Valparaíso</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/90">
-                  <Phone className="w-4 h-4 text-[#39FF14] shrink-0" />
-                  <a href="tel:+56998651440" className="hover:text-[#39FF14] font-bold">
+                  <Phone className="w-4 h-4 text-[#B0E454] shrink-0" />
+                  <a href="tel:+56998651440" className="hover:text-[#B0E454] font-bold">
                     +56 9 9865 1440 (Central de Reservas & Recepción)
                   </a>
                 </div>
                 <div className="flex items-center gap-3 text-white/90">
-                  <Clock className="w-4 h-4 text-[#39FF14] shrink-0" />
+                  <Clock className="w-4 h-4 text-[#B0E454] shrink-0" />
                   <span>Check-in: 12:00 hrs · Check-out: 12:00 hrs</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/90">
-                  <ShieldCheck className="w-4 h-4 text-[#39FF14] shrink-0" />
+                  <ShieldCheck className="w-4 h-4 text-[#B0E454] shrink-0" />
                   <span>Estacionamiento interior gratuito para huéspedes</span>
                 </div>
               </div>
@@ -68,7 +68,7 @@ export default function LocationMapFooter() {
                   href="https://maps.google.com/?q=Av.+Bulnes+119,+Quintero,+Valparaiso"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#52ff33] transition"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#BEEB6B] transition"
                 >
                   Abrir Ruta en Google Maps / Waze <ExternalLink className="w-4 h-4" />
                 </a>
@@ -99,11 +99,11 @@ export default function LocationMapFooter() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Official Brand Guide Signature Slogan Rule */}
           <div className="flex items-center gap-4 mb-12">
-            <div className="h-[2px] flex-1 bg-gradient-to-r from-transparent via-[#39FF14]/60 to-[#39FF14]" />
+            <div className="h-[2px] flex-1 bg-gradient-to-r from-transparent via-[#B0E454]/60 to-[#B0E454]" />
             <p className="text-base sm:text-xl font-bold italic text-white shrink-0 px-2">
-              Tu estadía, <span className="text-[#39FF14] font-black">nuestra prioridad.</span>
+              Tu estadía, <span className="text-[#B0E454] font-black">nuestra prioridad.</span>
             </p>
-            <div className="h-[2px] flex-1 bg-gradient-to-l from-transparent via-[#39FF14]/60 to-[#39FF14]" />
+            <div className="h-[2px] flex-1 bg-gradient-to-l from-transparent via-[#B0E454]/60 to-[#B0E454]" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-white/10">
@@ -123,38 +123,38 @@ export default function LocationMapFooter() {
             </div>
 
             <div className="space-y-2.5 text-sm">
-              <h4 className="text-xs font-extrabold uppercase tracking-widest text-[#39FF14] mb-3">
+              <h4 className="text-xs font-extrabold uppercase tracking-widest text-[#B0E454] mb-3">
                 Accesos Directos
               </h4>
               <ul className="space-y-2 text-white/75">
                 <li>
-                  <Link href="/reservar" className="hover:text-[#39FF14] transition">
+                  <Link href="/reservar" className="hover:text-[#B0E454] transition">
                     Reservar Online con Pago
                   </Link>
                 </li>
                 <li>
-                  <Link href="/mi-reserva" className="hover:text-[#39FF14] transition">
+                  <Link href="/mi-reserva" className="hover:text-[#B0E454] transition">
                     Portal Huésped & Check-in QR
                   </Link>
                 </li>
                 <li>
-                  <a href="#habitaciones" className="hover:text-[#39FF14] transition">
+                  <a href="#habitaciones" className="hover:text-[#B0E454] transition">
                     Tarifas & Habitaciones
                   </a>
                 </li>
                 <li>
                   <Link
                     href="/admin"
-                    className="inline-flex items-center gap-1.5 text-white/65 hover:text-[#39FF14] transition"
+                    className="inline-flex items-center gap-1.5 text-white/65 hover:text-[#B0E454] transition"
                   >
-                    <Lock className="w-3.5 h-3.5 text-[#39FF14]" /> Sistema SaaS Administración
+                    <Lock className="w-3.5 h-3.5 text-[#B0E454]" /> Sistema SaaS Administración
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div className="space-y-2.5 text-sm">
-              <h4 className="text-xs font-extrabold uppercase tracking-widest text-[#39FF14] mb-3">
+              <h4 className="text-xs font-extrabold uppercase tracking-widest text-[#B0E454] mb-3">
                 Contacto & Horarios
               </h4>
               <p className="text-white/75">Av. Bulnes 119, Quintero</p>
@@ -166,7 +166,7 @@ export default function LocationMapFooter() {
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50 pr-16">
             <p>© {new Date().getFullYear()} All Rent Hoteles Quintero. Todos los derechos reservados.</p>
             <div className="flex items-center gap-2">
-              <span className="inline-block w-2 h-2 rounded-full bg-[#39FF14]" />
+              <span className="inline-block w-2 h-2 rounded-full bg-[#B0E454]" />
               <span>Pasarela Webpay Activa & Sync Airbnb Integrado</span>
             </div>
           </div>

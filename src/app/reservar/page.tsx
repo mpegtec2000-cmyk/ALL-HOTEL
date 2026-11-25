@@ -272,9 +272,9 @@ function ReservarContent() {
         <div className="flex items-center justify-between gap-4 mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-white/80 hover:text-[#39FF14] transition"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-white/80 hover:text-[#B0E454] transition"
           >
-            <Home className="w-4 h-4 text-[#39FF14]" /> Volver a All Rent Hoteles
+            <Home className="w-4 h-4 text-[#B0E454]" /> Volver a All Rent Hoteles
           </Link>
 
           <div className="relative h-11 w-36">
@@ -290,11 +290,11 @@ function ReservarContent() {
 
         {/* Header */}
         <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#39FF14]/15 border border-[#39FF14]/35 text-[#39FF14] text-xs font-extrabold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#B0E454]/15 border border-[#B0E454]/35 text-[#B0E454] text-xs font-extrabold uppercase tracking-wider mb-3">
             <Lock className="w-3.5 h-3.5" /> Reserva Online Oficial & Pasarela de Pago Segura
           </div>
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
-            Reserva tu Estadía en <span className="text-[#39FF14]">Quintero</span>
+            Reserva tu Estadía en <span className="text-[#B0E454]">Quintero</span>
           </h1>
           <p className="text-sm text-white/70 mt-1">
             Av. Bulnes 119, frente a la playa principal · Horario oficial:{' '}
@@ -317,15 +317,15 @@ function ReservarContent() {
                 key={s.n}
                 className={`p-3 rounded-2xl border flex items-center gap-2.5 transition ${
                   active
-                    ? 'bg-[#000000] border-[#39FF14] text-white'
+                    ? 'bg-[#000000] border-[#B0E454] text-white'
                     : done
-                    ? 'bg-[#000000] border-[#39FF14]/40 text-white/90'
+                    ? 'bg-[#000000] border-[#B0E454]/40 text-white/90'
                     : 'bg-[#000000] border-white/10 text-white/45'
                 }`}
               >
                 <span
                   className={`w-7 h-7 rounded-full text-xs font-black flex items-center justify-center shrink-0 ${
-                    active || done ? 'bg-[#39FF14] text-[#000000]' : 'bg-white/10 text-white/60'
+                    active || done ? 'bg-[#B0E454] text-[#000000]' : 'bg-white/10 text-white/60'
                   }`}
                 >
                   {done ? <Check className="w-4 h-4 stroke-[3]" /> : s.n}
@@ -364,7 +364,7 @@ function ReservarContent() {
                         min={todayStr}
                         value={checkInDate}
                         onChange={(e) => setCheckInDate(e.target.value)}
-                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm font-semibold text-white focus:border-[#39FF14] focus:outline-none [color-scheme:dark]"
+                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm font-semibold text-white focus:border-[#B0E454] focus:outline-none [color-scheme:dark]"
                       />
                     </div>
                     <div>
@@ -376,7 +376,7 @@ function ReservarContent() {
                         min={checkInDate || todayStr}
                         value={checkOutDate}
                         onChange={(e) => setCheckOutDate(e.target.value)}
-                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm font-semibold text-white focus:border-[#39FF14] focus:outline-none [color-scheme:dark]"
+                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm font-semibold text-white focus:border-[#B0E454] focus:outline-none [color-scheme:dark]"
                       />
                     </div>
                     <div>
@@ -386,7 +386,7 @@ function ReservarContent() {
                       <select
                         value={guestsCount}
                         onChange={(e) => setGuestsCount(Number(e.target.value))}
-                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm font-semibold text-white focus:border-[#39FF14] focus:outline-none"
+                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm font-semibold text-white focus:border-[#B0E454] focus:outline-none"
                       >
                         {[...Array(activeCategory.maxGuests)].map((_, i) => (
                           <option key={i + 1} value={i + 1}>
@@ -408,7 +408,7 @@ function ReservarContent() {
 
                   {/* Room Selector Cards */}
                   <div className="space-y-3.5">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#39FF14]">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#B0E454]">
                       Elige tu Habitación ({categories.length} Categorías Oficiales)
                     </label>
 
@@ -420,7 +420,7 @@ function ReservarContent() {
                           onClick={() => setSelectedRoom(cat.slug)}
                           className={`p-4 rounded-2xl border transition cursor-pointer flex flex-col sm:flex-row gap-4 items-center ${
                             selected
-                              ? 'bg-[#000000] border-[#39FF14] shadow-[0_0_25px_rgba(57,255,20,0.12)]'
+                              ? 'bg-[#000000] border-[#B0E454] shadow-[0_0_25px_rgba(176,228,84,0.12)]'
                               : 'bg-[#000000] border-white/12 hover:border-white/30'
                           }`}
                         >
@@ -440,7 +440,7 @@ function ReservarContent() {
                               <span
                                 className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
                                   cat.bathroomType === 'privado_en_suite'
-                                    ? 'bg-[#39FF14] text-[#000000]'
+                                    ? 'bg-[#B0E454] text-[#000000]'
                                     : 'bg-white/10 text-white/85'
                                 }`}
                               >
@@ -455,7 +455,7 @@ function ReservarContent() {
                               <span className="text-xs text-white/55">
                                 Estacionamiento gratis + Wi-Fi
                               </span>
-                              <span className="text-lg font-black text-[#39FF14]">
+                              <span className="text-lg font-black text-[#B0E454]">
                                 {formatCLP(cat.pricePerNight)}{' '}
                                 <span className="text-xs font-normal text-white/60">/ noche</span>
                               </span>
@@ -471,7 +471,7 @@ function ReservarContent() {
                       type="button"
                       disabled={!quote || quote.nightsCount <= 0 || hasConflict}
                       onClick={() => setStep(2)}
-                      className="px-6 py-3.5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs sm:text-sm uppercase tracking-wider inline-flex items-center gap-2 hover:bg-[#52ff33] disabled:opacity-40 transition cursor-pointer"
+                      className="px-6 py-3.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs sm:text-sm uppercase tracking-wider inline-flex items-center gap-2 hover:bg-[#BEEB6B] disabled:opacity-40 transition cursor-pointer"
                     >
                       Continuar a Datos del Titular <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                     </button>
@@ -492,7 +492,7 @@ function ReservarContent() {
                     <button
                       type="button"
                       onClick={() => setStep(1)}
-                      className="text-xs font-bold text-white/70 hover:text-[#39FF14] inline-flex items-center gap-1 cursor-pointer"
+                      className="text-xs font-bold text-white/70 hover:text-[#B0E454] inline-flex items-center gap-1 cursor-pointer"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" /> Cambiar fechas
                     </button>
@@ -509,7 +509,7 @@ function ReservarContent() {
                         value={clientName}
                         onChange={(e) => setClientName(e.target.value)}
                         placeholder="Ej: Valentina Contreras"
-                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm text-white focus:border-[#39FF14] focus:outline-none"
+                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm text-white focus:border-[#B0E454] focus:outline-none"
                       />
                     </div>
                     <div>
@@ -522,7 +522,7 @@ function ReservarContent() {
                         value={clientRut}
                         onChange={(e) => setClientRut(e.target.value)}
                         placeholder="Ej: 18.492.103-4"
-                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm text-white focus:border-[#39FF14] focus:outline-none"
+                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm text-white focus:border-[#B0E454] focus:outline-none"
                       />
                     </div>
                     <div>
@@ -535,7 +535,7 @@ function ReservarContent() {
                         value={clientEmail}
                         onChange={(e) => setClientEmail(e.target.value)}
                         placeholder="tu@correo.cl"
-                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm text-white focus:border-[#39FF14] focus:outline-none"
+                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm text-white focus:border-[#B0E454] focus:outline-none"
                       />
                     </div>
                     <div>
@@ -548,7 +548,7 @@ function ReservarContent() {
                         value={clientPhone}
                         onChange={(e) => setClientPhone(e.target.value)}
                         placeholder="+56 9 9876 5432"
-                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm text-white focus:border-[#39FF14] focus:outline-none"
+                        className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-3 text-sm text-white focus:border-[#B0E454] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -557,14 +557,14 @@ function ReservarContent() {
                   <div className="p-4 rounded-2xl bg-[#000000] border border-white/12 space-y-3">
                     <label className="flex items-center justify-between cursor-pointer">
                       <span className="flex items-center gap-2.5 text-sm font-bold text-white">
-                        <Car className="w-5 h-5 text-[#39FF14]" />
+                        <Car className="w-5 h-5 text-[#B0E454]" />
                         Solicitar Estacionamiento Interior Gratuito
                       </span>
                       <input
                         type="checkbox"
                         checked={requiresParking}
                         onChange={(e) => setRequiresParking(e.target.checked)}
-                        className="w-5 h-5 accent-[#39FF14]"
+                        className="w-5 h-5 accent-[#B0E454]"
                       />
                     </label>
                     {requiresParking && (
@@ -577,7 +577,7 @@ function ReservarContent() {
                           value={vehiclePlate}
                           onChange={(e) => setVehiclePlate(e.target.value.toUpperCase())}
                           placeholder="Ej: PBYR-94"
-                          className="w-full sm:w-64 bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm font-bold uppercase text-white focus:border-[#39FF14] focus:outline-none"
+                          className="w-full sm:w-64 bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm font-bold uppercase text-white focus:border-[#B0E454] focus:outline-none"
                         />
                       </div>
                     )}
@@ -592,7 +592,7 @@ function ReservarContent() {
                       value={specialRequests}
                       onChange={(e) => setSpecialRequests(e.target.value)}
                       placeholder="Ej: Llegaremos cerca de las 13:00 hrs..."
-                      className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-[#39FF14] focus:outline-none"
+                      className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-[#B0E454] focus:outline-none"
                     />
                   </div>
 
@@ -607,7 +607,7 @@ function ReservarContent() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="px-6 py-3.5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs sm:text-sm uppercase tracking-wider inline-flex items-center gap-2 hover:bg-[#52ff33] transition cursor-pointer disabled:opacity-50"
+                      className="px-6 py-3.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs sm:text-sm uppercase tracking-wider inline-flex items-center gap-2 hover:bg-[#BEEB6B] transition cursor-pointer disabled:opacity-50"
                     >
                       {loading ? (
                         <>
@@ -627,11 +627,11 @@ function ReservarContent() {
               {step === 3 && pendingBooking && (
                 <form
                   onSubmit={handleProcessOnlinePayment}
-                  className="bg-[#000000] border border-[#39FF14]/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-[0_20px_60px_rgba(0,0,0,0.85)]"
+                  className="bg-[#000000] border border-[#B0E454]/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-[0_20px_60px_rgba(0,0,0,0.85)]"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-white/10">
                     <div>
-                      <span className="text-xs font-extrabold uppercase text-[#39FF14]">
+                      <span className="text-xs font-extrabold uppercase text-[#B0E454]">
                         Pre-Reserva #{pendingBooking.id} · Hab. {pendingBooking.assignedRoomNumber || 'Asignada'}
                       </span>
                       <h2 className="text-xl sm:text-2xl font-black text-white">
@@ -639,7 +639,7 @@ function ReservarContent() {
                       </h2>
                     </div>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#000000] border border-white/15 text-xs font-semibold text-white/80">
-                      <ShieldCheck className="w-4 h-4 text-[#39FF14]" /> Cifrado TLS 256-bit
+                      <ShieldCheck className="w-4 h-4 text-[#B0E454]" /> Cifrado TLS 256-bit
                     </span>
                   </div>
 
@@ -654,15 +654,15 @@ function ReservarContent() {
                         onClick={() => setPaymentMode('full_100')}
                         className={`p-4 rounded-2xl border text-left transition cursor-pointer ${
                           paymentMode === 'full_100'
-                            ? 'bg-[#000000] border-[#39FF14]'
+                            ? 'bg-[#000000] border-[#B0E454]'
                             : 'bg-[#000000] border-white/15'
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-extrabold uppercase text-[#39FF14]">
+                          <span className="text-xs font-extrabold uppercase text-[#B0E454]">
                             Pago Total (100%)
                           </span>
-                          <Sparkles className="w-4 h-4 text-[#39FF14]" />
+                          <Sparkles className="w-4 h-4 text-[#B0E454]" />
                         </div>
                         <p className="text-xl font-black text-white mt-1">
                           {formatCLP(pendingBooking.totalAmount)}
@@ -677,7 +677,7 @@ function ReservarContent() {
                         onClick={() => setPaymentMode('deposit_50')}
                         className={`p-4 rounded-2xl border text-left transition cursor-pointer ${
                           paymentMode === 'deposit_50'
-                            ? 'bg-[#000000] border-[#39FF14]'
+                            ? 'bg-[#000000] border-[#B0E454]'
                             : 'bg-[#000000] border-white/15'
                         }`}
                       >
@@ -705,7 +705,7 @@ function ReservarContent() {
                         onClick={() => setGateway('webpay_tarjeta')}
                         className={`p-3 rounded-xl border text-xs font-extrabold flex flex-col items-center gap-1.5 cursor-pointer transition ${
                           gateway === 'webpay_tarjeta'
-                            ? 'bg-[#39FF14] text-[#000000] border-[#39FF14]'
+                            ? 'bg-[#B0E454] text-[#000000] border-[#B0E454]'
                             : 'bg-[#000000] text-white border-white/15'
                         }`}
                       >
@@ -718,7 +718,7 @@ function ReservarContent() {
                         onClick={() => setGateway('mercadopago')}
                         className={`p-3 rounded-xl border text-xs font-extrabold flex flex-col items-center gap-1.5 cursor-pointer transition ${
                           gateway === 'mercadopago'
-                            ? 'bg-[#39FF14] text-[#000000] border-[#39FF14]'
+                            ? 'bg-[#B0E454] text-[#000000] border-[#B0E454]'
                             : 'bg-[#000000] text-white border-white/15'
                         }`}
                       >
@@ -731,7 +731,7 @@ function ReservarContent() {
                         onClick={() => setGateway('transferencia')}
                         className={`p-3 rounded-xl border text-xs font-extrabold flex flex-col items-center gap-1.5 cursor-pointer transition ${
                           gateway === 'transferencia'
-                            ? 'bg-[#39FF14] text-[#000000] border-[#39FF14]'
+                            ? 'bg-[#B0E454] text-[#000000] border-[#B0E454]'
                             : 'bg-[#000000] text-white border-white/15'
                         }`}
                       >
@@ -748,7 +748,7 @@ function ReservarContent() {
                         <span className="font-bold text-white">
                           Tarjetas Redcompra Débito, Visa, Mastercard
                         </span>
-                        <span className="text-[#39FF14] font-semibold">Webpay Plus</span>
+                        <span className="text-[#B0E454] font-semibold">Webpay Plus</span>
                       </div>
 
                       <div>
@@ -762,7 +762,7 @@ function ReservarContent() {
                           value={cardNumber}
                           onChange={(e) => setCardNumber(formatCardInput(e.target.value))}
                           placeholder="4532 8810 4421 4242"
-                          className="w-full bg-[#000000] border border-white/15 rounded-xl px-4 py-3 text-base font-mono tracking-widest text-white focus:border-[#39FF14] focus:outline-none"
+                          className="w-full bg-[#000000] border border-white/15 rounded-xl px-4 py-3 text-base font-mono tracking-widest text-white focus:border-[#B0E454] focus:outline-none"
                         />
                       </div>
 
@@ -777,7 +777,7 @@ function ReservarContent() {
                             value={cardExpiry}
                             onChange={(e) => setCardExpiry(formatExpiryInput(e.target.value))}
                             placeholder="08/29"
-                            className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm font-mono text-white focus:border-[#39FF14] focus:outline-none"
+                            className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm font-mono text-white focus:border-[#B0E454] focus:outline-none"
                           />
                         </div>
                         <div>
@@ -791,7 +791,7 @@ function ReservarContent() {
                             value={cardCvv}
                             onChange={(e) => setCardCvv(e.target.value.replace(/\D/g, ''))}
                             placeholder="123"
-                            className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm font-mono text-white focus:border-[#39FF14] focus:outline-none"
+                            className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm font-mono text-white focus:border-[#B0E454] focus:outline-none"
                           />
                         </div>
                         <div>
@@ -801,7 +801,7 @@ function ReservarContent() {
                           <select
                             value={installments}
                             onChange={(e) => setInstallments(Number(e.target.value))}
-                            className="w-full bg-[#000000] border border-white/15 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#39FF14] focus:outline-none"
+                            className="w-full bg-[#000000] border border-white/15 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#B0E454] focus:outline-none"
                           >
                             <option value={1}>Débito / 1 cuota</option>
                             <option value={3}>3 cuotas sin interés</option>
@@ -819,7 +819,7 @@ function ReservarContent() {
                           required
                           value={cardHolder}
                           onChange={(e) => setCardHolder(e.target.value.toUpperCase())}
-                          className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm uppercase text-white focus:border-[#39FF14] focus:outline-none"
+                          className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm uppercase text-white focus:border-[#B0E454] focus:outline-none"
                         />
                       </div>
                     </div>
@@ -832,7 +832,7 @@ function ReservarContent() {
                       </p>
                       <p className="text-xs text-white/70">
                         Al hacer clic en pagar se autorizará el cargo de{' '}
-                        <strong className="text-[#39FF14]">
+                        <strong className="text-[#B0E454]">
                           {formatCLP(
                             paymentMode === 'full_100'
                               ? pendingBooking.totalAmount
@@ -846,7 +846,7 @@ function ReservarContent() {
 
                   {gateway === 'transferencia' && (
                     <div className="p-5 rounded-2xl bg-[#000000] border border-white/15 space-y-3 text-xs sm:text-sm">
-                      <p className="font-extrabold text-[#39FF14] uppercase text-xs">
+                      <p className="font-extrabold text-[#B0E454] uppercase text-xs">
                         Datos Bancarios Oficiales All Rent Hoteles
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-white/85">
@@ -873,7 +873,7 @@ function ReservarContent() {
                           value={transferRef}
                           onChange={(e) => setTransferRef(e.target.value)}
                           placeholder="Ej: TRF-0094821"
-                          className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-[#39FF14] focus:outline-none"
+                          className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-[#B0E454] focus:outline-none"
                         />
                       </div>
                     </div>
@@ -882,7 +882,7 @@ function ReservarContent() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 px-6 rounded-2xl bg-[#39FF14] text-[#000000] font-black text-sm sm:text-base uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#52ff33] shadow-[0_0_30px_rgba(57,255,20,0.4)] transition cursor-pointer disabled:opacity-50"
+                    className="w-full py-4 px-6 rounded-2xl bg-[#B0E454] text-[#000000] font-black text-sm sm:text-base uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#BEEB6B] shadow-[0_0_30px_rgba(176,228,84,0.4)] transition cursor-pointer disabled:opacity-50"
                   >
                     {loading ? (
                       <>
@@ -916,7 +916,7 @@ function ReservarContent() {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-4 px-3 py-1 rounded-full bg-[#39FF14] text-[#000000] text-xs font-black uppercase">
+                <span className="absolute bottom-3 left-4 px-3 py-1 rounded-full bg-[#B0E454] text-[#000000] text-xs font-black uppercase">
                   {activeCategory.bathroomLabel}
                 </span>
               </div>
@@ -930,25 +930,25 @@ function ReservarContent() {
                 <div className="space-y-2 text-xs border-y border-white/10 py-3.5 text-white/85">
                   <div className="flex justify-between">
                     <span className="inline-flex items-center gap-1.5 text-white/65">
-                      <Calendar className="w-3.5 h-3.5 text-[#39FF14]" /> Check-in (12:00)
+                      <Calendar className="w-3.5 h-3.5 text-[#B0E454]" /> Check-in (12:00)
                     </span>
                     <strong>{checkInDate || '—'}</strong>
                   </div>
                   <div className="flex justify-between">
                     <span className="inline-flex items-center gap-1.5 text-white/65">
-                      <Calendar className="w-3.5 h-3.5 text-[#39FF14]" /> Check-out (12:00)
+                      <Calendar className="w-3.5 h-3.5 text-[#B0E454]" /> Check-out (12:00)
                     </span>
                     <strong>{checkOutDate || '—'}</strong>
                   </div>
                   <div className="flex justify-between">
                     <span className="inline-flex items-center gap-1.5 text-white/65">
-                      <Users className="w-3.5 h-3.5 text-[#39FF14]" /> Huéspedes
+                      <Users className="w-3.5 h-3.5 text-[#B0E454]" /> Huéspedes
                     </span>
                     <strong>{guestsCount}</strong>
                   </div>
                   <div className="flex justify-between">
                     <span className="inline-flex items-center gap-1.5 text-white/65">
-                      <Clock className="w-3.5 h-3.5 text-[#39FF14]" /> Noches
+                      <Clock className="w-3.5 h-3.5 text-[#B0E454]" /> Noches
                     </span>
                     <strong>{quote?.nightsCount || 0}</strong>
                   </div>
@@ -965,11 +965,11 @@ function ReservarContent() {
                     </div>
                     <div className="flex justify-between text-xs text-white/70">
                       <span>Estacionamiento Interior</span>
-                      <span className="text-[#39FF14] font-bold">GRATIS</span>
+                      <span className="text-[#B0E454] font-bold">GRATIS</span>
                     </div>
                     <div className="flex justify-between items-baseline pt-2 border-t border-white/10">
                       <span className="text-sm font-extrabold text-white">Total Estadía</span>
-                      <span className="text-2xl font-black text-[#39FF14]">
+                      <span className="text-2xl font-black text-[#B0E454]">
                         {formatCLP(quote.totalAmount)}
                       </span>
                     </div>
@@ -982,14 +982,14 @@ function ReservarContent() {
 
         {/* STEP 4: CONFIRMED BOARDING PASS & QR */}
         {step === 4 && confirmedBooking && (
-          <div className="max-w-3xl mx-auto bg-[#000000] border-2 border-[#39FF14] rounded-3xl p-6 sm:p-10 shadow-[0_0_60px_rgba(57,255,20,0.18)] space-y-6">
+          <div className="max-w-3xl mx-auto bg-[#000000] border-2 border-[#B0E454] rounded-3xl p-6 sm:p-10 shadow-[0_0_60px_rgba(176,228,84,0.18)] space-y-6">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-white/10">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#39FF14] text-[#000000] flex items-center justify-center shrink-0">
+                <div className="w-14 h-14 rounded-2xl bg-[#B0E454] text-[#000000] flex items-center justify-center shrink-0">
                   <CheckCircle2 className="w-8 h-8 stroke-[2.5]" />
                 </div>
                 <div>
-                  <span className="text-xs font-black uppercase tracking-widest text-[#39FF14]">
+                  <span className="text-xs font-black uppercase tracking-widest text-[#B0E454]">
                     ¡Pago Aprobado & Reserva Confirmada!
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-black text-white">
@@ -999,9 +999,9 @@ function ReservarContent() {
               </div>
 
               {confirmedBooking.assignedRoomNumber && (
-                <div className="px-4 py-2 rounded-2xl bg-[#000000] border border-[#39FF14]/50 text-center">
+                <div className="px-4 py-2 rounded-2xl bg-[#000000] border border-[#B0E454]/50 text-center">
                   <span className="text-[10px] uppercase text-white/60 block">Unidad Asignada</span>
-                  <strong className="text-lg font-black text-[#39FF14]">
+                  <strong className="text-lg font-black text-[#B0E454]">
                     Hab. {confirmedBooking.assignedRoomNumber}
                   </strong>
                 </div>
@@ -1028,13 +1028,13 @@ function ReservarContent() {
                 </div>
                 <div className="flex justify-between py-2 border-b border-white/10">
                   <span className="text-white/65">Autorización Pasarela</span>
-                  <strong className="text-[#39FF14]">
+                  <strong className="text-[#B0E454]">
                     {approvedPayment?.authorizationCode || 'APROBADO'}
                   </strong>
                 </div>
                 <div className="flex justify-between py-2">
                   <span className="text-white/65">Monto Pagado Online</span>
-                  <strong className="text-xl font-black text-[#39FF14]">
+                  <strong className="text-xl font-black text-[#B0E454]">
                     {formatCLP(confirmedBooking.amountPaid)}
                   </strong>
                 </div>
@@ -1061,7 +1061,7 @@ function ReservarContent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
               <Link
                 href={`/mi-reserva?codigo=${confirmedBooking.id}`}
-                className="py-3.5 px-5 rounded-xl bg-[#39FF14] text-[#000000] font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#52ff33] transition"
+                className="py-3.5 px-5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#BEEB6B] transition"
               >
                 <QrCode className="w-4 h-4" /> Completar Check-in Digital & Patente
               </Link>
@@ -1069,9 +1069,9 @@ function ReservarContent() {
                 href={whatsappReceiptUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-3.5 px-5 rounded-xl border border-white/20 bg-white/5 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:border-[#39FF14] hover:text-[#39FF14] transition"
+                className="py-3.5 px-5 rounded-xl border border-white/20 bg-white/5 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:border-[#B0E454] hover:text-[#B0E454] transition"
               >
-                <MessageCircle className="w-4 h-4 text-[#39FF14]" /> Enviar Voucher a Recepción por WhatsApp
+                <MessageCircle className="w-4 h-4 text-[#B0E454]" /> Enviar Voucher a Recepción por WhatsApp
               </a>
             </div>
           </div>

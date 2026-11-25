@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${montserrat.variable} ${allura.variable}`}>
-      <body className="bg-[#000000] text-white selection:bg-[#39FF14] selection:text-[#000000]">
+      <body className="bg-[#000000] text-white selection:bg-[#B0E454] selection:text-[#000000]">
         {children}
       </body>
     </html>
