@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* =====================================================================
+   ALL RENT HOTELES — DESIGN TOKENS (Guía de Marca Oficial)
+   Verde Lima #39FF14 · Negro #000000 · Blanco #FFFFFF · Montserrat
+   ===================================================================== */
+:root {
+  --brand-lime: #39FF14;
+  --brand-lime-hover: #52ff33;
+  --brand-black: #000000;
+  --brand-surface: #000000;
+  --brand-card: #000000;
+  --brand-white: #FFFFFF;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+body {
+  font-family: var(--font-montserrat), system-ui, -apple-system, sans-serif;
+  background-color: #000000;
+  color: #FFFFFF;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+/* Accesible focus ring (WCAG 2.2 visible focus) */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #39FF14;
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* ---------- Brand element: diagonal stripes (Guía de marca) ---------- */
+.brand-stripes {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.brand-stripes span {
+  display: inline-block;
+  width: 5px;
+  height: 15px;
+  transform: skewX(-30deg);
+  border-radius: 1px;
+}
+
+/* ---------- Motion ---------- */
+@keyframes kenburnsSlow {
+  0% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1.09);
+  }
+}
+.animate-kenburns {
+  animation: kenburnsSlow 7s ease-out forwards;
+}
+
+@keyframes slideProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.animate-slide-progress {
+  transform-origin: left;
+  animation: slideProgress var(--slide-duration, 5500ms) linear forwards;
+}
+
+/* Scroll reveal (driven by <Reveal/> IntersectionObserver) */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hide native scrollbar on horizontal chip rows */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #39FF14;
+}

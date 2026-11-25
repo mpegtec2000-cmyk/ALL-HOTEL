@@ -1,0 +1,10 @@
+fondos nombres y ubicacion de los fondos: D:\All Rent Hoteles\public\images
+1: Warmly Lit AI Rent Hotel Facade
+2:playa-quintero-caleta
+3:hab-familiar-luminosa
+4:playa-principal-kayaks
+5:hab-standard-matrimonial
+6:lobby-principal
+7:Vibrant Coastal Beach Kayaking Scene
+8:vestibulo-escalera-orquideas
+9:pasillo-madera-tallada
