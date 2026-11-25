@@ -64,7 +64,7 @@ const BRAND_FEATURES = [
 
 export default function AmenitiesSection() {
   return (
-    <section id="servicios" className="relative py-24 bg-[#000000] overflow-hidden">
+    <section id="servicios" className="relative py-24 bg-[#000000] overflow-hidden lux-section-border">
       {/* Section Background Image: fondo señora.jpg */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -74,12 +74,12 @@ export default function AmenitiesSection() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#000000]/60 via-[#000000]/35 to-[#000000]/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#000000]/75 via-[#000000]/40 to-[#000000]/80" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-3 mb-3 px-4 py-1.5 rounded-full bg-[#000000] backdrop-blur-md border border-white/15">
+          <div className="inline-flex items-center gap-3 mb-3 px-4 py-1.5 rounded-full lux-subcard">
             <div className="brand-stripes" aria-hidden="true">
               <span className="bg-[#B0E454]" />
               <span className="bg-[#B0E454]" />
@@ -104,11 +104,11 @@ export default function AmenitiesSection() {
               <Reveal
                 key={item.title}
                 delay={idx * 50}
-                className="group p-6 rounded-3xl bg-[#000000] backdrop-blur-xl border border-white/15 hover:border-[#B0E454]/65 transition-all duration-300 flex flex-col justify-between shadow-xl"
+                className="group p-6 rounded-3xl lux-card lux-grain flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-2xl bg-[#000000] border border-white/15 group-hover:border-[#B0E454] flex items-center justify-center transition-colors">
+                    <div className="w-12 h-12 rounded-2xl lux-subcard flex items-center justify-center transition-colors">
                       <Icon className="w-6 h-6 text-white group-hover:text-[#B0E454] stroke-[1.75] transition-colors" />
                     </div>
                     <span className="font-mono text-xs font-bold text-white/35 group-hover:text-[#B0E454] transition-colors">

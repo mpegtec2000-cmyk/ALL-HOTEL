@@ -64,13 +64,13 @@ export default function GuestReviewsAndContact() {
   }
 
   return (
-    <section id="contacto" className="py-24 bg-[#000000]">
+    <section id="contacto" className="py-24 bg-[#000000] lux-section-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
         {/* Testimonials */}
         <Reveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
             <div>
-              <div className="inline-flex items-center gap-3 mb-2">
+              <div className="inline-flex items-center gap-3 mb-3 px-4 py-1.5 rounded-full lux-subcard">
                 <div className="brand-stripes" aria-hidden="true">
                   <span className="bg-[#B0E454]" />
                   <span className="bg-[#B0E454]" />
@@ -85,7 +85,7 @@ export default function GuestReviewsAndContact() {
               </h2>
             </div>
 
-            <div className="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-[#000000] border border-white/12">
+            <div className="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl lux-subcard">
               <div className="flex items-center gap-0.5 text-[#B0E454]">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-[#B0E454]" />
@@ -101,7 +101,7 @@ export default function GuestReviewsAndContact() {
             {REVIEWS.map((rev) => (
               <div
                 key={rev.name}
-                className="relative p-6 rounded-3xl bg-[#000000] border border-white/10 hover:border-[#B0E454]/45 transition flex flex-col justify-between space-y-4"
+                className="relative p-6 rounded-3xl lux-card lux-grain flex flex-col justify-between space-y-4"
               >
                 <Quote className="w-8 h-8 text-white/10 absolute top-5 right-5" />
                 <div className="space-y-3">
@@ -114,7 +114,7 @@ export default function GuestReviewsAndContact() {
                 </div>
                 <div className="pt-3 border-t border-white/10">
                   <p className="text-sm font-extrabold text-white">{rev.name}</p>
-                  <p className="text-xs text-[#B0E454]/80 font-medium">{rev.origin}</p>
+                  <p className="text-xs text-[#B0E454]/85 font-medium">{rev.origin}</p>
                 </div>
               </div>
             ))}
@@ -122,7 +122,7 @@ export default function GuestReviewsAndContact() {
         </Reveal>
 
         {/* Direct Contact / Group Inquiry Form */}
-        <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-[#000000] border border-white/15 rounded-3xl p-6 sm:p-10">
+        <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center lux-card-featured lux-grain rounded-3xl p-6 sm:p-10">
           <div className="lg:col-span-5 space-y-5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B0E454]/15 border border-[#B0E454]/35 text-[#B0E454] text-xs font-extrabold uppercase">
               <ShieldCheck className="w-3.5 h-3.5" /> Atención Directa de Recepción

@@ -34,7 +34,7 @@ export default function RoomsShowcase() {
   }
 
   return (
-    <section id="habitaciones" className="relative py-24 bg-[#000000] border-y border-white/10 overflow-hidden">
+    <section id="habitaciones" className="relative py-24 bg-[#000000] overflow-hidden lux-section-border">
       {/* Section Background Image: fondo familia.jpg */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -44,14 +44,14 @@ export default function RoomsShowcase() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#000000]/60 via-[#000000]/35 to-[#000000]/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#000000]/78 via-[#000000]/38 to-[#000000]/82" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <Reveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-3 mb-3 px-4 py-1.5 rounded-full bg-[#000000] backdrop-blur-md border border-white/15">
+            <div className="inline-flex items-center gap-3 mb-3 px-4 py-1.5 rounded-full lux-subcard">
               <div className="brand-stripes" aria-hidden="true">
                 <span className="bg-[#B0E454]" />
                 <span className="bg-[#B0E454]" />
@@ -69,7 +69,7 @@ export default function RoomsShowcase() {
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#000000] backdrop-blur-md border border-[#B0E454]/45 text-xs font-extrabold text-white self-start lg:self-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full lux-subcard text-xs font-extrabold text-white self-start lg:self-auto">
             <Clock className="w-4 h-4 text-[#B0E454]" />
             <span>Check-in: 12:00 hrs · Check-out: 12:00 hrs</span>
           </div>
@@ -81,7 +81,6 @@ export default function RoomsShowcase() {
             const isPrivateEnSuite = room.bathroomLabel === 'Baño privado'
             const activeIdx = cardPhotoIdx[room.slug] || 0
             const currentImg = room.gallery[activeIdx] || room.image
-            // First 3 cards take 2 of 6 columns each; bottom 2 cards take 3 of 6 columns each for a balanced 5-card grid
             const colSpanClass = index < 3 ? 'lg:col-span-2' : 'lg:col-span-3'
 
             return (
@@ -89,15 +88,13 @@ export default function RoomsShowcase() {
                 key={room.slug}
                 delay={index * 60}
                 as="article"
-                className={`${colSpanClass} group rounded-3xl overflow-hidden bg-[#000000] backdrop-blur-xl border transition-all duration-300 flex flex-col justify-between ${
-                  isPrivateEnSuite
-                    ? 'border-[#B0E454]/40 shadow-[0_14px_45px_rgba(176,228,84,0.08)] hover:border-[#B0E454]'
-                    : 'border-white/15 hover:border-[#B0E454]/60'
-                }`}
+                className={`${colSpanClass} group rounded-3xl overflow-hidden ${
+                  isPrivateEnSuite ? 'lux-card-featured' : 'lux-card'
+                } lux-grain flex flex-col justify-between p-2.5`}
               >
                 <div>
-                  {/* Room Image with Inline Mini-Carousel */}
-                  <div className="relative h-64 overflow-hidden bg-[#000000]">
+                  {/* Room Image Framed Inside Matted Bevel */}
+                  <div className="relative h-60 rounded-2xl overflow-hidden bg-[#000000] ring-1 ring-white/15 shadow-inner">
                     <Image
                       src={currentImg}
                       alt={`${room.name} (${room.bathroomLabel}) - All Rent Hoteles`}
@@ -108,12 +105,12 @@ export default function RoomsShowcase() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/15 to-black/35" />
 
                     {/* Top Bathroom Badge — Exact Official Label */}
-                    <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2">
+                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
                       <span
                         className={`whitespace-nowrap px-3.5 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider ${
                           isPrivateEnSuite
-                            ? 'bg-[#B0E454] text-[#000000]'
-                            : 'bg-[#000000] text-white border border-white/25 backdrop-blur-md'
+                            ? 'lux-btn'
+                            : 'lux-subcard text-white'
                         }`}
                       >
                         {room.bathroomLabel}
@@ -127,7 +124,7 @@ export default function RoomsShowcase() {
                           type="button"
                           onClick={(e) => cycleCardPhoto(room.slug, room.gallery.length, -1, e)}
                           aria-label="Foto anterior"
-                          className="opacity-0 group-hover:opacity-100 absolute left-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#B0E454] transition cursor-pointer"
+                          className="opacity-0 group-hover:opacity-100 absolute left-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full lux-subcard text-white hover:text-[#B0E454] transition cursor-pointer"
                         >
                           <ChevronLeft className="w-4 h-4" />
                         </button>
@@ -135,7 +132,7 @@ export default function RoomsShowcase() {
                           type="button"
                           onClick={(e) => cycleCardPhoto(room.slug, room.gallery.length, 1, e)}
                           aria-label="Siguiente foto"
-                          className="opacity-0 group-hover:opacity-100 absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[#000000] border border-white/20 text-white hover:text-[#B0E454] transition cursor-pointer"
+                          className="opacity-0 group-hover:opacity-100 absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full lux-subcard text-white hover:text-[#B0E454] transition cursor-pointer"
                         >
                           <ChevronRight className="w-4 h-4" />
                         </button>
@@ -149,13 +146,13 @@ export default function RoomsShowcase() {
                         setPreviewRoom(room)
                         setModalPhotoIdx(activeIdx)
                       }}
-                      className="absolute bottom-3.5 right-3.5 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#000000] backdrop-blur-md border border-white/20 text-xs font-bold text-white hover:border-[#B0E454] hover:text-[#B0E454] transition cursor-pointer"
+                      className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl lux-subcard text-xs font-bold text-white hover:text-[#B0E454] transition cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5 text-[#B0E454]" /> {activeIdx + 1}/{room.gallery.length}
                     </button>
 
                     {/* Price Overlay */}
-                    <div className="absolute bottom-3 left-4">
+                    <div className="absolute bottom-3 left-3.5">
                       <p className="text-[10px] uppercase tracking-widest text-white/75 font-bold">
                         Valor por Noche
                       </p>
@@ -166,26 +163,26 @@ export default function RoomsShowcase() {
                   </div>
 
                   {/* Body */}
-                  <div className="p-6 space-y-4">
+                  <div className="p-4 sm:p-5 space-y-4">
                     <div>
                       <h3 className="text-xl font-extrabold text-white group-hover:text-[#B0E454] transition-colors">
                         {room.name}
                       </h3>
-                      <p className="text-xs font-semibold text-[#B0E454]/90 mt-1">
+                      <p className="text-xs font-semibold text-[#B0E454] mt-1">
                         ({room.bathroomLabel}) · {formatCLP(room.pricePerNight)} / noche
                       </p>
                     </div>
 
                     {/* Specs Row */}
-                    <div className="flex flex-wrap gap-1.5 text-xs text-white/80 font-medium">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10">
+                    <div className="flex flex-wrap gap-1.5 text-xs text-white/85 font-medium">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg lux-subcard">
                         <Users className="w-3.5 h-3.5 text-[#B0E454]" />{' '}
                         {room.maxGuests === 1 ? '1 persona' : `Hasta ${room.maxGuests} personas`}
                       </span>
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg lux-subcard">
                         <BedDouble className="w-3.5 h-3.5 text-[#B0E454]" /> {room.bedConfig}
                       </span>
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg lux-subcard">
                         <Maximize2 className="w-3.5 h-3.5 text-[#B0E454]" /> {room.sizeM2} m²
                       </span>
                     </div>
@@ -209,10 +206,10 @@ export default function RoomsShowcase() {
                 </div>
 
                 {/* Card Footer CTA */}
-                <div className="px-6 pb-6 pt-2">
+                <div className="px-4 pb-4 pt-1">
                   <Link
                     href={`/reservar?room=${room.slug}`}
-                    className="w-full py-3.5 px-4 rounded-xl bg-[#B0E454] text-[#000000] hover:bg-[#BEEB6B] font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_22px_rgba(176,228,84,0.22)] transition-all"
+                    className="w-full py-3.5 px-4 rounded-xl lux-btn font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2"
                   >
                     <span>Reservar por {formatCLP(room.pricePerNight)}</span>
                     <ArrowRight className="w-4 h-4 stroke-[2.5]" />

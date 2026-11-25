@@ -15,7 +15,7 @@ import Reveal from './Reveal'
 
 export default function AboutExperience() {
   return (
-    <section id="espacio" className="relative py-24 bg-[#000000] overflow-hidden">
+    <section id="espacio" className="relative py-24 bg-[#000000] overflow-hidden lux-section-border">
       {/* Section Background Image: playa-quintero-caleta */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -25,15 +25,15 @@ export default function AboutExperience() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#000000]/55 via-[#000000]/25 to-[#000000]/65" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#000000]/75 via-[#000000]/30 to-[#000000]/80" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Balanced Architectural Bento Collage */}
           <Reveal className="lg:col-span-6 space-y-4">
-            {/* Primary Facade Card */}
-            <div className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl aspect-[16/10] bg-[#000000] group">
+            {/* Primary Facade Card with Double Architectural Photo Frame */}
+            <div className="relative lux-photo-frame aspect-[16/10] bg-[#000000] group">
               <Image
                 src="/images/Warmly Lit AI Rent Hotel Facade.png"
                 alt="Fachada All Rent Hoteles Av. Bulnes 119 Quintero"
@@ -42,11 +42,11 @@ export default function AboutExperience() {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/90 via-[#000000]/20 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#000000] backdrop-blur-md border border-white/15 text-xs font-bold text-white">
+              <div className="absolute bottom-4 left-4 right-4 z-30 flex flex-wrap items-center justify-between gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full lux-subcard text-xs font-bold text-white">
                   <MapPin className="w-3.5 h-3.5 text-[#B0E454]" /> Av. Bulnes 119, Quintero
                 </span>
-                <span className="px-3.5 py-1.5 rounded-full bg-[#B0E454] text-[#000000] text-xs font-black uppercase tracking-wider">
+                <span className="px-3.5 py-1.5 rounded-full lux-btn text-xs font-black uppercase tracking-wider">
                   Check-in 12:00 a 12:00
                 </span>
               </div>
@@ -55,8 +55,8 @@ export default function AboutExperience() {
             {/* Bottom 2-Column Bento Sub-grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Sub-card 1: Reception & Security */}
-              <div className="rounded-2xl overflow-hidden bg-[#000000] backdrop-blur-xl border border-white/15 p-3 flex flex-col justify-between">
-                <div className="relative h-36 rounded-xl overflow-hidden mb-3">
+              <div className="rounded-2xl overflow-hidden lux-card p-3.5 flex flex-col justify-between">
+                <div className="relative h-36 rounded-xl overflow-hidden mb-3 ring-1 ring-white/15">
                   <Image
                     src="/images/recepcion-cctv-seguridad.webp"
                     alt="Recepción moderna con videovigilancia All Rent Hoteles"
@@ -64,7 +64,7 @@ export default function AboutExperience() {
                     sizes="300px"
                     className="object-cover"
                   />
-                  <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-[#000000] border border-white/15 text-[10px] font-extrabold text-[#B0E454] uppercase">
+                  <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-[#000000] border border-white/20 text-[10px] font-extrabold text-[#B0E454] uppercase">
                     Seguridad 24/7
                   </span>
                 </div>
@@ -82,8 +82,8 @@ export default function AboutExperience() {
               </div>
 
               {/* Sub-card 2: Beach Across the Street */}
-              <div className="rounded-2xl overflow-hidden bg-[#000000] backdrop-blur-xl border border-white/15 p-3 flex flex-col justify-between">
-                <div className="relative h-36 rounded-xl overflow-hidden mb-3">
+              <div className="rounded-2xl overflow-hidden lux-card p-3.5 flex flex-col justify-between">
+                <div className="relative h-36 rounded-xl overflow-hidden mb-3 ring-1 ring-white/15">
                   <Image
                     src="/images/Vibrant Coastal Beach Kayaking Scene.png"
                     alt="Playa de Quintero frente a All Rent Hoteles"
@@ -91,7 +91,7 @@ export default function AboutExperience() {
                     sizes="300px"
                     className="object-cover"
                   />
-                  <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-[#B0E454] text-[#000000] text-[10px] font-black uppercase">
+                  <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full lux-btn text-[10px] font-black uppercase">
                     Frente al Mar
                   </span>
                 </div>
@@ -113,9 +113,9 @@ export default function AboutExperience() {
           {/* Right Corporate Editorial Narrative */}
           <Reveal
             delay={120}
-            className="lg:col-span-6 space-y-6 bg-[#000000] backdrop-blur-2xl border border-white/15 rounded-3xl p-6 sm:p-9 shadow-2xl"
+            className="lg:col-span-6 space-y-6 lux-card lux-grain rounded-3xl p-6 sm:p-9"
           >
-            <div className="inline-flex items-center gap-3">
+            <div className="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full lux-subcard">
               <div className="brand-stripes" aria-hidden="true">
                 <span className="bg-[#B0E454]" />
                 <span className="bg-[#B0E454]" />
@@ -142,7 +142,7 @@ export default function AboutExperience() {
 
             {/* 2x2 Feature Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
-              <div className="p-4 rounded-2xl bg-[#000000] border border-white/10 hover:border-[#B0E454]/45 transition">
+              <div className="p-4 rounded-2xl lux-subcard">
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <Waves className="w-5 h-5 text-[#B0E454] shrink-0" />
                   <h3 className="text-sm font-extrabold text-white">Ubicación Frente al Mar</h3>
@@ -152,7 +152,7 @@ export default function AboutExperience() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#000000] border border-white/10 hover:border-[#B0E454]/45 transition">
+              <div className="p-4 rounded-2xl lux-subcard">
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <Car className="w-5 h-5 text-[#B0E454] shrink-0" />
                   <h3 className="text-sm font-extrabold text-white">Estacionamiento Privado</h3>
@@ -162,7 +162,7 @@ export default function AboutExperience() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#000000] border border-white/10 hover:border-[#B0E454]/45 transition">
+              <div className="p-4 rounded-2xl lux-subcard">
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <UtensilsCrossed className="w-5 h-5 text-[#B0E454] shrink-0" />
                   <h3 className="text-sm font-extrabold text-white">Kitchenette & Patio</h3>
@@ -172,7 +172,7 @@ export default function AboutExperience() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#000000] border border-white/10 hover:border-[#B0E454]/45 transition">
+              <div className="p-4 rounded-2xl lux-subcard">
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <Clock className="w-5 h-5 text-[#B0E454] shrink-0" />
                   <h3 className="text-sm font-extrabold text-white">Check-in 12:00 a 12:00</h3>
@@ -184,9 +184,9 @@ export default function AboutExperience() {
             </div>
 
             {/* Corporate Hotel Commitment Banner */}
-            <div className="p-5 rounded-2xl bg-gradient-to-r from-[#000000] via-[#000000] to-[#000000] border border-[#B0E454]/35 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="p-5 rounded-2xl lux-card-featured flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-start gap-3.5">
-                <div className="w-11 h-11 rounded-xl bg-[#B0E454] text-[#000000] flex items-center justify-center shrink-0 font-black shadow-[0_0_20px_rgba(176,228,84,0.3)]">
+                <div className="w-11 h-11 rounded-xl lux-btn flex items-center justify-center shrink-0 font-black">
                   <Award className="w-6 h-6" />
                 </div>
                 <div>
@@ -205,7 +205,7 @@ export default function AboutExperience() {
 
               <Link
                 href="/reservar"
-                className="whitespace-nowrap shrink-0 inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#BEEB6B] transition"
+                className="whitespace-nowrap shrink-0 inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl lux-btn font-black text-xs uppercase tracking-wider"
               >
                 Reservar Ahora <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
               </Link>

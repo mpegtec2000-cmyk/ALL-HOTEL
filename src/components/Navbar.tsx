@@ -48,8 +48,8 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#000000] border-b border-white/15 ${
-        scrolled ? 'shadow-[0_12px_40px_rgba(0,0,0,0.95)] py-2.5' : 'py-3.5'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#000000] border-b border-white/15 shadow-[inset_0_-1px_0_0_rgba(176,228,84,0.22),0_14px_40px_rgba(0,0,0,0.92)] ${
+        scrolled ? 'py-2.5' : 'py-3.5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
@@ -70,7 +70,7 @@ export default function Navbar() {
         {/* Desktop Single-Line Navigation Pill */}
         <nav
           aria-label="Navegación principal"
-          className="hidden xl:flex items-center gap-1 px-2 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md"
+          className="hidden xl:flex items-center gap-1 px-2.5 py-1.5 rounded-full lux-subcard"
         >
           {NAV_LINKS.map((link) => {
             const isActive = activeHash === link.href
@@ -81,7 +81,7 @@ export default function Navbar() {
                 onClick={() => setActiveHash(link.href)}
                 className={`whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all ${
                   isActive
-                    ? 'bg-white/10 text-[#B0E454]'
+                    ? 'bg-white/10 text-[#B0E454] shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]'
                     : 'text-white/80 hover:text-[#B0E454] hover:bg-white/[0.04]'
                 }`}
               >
@@ -111,7 +111,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-2.5 shrink-0">
           {weatherTemp !== null && (
             <div
-              className="hidden 2xl:inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold bg-white/[0.04] border border-white/10 rounded-full px-3.5 py-2 text-white/85"
+              className="hidden 2xl:inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold lux-subcard rounded-full px-3.5 py-2 text-white/85"
               title="Clima actual en Playa Principal de Quintero"
             >
               <Sun className="w-3.5 h-3.5 text-[#B0E454] shrink-0" />
@@ -121,7 +121,7 @@ export default function Navbar() {
 
           <Link
             href="/mi-reserva"
-            className="whitespace-nowrap inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full border border-white/15 bg-white/[0.04] text-white hover:border-[#B0E454] hover:text-[#B0E454] transition-all"
+            className="whitespace-nowrap inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full lux-subcard text-white hover:text-[#B0E454] transition-all"
           >
             <QrCode className="w-3.5 h-3.5 text-[#B0E454] shrink-0" />
             <span>Mi Reserva</span>
@@ -129,7 +129,7 @@ export default function Navbar() {
 
           <Link
             href="/reservar"
-            className="whitespace-nowrap inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider px-5 py-2.5 rounded-full bg-[#B0E454] text-[#000000] hover:bg-[#BEEB6B] shadow-[0_0_24px_rgba(176,228,84,0.4)] hover:shadow-[0_0_32px_rgba(176,228,84,0.68)] transition-all"
+            className="whitespace-nowrap inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider px-5 py-2.5 rounded-full lux-btn"
           >
             <CalendarCheck className="w-4 h-4 stroke-[2.5] shrink-0" />
             <span>Reservar Online</span>

@@ -6,11 +6,11 @@ import Reveal from './Reveal'
 export default function LocationMapFooter() {
   return (
     <>
-      <section id="ubicacion" className="py-24 bg-[#000000] border-t border-white/10">
+      <section id="ubicacion" className="py-24 bg-[#000000] lux-section-border lux-grain">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <Reveal className="lg:col-span-5 space-y-5">
-              <div className="inline-flex items-center gap-3">
+            <Reveal className="lg:col-span-5 space-y-5 lux-card rounded-3xl p-6 sm:p-8">
+              <div className="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full lux-subcard">
                 <div className="brand-stripes" aria-hidden="true">
                   <span className="bg-[#B0E454]" />
                   <span className="bg-[#B0E454]" />
@@ -24,18 +24,18 @@ export default function LocationMapFooter() {
               <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight tracking-[-0.025em]">
                 Av. Bulnes 119, <span className="text-[#B0E454]">Quintero</span>
               </h2>
-              <p className="text-white/70 text-sm sm:text-base leading-relaxed">
+              <p className="text-white/75 text-sm sm:text-base leading-relaxed">
                 Justo enfrente de la playa principal de Quintero, a unos 10 minutos caminando de la Plaza de Quintero y resguardados junto al recinto de los marinos.
               </p>
 
               {/* Proximity Pills */}
               <div className="grid grid-cols-2 gap-3 pt-1">
-                <div className="p-3.5 rounded-2xl bg-[#000000] border border-white/10">
+                <div className="p-3.5 rounded-2xl lux-subcard">
                   <Waves className="w-4 h-4 text-[#B0E454] mb-1" />
                   <p className="text-xs font-extrabold text-white">Playa Principal</p>
                   <p className="text-[11px] text-white/60">Cruzando la calle (1 min)</p>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-[#000000] border border-white/10">
+                <div className="p-3.5 rounded-2xl lux-subcard">
                   <Compass className="w-4 h-4 text-[#B0E454] mb-1" />
                   <p className="text-xs font-extrabold text-white">Plaza de Quintero</p>
                   <p className="text-[11px] text-white/60">10 minutos a pie</p>
@@ -68,26 +68,28 @@ export default function LocationMapFooter() {
                   href="https://maps.google.com/?q=Av.+Bulnes+119,+Quintero,+Valparaiso"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider hover:bg-[#BEEB6B] transition"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl lux-btn font-black text-xs uppercase tracking-wider"
                 >
                   Abrir Ruta en Google Maps / Waze <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
             </Reveal>
 
-            {/* Official Google Maps Iframe */}
+            {/* Official Google Maps Iframe Framed in Matted Architectural Bevel */}
             <Reveal delay={120} className="lg:col-span-7">
-              <div className="rounded-3xl overflow-hidden border border-white/15 shadow-2xl h-[400px] sm:h-[450px] bg-[#000000]">
-                <iframe
-                  title="Mapa Oficial All Rent Hoteles Av. Bulnes 119 Quintero"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4162.658810391891!2d-71.5266955!3d-32.7766761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689c06194397571%3A0x696160cc2777cf97!2sAv.%20Bulnes%20119%2C%202500000%20Quintero%2C%20Valpara%C3%ADso!5e1!3m2!1sen!2scl!4v1795577715170!5m2!1sen!2scl"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                />
+              <div className="lux-photo-frame p-2 h-[410px] sm:h-[465px]">
+                <div className="w-full h-full rounded-2xl overflow-hidden ring-1 ring-white/15">
+                  <iframe
+                    title="Mapa Oficial All Rent Hoteles Av. Bulnes 119 Quintero"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4162.658810391891!2d-71.5266955!3d-32.7766761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689c06194397571%3A0x696160cc2777cf97!2sAv.%20Bulnes%20119%2C%202500000%20Quintero%2C%20Valpara%C3%ADso!5e1!3m2!1sen!2scl!4v1795577715170!5m2!1sen!2scl"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                  />
+                </div>
               </div>
             </Reveal>
           </div>

@@ -1,15 +1,14 @@
 @import "tailwindcss";
 
 /* =====================================================================
-   ALL RENT HOTELES — DESIGN TOKENS (Guía de Marca Oficial)
-   Verde Lima #B0E454 · Negro #000000 · Blanco #FFFFFF · Montserrat
+   ALL RENT HOTELES — LUXURY MATERIAL, BORDER & TEXTURE DESIGN SYSTEM
+   Negro Puro #000000 · Lime Green Sobrio #B0E454 · Blanco #FFFFFF
    ===================================================================== */
 :root {
   --brand-lime: #B0E454;
   --brand-lime-hover: #BEEB6B;
+  --brand-lime-deep: #8FC435;
   --brand-black: #000000;
-  --brand-surface: #000000;
-  --brand-card: #000000;
   --brand-white: #FFFFFF;
 }
 
@@ -55,6 +54,192 @@ body {
   border-radius: 1px;
 }
 
+/* =====================================================================
+   TACTILE LUXURY SURFACES, BEVELED BORDERS & SPECULAR TEXTURES
+    Guaranteed 100% Solid Pure #000000 Base + Multi-Layer Specular Rim
+   ===================================================================== */
+
+/* 1. Machined Obsidian Card with Double Bevel & Specular Top Rim */
+.lux-card {
+  position: relative;
+  background-color: #000000;
+  background-image:
+    radial-gradient(120% 80% at 50% 0%, rgba(176, 228, 84, 0.08) 0%, rgba(255, 255, 255, 0.02) 40%, rgba(0, 0, 0, 0) 75%),
+    radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 0);
+  background-size: 100% 100%, 22px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.28),
+    inset 0 0 0 1px rgba(176, 228, 84, 0.08),
+    inset 0 -1px 0 0 rgba(176, 228, 84, 0.16),
+    0 24px 55px -10px rgba(0, 0, 0, 0.96),
+    0 0 0 1px rgba(0, 0, 0, 0.95);
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lux-card:hover {
+  border-color: rgba(176, 228, 84, 0.65);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.36),
+    inset 0 0 0 1px rgba(176, 228, 84, 0.16),
+    inset 0 -1px 0 0 rgba(176, 228, 84, 0.28),
+    0 28px 65px -10px rgba(0, 0, 0, 0.98),
+    0 0 30px -8px rgba(176, 228, 84, 0.25);
+}
+
+/* 2. Featured Suite / Highlight Card with Stronger Lime Bevel */
+.lux-card-featured {
+  position: relative;
+  background-color: #000000;
+  background-image:
+    radial-gradient(125% 85% at 50% 0%, rgba(176, 228, 84, 0.11) 0%, rgba(255, 255, 255, 0.025) 42%, rgba(0, 0, 0, 0) 78%),
+    radial-gradient(rgba(176, 228, 84, 0.055) 1px, transparent 0);
+  background-size: 100% 100%, 22px 22px;
+  border: 1px solid rgba(176, 228, 84, 0.52);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.34),
+    inset 0 0 0 1px rgba(176, 228, 84, 0.14),
+    inset 0 -1px 0 0 rgba(176, 228, 84, 0.25),
+    0 26px 60px -10px rgba(0, 0, 0, 0.96),
+    0 0 32px -8px rgba(176, 228, 84, 0.2);
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lux-card-featured:hover {
+  transform: translateY(-2px);
+  border-color: #B0E454;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.42),
+    inset 0 0 0 1px rgba(176, 228, 84, 0.24),
+    0 30px 70px -10px rgba(0, 0, 0, 0.98),
+    0 0 38px -6px rgba(176, 228, 84, 0.32);
+}
+
+/* 3. Solid Pure Black Sub-Card / Pill with Chamfered Top Edge */
+.lux-subcard {
+  background-color: #000000;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0) 55%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 0 rgba(176, 228, 84, 0.1),
+    0 10px 24px -6px rgba(0, 0, 0, 0.92);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lux-subcard:hover {
+  border-color: rgba(176, 228, 84, 0.6);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.28),
+    0 12px 28px -6px rgba(0, 0, 0, 0.95),
+    0 0 18px -6px rgba(176, 228, 84, 0.22);
+}
+
+/* 4. Architectural Matted Photo Frame */
+.lux-photo-frame {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background-color: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 24px 55px -10px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(0, 0, 0, 0.95);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.lux-photo-frame:hover {
+  border-color: rgba(176, 228, 84, 0.75);
+  box-shadow:
+    inset 0 0 0 1px rgba(176, 228, 84, 0.25),
+    0 28px 60px -10px rgba(0, 0, 0, 0.98),
+    0 0 28px -8px rgba(176, 228, 84, 0.24);
+}
+
+.lux-photo-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.32),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  z-index: 20;
+}
+
+/* 5. Tactile Beveled Primary Button */
+.lux-btn {
+  background-color: #B0E454;
+  background-image: linear-gradient(180deg, #C7F172 0%, #B0E454 52%, #98CB3E 100%);
+  color: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.22),
+    0 10px 26px -6px rgba(176, 228, 84, 0.42);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lux-btn:hover {
+  background-image: linear-gradient(180deg, #D3F788 0%, #BEEB6B 52%, #A6DA4B 100%);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
+    0 14px 32px -6px rgba(176, 228, 84, 0.58);
+}
+
+/* 6. Chamfered Input & Select Fields */
+.lux-input {
+  background-color: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.lux-input:hover {
+  border-color: rgba(255, 255, 255, 0.34);
+}
+
+.lux-input:focus {
+  outline: none;
+  border-color: #B0E454;
+  box-shadow:
+    0 0 0 3px rgba(176, 228, 84, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* 7. Luminous Section Hairline Divider */
+.lux-section-border {
+  position: relative;
+}
+.lux-section-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.16) 22%,
+    rgba(176, 228, 84, 0.72) 50%,
+    rgba(255, 255, 255, 0.16) 78%,
+    transparent 100%
+  );
+  z-index: 25;
+}
+
 /* ---------- Motion ---------- */
 @keyframes kenburnsSlow {
   0% {
@@ -66,19 +251,6 @@ body {
 }
 .animate-kenburns {
   animation: kenburnsSlow 7s ease-out forwards;
-}
-
-@keyframes slideProgress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-.animate-slide-progress {
-  transform-origin: left;
-  animation: slideProgress var(--slide-duration, 5500ms) linear forwards;
 }
 
 /* Scroll reveal (driven by <Reveal/> IntersectionObserver) */

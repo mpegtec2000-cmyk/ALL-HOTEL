@@ -117,11 +117,11 @@ export default function PhotoGallery() {
   const activeItem = lightboxIdx !== null ? filtered[lightboxIdx] : null
 
   return (
-    <section id="galeria" className="py-24 bg-[#000000] border-t border-white/10">
+    <section id="galeria" className="py-24 bg-[#000000] lux-section-border lux-grain">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-3 mb-3">
+            <div className="inline-flex items-center gap-3 mb-3 px-4 py-1.5 rounded-full lux-subcard">
               <div className="brand-stripes" aria-hidden="true">
                 <span className="bg-[#B0E454]" />
                 <span className="bg-[#B0E454]" />
@@ -153,8 +153,8 @@ export default function PhotoGallery() {
                 }}
                 className={`px-4 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition cursor-pointer ${
                   filter === tab.id
-                    ? 'bg-[#B0E454] text-[#000000] shadow-[0_0_18px_rgba(176,228,84,0.3)]'
-                    : 'bg-[#000000] text-white/75 border border-white/15 hover:border-[#B0E454]/50'
+                    ? 'lux-btn'
+                    : 'lux-subcard text-white/80 hover:text-white'
                 }`}
               >
                 {tab.label}
@@ -164,7 +164,7 @@ export default function PhotoGallery() {
         </Reveal>
 
         {/* Bento / Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-5">
           {filtered.map((item, idx) => {
             const isHeroSpan = filter === 'todo' && idx < 2
             const colSpan = isHeroSpan ? 'lg:col-span-6 h-72 sm:h-80' : 'lg:col-span-4 h-64'
@@ -173,7 +173,7 @@ export default function PhotoGallery() {
                 key={item.src}
                 type="button"
                 onClick={() => setLightboxIdx(idx)}
-                className={`group relative ${colSpan} rounded-2xl overflow-hidden border border-white/12 hover:border-[#B0E454] text-left cursor-pointer transition-all`}
+                className={`group relative ${colSpan} lux-photo-frame text-left cursor-pointer transition-all hover:-translate-y-1`}
               >
                 <Image
                   src={item.src}
@@ -183,12 +183,12 @@ export default function PhotoGallery() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/92 via-[#000000]/15 to-transparent" />
-                <span className="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-full bg-[#000000] backdrop-blur-md border border-white/15 text-[10px] font-extrabold uppercase tracking-wider text-[#B0E454]">
+                <span className="absolute top-3.5 left-3.5 z-30 px-3 py-1 rounded-full lux-subcard text-[10px] font-extrabold uppercase tracking-wider text-[#B0E454]">
                   {item.tag}
                 </span>
-                <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between gap-2">
+                <div className="absolute bottom-3.5 left-4 right-4 z-30 flex items-center justify-between gap-2">
                   <span className="text-sm font-bold text-white">{item.title}</span>
-                  <span className="p-2 rounded-full bg-[#000000] border border-white/15 text-[#B0E454] group-hover:bg-[#B0E454] group-hover:text-[#000000] transition">
+                  <span className="p-2 rounded-full lux-subcard text-[#B0E454] group-hover:bg-[#B0E454] group-hover:text-[#000000] transition">
                     <ZoomIn className="w-4 h-4" />
                   </span>
                 </div>
