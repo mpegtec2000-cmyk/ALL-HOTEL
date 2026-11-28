@@ -134,17 +134,36 @@ export default function Navbar() {
             <CalendarCheck className="w-4 h-4 stroke-[2.5] shrink-0" />
             <span>Reservar Online</span>
           </Link>
+
+          <Link
+            href="/admin"
+            title="Ingresar al Sistema Administrativo (PMS & Escáner QR)"
+            aria-label="Ingresar al Sistema Administrativo"
+            className="inline-flex items-center justify-center w-10 h-10 rounded-full lux-subcard border border-[#B0E454]/40 text-[#B0E454] hover:bg-[#B0E454] hover:text-[#000000] shadow-[0_0_16px_rgba(176,228,84,0.22)] transition-all"
+          >
+            <ShieldCheck className="w-4 h-4 stroke-[2.2]" />
+          </Link>
         </div>
 
-        {/* Mobile Menu Trigger */}
-        <button
-          type="button"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden p-2.5 rounded-xl bg-white/[0.07] border border-white/15 text-white hover:text-[#B0E454] transition"
-          aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
-        >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile Quick System Icon + Menu Trigger */}
+        <div className="flex lg:hidden items-center gap-2">
+          <Link
+            href="/admin"
+            title="Ingresar al Sistema Administrativo"
+            aria-label="Ingresar al Sistema Administrativo"
+            className="p-2.5 rounded-xl bg-[#B0E454]/15 border border-[#B0E454]/45 text-[#B0E454] hover:bg-[#B0E454] hover:text-[#000000] transition"
+          >
+            <ShieldCheck className="w-5 h-5" />
+          </Link>
+          <button
+            type="button"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="p-2.5 rounded-xl bg-white/[0.07] border border-white/15 text-white hover:text-[#B0E454] transition"
+            aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
+          >
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
