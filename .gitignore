@@ -16,3 +16,6 @@ next-env.d.ts
 /data/secrets.local.json
 /*.pdf
 
+
+.vercel
+.env*
