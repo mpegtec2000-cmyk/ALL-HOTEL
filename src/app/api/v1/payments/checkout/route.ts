@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
+import { dispatchBookingConfirmationEmail } from '@/lib/email-service'
 import { PaymentMethod } from '@/types/saas'
 
 export async function POST(request: Request) {
@@ -38,7 +39,6 @@ export async function POST(request: Request) {
       )
     }
 
-    // Detect card brand cleanly from digits (never store full PAN - PCI best practice)
     const digits = cardNumber.replace(/\D/g, '')
     const last4 = digits.slice(-4) || '8842'
     let cardBrand = 'Redcompra Débito'
@@ -54,12 +54,12 @@ export async function POST(request: Request) {
       cardBrand = 'American Express'
     }
 
-    // Optional declined test card check (per Stripe/Transbank test convention 4000...0002)
     if (digits.endsWith('0002')) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Transacción rechazada por el banco emisor (Tarjeta de prueba declinada). Intenta con otra tarjeta.',
+          error:
+            'Transacción rechazada por el banco emisor (Tarjeta de prueba declinada). Intenta con otra tarjeta.',
         },
         { status: 402 }
       )
@@ -86,10 +86,20 @@ export async function POST(request: Request) {
       )
     }
 
+    // Also attempt background live SMTP delivery if App Password is configured
+    const airbnbConfig = db.getAirbnbConfig()
+    dispatchBookingConfirmationEmail({
+      booking: result.booking,
+      settings: db.getSettings(),
+      accounts: airbnbConfig.accounts,
+      triggerSource: 'web_booking',
+    }).catch(() => {})
+
     return NextResponse.json({
       success: true,
       data: result.booking,
       payment: result.payment,
+      emailLog: result.emailLog,
     })
   } catch (error) {
     console.error('Payment checkout error:', error)

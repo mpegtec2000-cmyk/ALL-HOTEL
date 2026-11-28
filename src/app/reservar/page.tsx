@@ -101,18 +101,20 @@ function ReservarContent() {
       .catch(() => {})
   }, [searchParams])
 
-  // Generate QR when confirmed
+  // Generate Cryptographic QR when confirmed
   useEffect(() => {
     if (confirmedBooking?.id) {
-      QRCode.toDataURL(confirmedBooking.id, {
-        width: 240,
+      const payloadToEncode = confirmedBooking.qrToken || confirmedBooking.id
+      QRCode.toDataURL(payloadToEncode, {
+        width: 260,
         margin: 2,
+        errorCorrectionLevel: 'H',
         color: { dark: '#000000', light: '#FFFFFF' },
       })
         .then(setQrDataUrl)
         .catch(() => {})
     }
-  }, [confirmedBooking?.id])
+  }, [confirmedBooking?.id, confirmedBooking?.qrToken])
 
   const activeCategory = useMemo(
     () => categories.find((c) => c.slug === selectedRoom) || categories[0],
@@ -1050,10 +1052,15 @@ function ReservarContent() {
                   />
                 )}
                 <p className="mt-2 text-xs font-black uppercase tracking-wider text-[#000000]">
-                  Pase QR Recepción 12:00
+                  Pase QR Único Check-in / Check-out
                 </p>
-                <p className="text-[11px] text-neutral-600 text-center">
-                  Muestra este código al llegar a Av. Bulnes 119
+                {confirmedBooking.qrToken && (
+                  <code className="mt-1 px-2 py-0.5 rounded bg-neutral-100 text-[10px] font-mono text-neutral-800 break-all text-center">
+                    {confirmedBooking.qrToken}
+                  </code>
+                )}
+                <p className="text-[11px] text-neutral-600 text-center mt-1">
+                  Correo con QR y normas enviado a <strong>{confirmedBooking.clientEmail}</strong>
                 </p>
               </div>
             </div>

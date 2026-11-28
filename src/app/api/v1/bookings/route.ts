@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { computeHotelQuote } from '@/lib/pricing'
-import { BookingSource, RoomCategorySlug } from '@/types/saas'
+import { BookingSource, PaymentMethod, RoomCategorySlug } from '@/types/saas'
 
 export async function GET() {
   const bookings = db.getBookings()
@@ -13,6 +13,7 @@ export async function POST(request: Request) {
     const body = await request.json()
     const {
       roomCategory,
+      assignedRoomNumber,
       checkInDate,
       checkOutDate,
       guestsCount = 2,
@@ -25,8 +26,12 @@ export async function POST(request: Request) {
       requiresParking = false,
       specialRequests = '',
       source = 'web_online',
+      markAsPaidFull = false,
+      paymentMethod = 'efectivo_recepcion',
+      externalCode,
     } = body as {
       roomCategory: RoomCategorySlug
+      assignedRoomNumber?: string
       checkInDate: string
       checkOutDate: string
       guestsCount?: number
@@ -39,6 +44,9 @@ export async function POST(request: Request) {
       requiresParking?: boolean
       specialRequests?: string
       source?: BookingSource
+      markAsPaidFull?: boolean
+      paymentMethod?: PaymentMethod
+      externalCode?: string
     }
 
     if (!roomCategory || !checkInDate || !checkOutDate || !clientName || !clientEmail || !clientPhone) {
@@ -63,19 +71,25 @@ export async function POST(request: Request) {
       )
     }
 
-    const availableRoom = db.findAvailableRoomNumber(roomCategory, checkInDate, checkOutDate)
+    const availableRoom =
+      assignedRoomNumber ||
+      db.findAvailableRoomNumber(roomCategory, checkInDate, checkOutDate)
+
     if (!availableRoom) {
       return NextResponse.json(
         {
           success: false,
-          error: `No quedan unidades disponibles en ${quote.roomCategory.name} para esas fechas. Por favor elige otra categoría o rango.`,
+          error: `No quedan habitaciones disponibles en ${quote.roomCategory.name} para esas fechas. Por favor elige otra habitación o rango.`,
         },
         { status: 409 }
       )
     }
 
+    const isPaidOnCreate = Boolean(markAsPaidFull || source === 'recepcion_directa')
+
     const created = db.createBooking({
       source,
+      externalCode: externalCode?.trim() || undefined,
       roomCategory,
       roomCategoryName: quote.roomCategory.name,
       assignedRoomNumber: availableRoom,
@@ -90,9 +104,11 @@ export async function POST(request: Request) {
       ratePerNight: quote.ratePerNight,
       totalAmount: quote.totalAmount,
       depositRequired: quote.deposit50Amount,
-      amountPaid: 0,
-      paymentStatus: 'unpaid',
-      status: source === 'recepcion_directa' ? 'confirmed' : 'pending_payment',
+      amountPaid: isPaidOnCreate ? quote.totalAmount : 0,
+      paymentStatus: isPaidOnCreate ? 'paid_full' : 'unpaid',
+      paymentMethod: isPaidOnCreate ? paymentMethod : undefined,
+      paidAt: isPaidOnCreate ? new Date().toISOString() : undefined,
+      status: isPaidOnCreate ? 'confirmed' : 'pending_payment',
       vehiclesCount,
       vehiclePlates,
       requiresParking,

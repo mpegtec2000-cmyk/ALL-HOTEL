@@ -1,0 +1,729 @@
+{
+  "settings": {
+    "name": "All Rent Hoteles",
+    "slogan": "Tu estadía, nuestra prioridad.",
+    "address": "Av. Bulnes 119, Quintero, Región de Valparaíso",
+    "city": "Quintero, Chile",
+    "phone": "+56 9 9865 1440",
+    "whatsapp": "56998651440",
+    "email": "reservas@allrenthoteles.cl",
+    "hostName": "All Rent Hoteles",
+    "checkInTime": "12:00",
+    "checkOutTime": "12:00",
+    "depositPercentage": 50,
+    "paymentGatewayMode": "sandbox_interactive",
+    "webpayCommerceCode": "597055555532",
+    "bankTransferDetails": {
+      "bankName": "Banco de Chile / BancoEstado",
+      "accountType": "Cuenta Corriente Empresa",
+      "accountNumber": "00-194-88421-09",
+      "holderName": "All Rent Hoteles SpA",
+      "holderRut": "77.492.810-K",
+      "confirmationEmail": "reservas@allrenthoteles.cl"
+    }
+  },
+  "roomCategories": [
+    {
+      "slug": "superior_matrimonial",
+      "name": "Superior Matrimonial",
+      "subtitle": "Baño privado · Máximo confort frente a la costa de Quintero",
+      "bathroomLabel": "Baño privado",
+      "bathroomType": "privado_en_suite",
+      "pricePerNight": 63500,
+      "maxGuests": 2,
+      "bedConfig": "1 Cama Matrimonial Queen",
+      "sizeM2": 24,
+      "description": "Habitación cálida y luminosa con terminaciones en madera noble, ropa de cama hotelera blanca de alta suavidad, poltrona de lectura y baño privado completo.",
+      "highlights": [
+        "Baño privado",
+        "Cama Matrimonial Queen de lujo",
+        "Smart TV & Wi-Fi de alta velocidad",
+        "Estacionamiento privado gratuito",
+        "Acceso a kitchenette equipada y patio"
+      ],
+      "image": "/images/hab-superior-matrimonial.webp",
+      "gallery": [
+        "/images/hab-superior-matrimonial.webp",
+        "/images/lobby-principal.webp",
+        "/images/salon-comedor-lounge.webp"
+      ],
+      "badge": "Baño Privado",
+      "totalUnits": 3
+    },
+    {
+      "slug": "standard_matrimonial",
+      "name": "Standard Matrimonial",
+      "subtitle": "Baño privado exterior · Descanso acogedor y luminoso",
+      "bathroomLabel": "Baño privado exterior",
+      "bathroomType": "privado_exterior",
+      "pricePerNight": 53500,
+      "maxGuests": 2,
+      "bedConfig": "1 Cama Matrimonial",
+      "sizeM2": 20,
+      "description": "Diseño minimalista y luminoso con piso de madera vitrificada, mesa para dos personas y baño privado exterior de uso exclusivo para la habitación.",
+      "highlights": [
+        "Baño privado exterior (uso exclusivo)",
+        "Cama Matrimonial con ropa blanca hotelera",
+        "Mesa de desayuno / estación de trabajo",
+        "Smart TV & Wi-Fi fibra óptica",
+        "Estacionamiento privado gratuito"
+      ],
+      "image": "/images/hab-standard-matrimonial.webp",
+      "gallery": [
+        "/images/hab-standard-matrimonial.webp",
+        "/images/pasillo-madera-tallada.webp",
+        "/images/vestibulo-escalera-orquideas.webp"
+      ],
+      "totalUnits": 3
+    },
+    {
+      "slug": "doble_dos_camas",
+      "name": "Doble Dos Camas",
+      "subtitle": "Baño privado exterior · Ideal para amigos, colegas o estadías corporativas",
+      "bathroomLabel": "Baño privado exterior",
+      "bathroomType": "privado_exterior",
+      "pricePerNight": 49500,
+      "maxGuests": 2,
+      "bedConfig": "2 Camas Individuales",
+      "sizeM2": 20,
+      "description": "Habitación versátil equipada con dos camas independientes de excelente soporte, iluminación cálida y baño privado exterior completamente sanitizado.",
+      "highlights": [
+        "Baño privado exterior (uso exclusivo)",
+        "2 Camas Individuales independientes",
+        "Wi-Fi de alta velocidad & Smart TV",
+        "Uso libre de kitchenette y patio interior",
+        "Estacionamiento privado gratuito"
+      ],
+      "image": "/images/hab-familiar-luminosa.webp",
+      "gallery": [
+        "/images/hab-familiar-luminosa.webp",
+        "/images/pasillo-mezzanine.webp",
+        "/images/salon-comedor-lounge.webp"
+      ],
+      "totalUnits": 2
+    },
+    {
+      "slug": "single_individual",
+      "name": "Single Individual",
+      "subtitle": "Baño privado exterior · Tarifa ideal para viajeros individuales o ejecutivos",
+      "bathroomLabel": "Baño privado exterior",
+      "bathroomType": "privado_exterior",
+      "pricePerNight": 39500,
+      "maxGuests": 1,
+      "bedConfig": "1 Cama Individual",
+      "sizeM2": 15,
+      "description": "Espacio tranquilo, impecable y seguro en plena Av. Bulnes 119 frente a la playa. Perfecto para viajes de negocios o escapadas individuales de descanso.",
+      "highlights": [
+        "Baño privado exterior (uso exclusivo)",
+        "Estación de trabajo + Wi-Fi rápido",
+        "Kitchenette con refrigerador y microondas",
+        "Estacionamiento privado gratuito",
+        "Sector seguro junto a la Armada"
+      ],
+      "image": "/images/pasillo-mezzanine.webp",
+      "gallery": [
+        "/images/pasillo-mezzanine.webp",
+        "/images/hab-standard-matrimonial.webp",
+        "/images/recepcion-cctv-seguridad.webp"
+      ],
+      "totalUnits": 2
+    },
+    {
+      "slug": "familiar_terraza",
+      "name": "Familiar con Terraza",
+      "subtitle": "Baño privado · Amplitud total con terraza hacia la brisa costera",
+      "bathroomLabel": "Baño privado",
+      "bathroomType": "privado_en_suite",
+      "pricePerNight": 79500,
+      "maxGuests": 4,
+      "bedConfig": "Cama Matrimonial + Camas Adicionales",
+      "sizeM2": 34,
+      "description": "Nuestra habitación más amplia pensada para familias o grupos. Cuenta con baño privado completo, área de estar, comedor interior y salida directa a terraza con vista costera.",
+      "highlights": [
+        "Baño privado",
+        "Terraza panorámica hacia la costa",
+        "Capacidad hasta 4 huéspedes",
+        "Estacionamiento privado gratuito",
+        "Frente a la playa principal de Quintero"
+      ],
+      "image": "/images/terraza-vista-atardecer.webp",
+      "gallery": [
+        "/images/terraza-vista-atardecer.webp",
+        "/images/hab-familiar-luminosa.webp",
+        "/images/playa-quintero-caleta.webp"
+      ],
+      "badge": "Con Terraza",
+      "totalUnits": 2
+    }
+  ],
+  "roomUnits": [
+    {
+      "id": "HAB-101",
+      "number": "101",
+      "floor": 1,
+      "categorySlug": "standard_matrimonial",
+      "status": "disponible"
+    },
+    {
+      "id": "HAB-102",
+      "number": "102",
+      "floor": 1,
+      "categorySlug": "standard_matrimonial",
+      "status": "ocupada",
+      "currentBookingId": "ARH-2026-1041"
+    },
+    {
+      "id": "HAB-103",
+      "number": "103",
+      "floor": 1,
+      "categorySlug": "standard_matrimonial",
+      "status": "disponible"
+    },
+    {
+      "id": "HAB-104",
+      "number": "104",
+      "floor": 1,
+      "categorySlug": "doble_dos_camas",
+      "status": "disponible"
+    },
+    {
+      "id": "HAB-105",
+      "number": "105",
+      "floor": 1,
+      "categorySlug": "doble_dos_camas",
+      "status": "aseo_pendiente"
+    },
+    {
+      "id": "HAB-106",
+      "number": "106",
+      "floor": 1,
+      "categorySlug": "single_individual",
+      "status": "disponible"
+    },
+    {
+      "id": "HAB-107",
+      "number": "107",
+      "floor": 1,
+      "categorySlug": "single_individual",
+      "status": "disponible"
+    },
+    {
+      "id": "HAB-201",
+      "number": "201",
+      "floor": 2,
+      "categorySlug": "superior_matrimonial",
+      "status": "ocupada",
+      "currentBookingId": "ARH-2026-1042"
+    },
+    {
+      "id": "HAB-202",
+      "number": "202",
+      "floor": 2,
+      "categorySlug": "superior_matrimonial",
+      "status": "disponible"
+    },
+    {
+      "id": "HAB-203",
+      "number": "203",
+      "floor": 2,
+      "categorySlug": "superior_matrimonial",
+      "status": "disponible"
+    },
+    {
+      "id": "HAB-204",
+      "number": "204",
+      "floor": 2,
+      "categorySlug": "familiar_terraza",
+      "status": "disponible"
+    },
+    {
+      "id": "HAB-205",
+      "number": "205",
+      "floor": 2,
+      "categorySlug": "familiar_terraza",
+      "status": "disponible"
+    }
+  ],
+  "airbnbConfig": {
+    "enabled": true,
+    "webhookSecret": "arh_quintero_sync_2026",
+    "hotelReceptionEmail": "reservas@allrenthoteles.cl",
+    "imapHost": "imap.gmail.com",
+    "imapPort": 993,
+    "imapUser": "reservas@allrenthoteles.cl",
+    "imapPasswordConfigured": false,
+    "autoAssignRoom": true,
+    "autoRegisterCash": true,
+    "lastSyncAt": "2026-11-24T22:15:00-03:00",
+    "totalSyncedCount": 2
+  },
+  "airbnbLogs": [
+    {
+      "id": "AIR-LOG-001",
+      "receivedAt": "2026-11-24T22:15:00-03:00",
+      "fromEmail": "automated@airbnb.com",
+      "subject": "¡Reserva confirmada! Fernanda Soto llega el 27 nov 2026",
+      "airbnbCode": "HM8P3K9W2L",
+      "eventType": "reservation_confirmed",
+      "guestName": "Fernanda Soto",
+      "roomCategoryDetected": "familiar_terraza",
+      "checkInDate": "2026-11-27",
+      "checkOutDate": "2026-11-29",
+      "totalAmount": 159000,
+      "bookingIdCreated": "ARH-2026-1043",
+      "status": "synced",
+      "rawSnippet": "Código de confirmación: HM8P3K9W2L | Familiar con Terraza (Baño privado) | 2 noches | $159.000 CLP"
+    },
+    {
+      "id": "AIR-LOG-002",
+      "receivedAt": "2026-11-23T18:40:00-03:00",
+      "fromEmail": "automated@airbnb.com",
+      "subject": "¡Reserva confirmada! Martín Lagos llega el 25 nov 2026",
+      "airbnbCode": "HM4R7T2N8Q",
+      "eventType": "reservation_confirmed",
+      "guestName": "Martín Lagos",
+      "roomCategoryDetected": "standard_matrimonial",
+      "checkInDate": "2026-11-24",
+      "checkOutDate": "2026-11-26",
+      "totalAmount": 107000,
+      "bookingIdCreated": "ARH-2026-1041",
+      "status": "synced",
+      "rawSnippet": "Código de confirmación: HM4R7T2N8Q | Standard Matrimonial (Baño privado exterior) | 2 noches | $107.000 CLP"
+    }
+  ],
+  "blockedDates": [
+    {
+      "id": "BLK-01",
+      "date": "2026-12-24",
+      "roomCategory": "single_individual",
+      "roomNumber": "107",
+      "reason": "Mantención",
+      "createdAt": "2026-11-20T10:00:00Z"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "ARH-2026-1042",
+      "source": "web_online",
+      "roomCategory": "superior_matrimonial",
+      "roomCategoryName": "Superior Matrimonial",
+      "assignedRoomNumber": "201",
+      "clientName": "Valentina Contreras",
+      "clientEmail": "v.contreras@gmail.com",
+      "clientPhone": "+56987451230",
+      "clientRut": "18.492.103-4",
+      "checkInDate": "2026-11-24",
+      "checkOutDate": "2026-11-26",
+      "nightsCount": 2,
+      "guestsCount": 2,
+      "ratePerNight": 63500,
+      "totalAmount": 127000,
+      "depositRequired": 63500,
+      "amountPaid": 127000,
+      "paymentStatus": "paid_full",
+      "paymentMethod": "webpay_tarjeta",
+      "paidAt": "2026-11-22T16:30:00Z",
+      "status": "checked_in",
+      "vehiclesCount": 1,
+      "vehiclePlates": [
+        "PBYR-94"
+      ],
+      "requiresParking": true,
+      "specialRequests": "Llegada puntual a las 12:15 hrs. Estacionamiento interior.",
+      "createdAt": "2026-11-22T16:28:00Z",
+      "checkin": {
+        "bookingId": "ARH-2026-1042",
+        "estimatedArrival": "12:15",
+        "vehiclesCount": 1,
+        "vehiclePlates": [
+          "PBYR-94"
+        ],
+        "guestList": [
+          {
+            "name": "Valentina Contreras",
+            "rutOrPassport": "18.492.103-4",
+            "age": 31
+          },
+          {
+            "name": "Diego Fuenzalida",
+            "rutOrPassport": "17.992.410-K",
+            "age": 33
+          }
+        ],
+        "rulesAccepted": true,
+        "rulesAcceptedAt": "2026-11-23T20:10:00Z",
+        "checkedInAt": "2026-11-24T12:18:00Z"
+      },
+      "payments": [
+        {
+          "id": "PAY-9081",
+          "bookingId": "ARH-2026-1042",
+          "gateway": "webpay_tarjeta",
+          "amount": 127000,
+          "paymentMode": "full_100",
+          "status": "approved",
+          "authorizationCode": "TBK-849201",
+          "cardLast4": "4829",
+          "cardBrand": "Visa Crédito",
+          "installments": 3,
+          "createdAt": "2026-11-22T16:30:00Z"
+        }
+      ],
+      "tickets": [
+        {
+          "id": "TCK-201-A",
+          "bookingId": "ARH-2026-1042",
+          "roomNumber": "201",
+          "type": "alistamiento_previo",
+          "title": "Hab. 201 Lista para Check-in 12:00",
+          "operatorName": "Equipo Housekeeping All Rent",
+          "createdAt": "2026-11-24T11:20:00Z",
+          "status": "aprobado",
+          "items": [
+            {
+              "id": "cama",
+              "label": "Ropa de cama blanca planchada & almohadas",
+              "category": "habitacion",
+              "status": "ok"
+            },
+            {
+              "id": "bano",
+              "label": "Baño privado en suite sanitizado + toallas",
+              "category": "bano",
+              "status": "ok"
+            },
+            {
+              "id": "tv_wifi",
+              "label": "Smart TV, control remoto y señal Wi-Fi",
+              "category": "equipamiento",
+              "status": "ok"
+            },
+            {
+              "id": "kitchenette",
+              "label": "Kitchenette (refrigerador/microondas) & patio",
+              "category": "areas_comunes",
+              "status": "ok"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ARH-2026-1041",
+      "externalCode": "HM4R7T2N8Q",
+      "source": "airbnb_email",
+      "roomCategory": "standard_matrimonial",
+      "roomCategoryName": "Standard Matrimonial",
+      "assignedRoomNumber": "102",
+      "clientName": "Martín Lagos",
+      "clientEmail": "martin.lagos@outlook.cl",
+      "clientPhone": "+56993418821",
+      "clientRut": "16.774.209-1",
+      "checkInDate": "2026-11-24",
+      "checkOutDate": "2026-11-26",
+      "nightsCount": 2,
+      "guestsCount": 2,
+      "ratePerNight": 53500,
+      "totalAmount": 107000,
+      "depositRequired": 53500,
+      "amountPaid": 107000,
+      "paymentStatus": "paid_full",
+      "paymentMethod": "airbnb_payout",
+      "paidAt": "2026-11-23T18:40:00Z",
+      "status": "checked_in",
+      "vehiclesCount": 1,
+      "vehiclePlates": [
+        "LZWT-42"
+      ],
+      "requiresParking": true,
+      "specialRequests": "Sincronizado automáticamente desde correo Airbnb (HM4R7T2N8Q).",
+      "createdAt": "2026-11-23T18:40:00Z"
+    },
+    {
+      "id": "ARH-2026-1043",
+      "externalCode": "HM8P3K9W2L",
+      "source": "airbnb_email",
+      "roomCategory": "familiar_terraza",
+      "roomCategoryName": "Familiar con Terraza",
+      "assignedRoomNumber": "204",
+      "clientName": "Fernanda Soto",
+      "clientEmail": "fsoto.viajes@gmail.com",
+      "clientPhone": "+56975540912",
+      "checkInDate": "2026-11-27",
+      "checkOutDate": "2026-11-29",
+      "nightsCount": 2,
+      "guestsCount": 4,
+      "ratePerNight": 79500,
+      "totalAmount": 159000,
+      "depositRequired": 79500,
+      "amountPaid": 159000,
+      "paymentStatus": "paid_full",
+      "paymentMethod": "airbnb_payout",
+      "paidAt": "2026-11-24T22:15:00Z",
+      "status": "confirmed",
+      "requiresParking": true,
+      "specialRequests": "Sincronizado vía Comprobante Email Airbnb (HM8P3K9W2L). Familia con 2 niños.",
+      "createdAt": "2026-11-24T22:15:00Z"
+    },
+    {
+      "id": "ARH-2026-1044",
+      "source": "web_online",
+      "roomCategory": "doble_dos_camas",
+      "roomCategoryName": "Doble Dos Camas",
+      "assignedRoomNumber": "104",
+      "clientName": "Cristóbal Navarrete",
+      "clientEmail": "cnavarrete@ingenieria.cl",
+      "clientPhone": "+56982114490",
+      "clientRut": "15.320.884-7",
+      "checkInDate": "2026-11-28",
+      "checkOutDate": "2026-11-30",
+      "nightsCount": 2,
+      "guestsCount": 2,
+      "ratePerNight": 49500,
+      "totalAmount": 99000,
+      "depositRequired": 49500,
+      "amountPaid": 49500,
+      "paymentStatus": "deposit_paid",
+      "paymentMethod": "webpay_tarjeta",
+      "paidAt": "2026-11-24T19:10:00Z",
+      "status": "confirmed",
+      "vehiclesCount": 1,
+      "vehiclePlates": [
+        "KTRW-18"
+      ],
+      "requiresParking": true,
+      "specialRequests": "Abono 50% online aprobado. Saldo al check-in 12:00.",
+      "createdAt": "2026-11-24T19:08:00Z"
+    },
+    {
+      "id": "ARH-2026-1045",
+      "source": "recepcion_directa",
+      "roomCategory": "single_individual",
+      "roomCategoryName": "Single Individual",
+      "assignedRoomNumber": "106",
+      "clientName": "Rodrigo Alarcón",
+      "clientEmail": "ralarcon@maritima.cl",
+      "clientPhone": "+56964492011",
+      "clientRut": "13.884.129-2",
+      "checkInDate": "2026-11-25",
+      "checkOutDate": "2026-11-26",
+      "nightsCount": 1,
+      "guestsCount": 1,
+      "ratePerNight": 39500,
+      "totalAmount": 39500,
+      "depositRequired": 19750,
+      "amountPaid": 39500,
+      "paymentStatus": "paid_full",
+      "paymentMethod": "transferencia",
+      "paidAt": "2026-11-24T21:00:00Z",
+      "status": "confirmed",
+      "requiresParking": false,
+      "specialRequests": "Comisión laboral Bahía Quintero. Check-in hoy 12:00 hrs.",
+      "createdAt": "2026-11-24T20:55:00Z"
+    }
+  ],
+  "cashTransactions": [
+    {
+      "id": "TX-401",
+      "date": "2026-11-24 22:15",
+      "type": "ingreso",
+      "category": "payout_airbnb",
+      "description": "Reserva Airbnb Email Sync HM8P3K9W2L - Fernanda Soto (Familiar Terraza)",
+      "amount": 159000,
+      "bookingId": "ARH-2026-1043",
+      "receiptNumber": "AIR-HM8P3K9W2L",
+      "operator": "Sync Automático Correo"
+    },
+    {
+      "id": "TX-402",
+      "date": "2026-11-24 21:00",
+      "type": "ingreso",
+      "category": "transferencia_directa",
+      "description": "Pago Estadía Single Individual Hab. 106 - Rodrigo Alarcón",
+      "amount": 39500,
+      "bookingId": "ARH-2026-1045",
+      "receiptNumber": "TRF-99412",
+      "operator": "Recepción All Rent"
+    },
+    {
+      "id": "TX-403",
+      "date": "2026-11-24 19:10",
+      "type": "ingreso",
+      "category": "pago_online_webpay",
+      "description": "Abono 50% Webpay Tarjeta - Cristóbal Navarrete (Doble Dos Camas)",
+      "amount": 49500,
+      "bookingId": "ARH-2026-1044",
+      "receiptNumber": "TBK-773910",
+      "operator": "Pasarela Webpay Online"
+    },
+    {
+      "id": "TX-404",
+      "date": "2026-11-23 18:40",
+      "type": "ingreso",
+      "category": "payout_airbnb",
+      "description": "Reserva Airbnb Email Sync HM4R7T2N8Q - Martín Lagos (Standard Matrimonial)",
+      "amount": 107000,
+      "bookingId": "ARH-2026-1041",
+      "receiptNumber": "AIR-HM4R7T2N8Q",
+      "operator": "Sync Automático Correo"
+    },
+    {
+      "id": "TX-405",
+      "date": "2026-11-22 16:30",
+      "type": "ingreso",
+      "category": "pago_online_webpay",
+      "description": "Pago 100% Webpay Visa - Valentina Contreras (Superior Matrimonial)",
+      "amount": 127000,
+      "bookingId": "ARH-2026-1042",
+      "receiptNumber": "TBK-849201",
+      "operator": "Pasarela Webpay Online"
+    },
+    {
+      "id": "TX-406",
+      "date": "2026-11-23 11:15",
+      "type": "gasto",
+      "category": "lavanderia_blancos",
+      "description": "Servicio lavandería industrial sábanas y toallas hoteleras blancas",
+      "amount": -34000,
+      "receiptNumber": "FAC-1182",
+      "operator": "Administración Central"
+    },
+    {
+      "id": "TX-407",
+      "date": "2026-11-21 17:40",
+      "type": "gasto",
+      "category": "insumos_aseo",
+      "description": "Amenities baño privado, jabón líquido, café y suministros kitchenette",
+      "amount": -22500,
+      "receiptNumber": "BOL-5509",
+      "operator": "Recepción"
+    }
+  ],
+  "clients": [
+    {
+      "id": "CLI-ARH-01",
+      "name": "Valentina Contreras",
+      "rutOrPassport": "18.492.103-4",
+      "phone": "+56987451230",
+      "email": "v.contreras@gmail.com",
+      "origin": "Web Directa",
+      "totalStays": 2,
+      "totalSpent": 254000,
+      "lastStayDate": "2026-11-24",
+      "favoriteRoom": "Superior Matrimonial (201)",
+      "notes": "Destaca cercanía a la playa y tranquilidad del barrio marino."
+    },
+    {
+      "id": "CLI-ARH-02",
+      "name": "Martín Lagos",
+      "rutOrPassport": "16.774.209-1",
+      "phone": "+56993418821",
+      "email": "martin.lagos@outlook.cl",
+      "origin": "Airbnb",
+      "totalStays": 1,
+      "totalSpent": 107000,
+      "lastStayDate": "2026-11-24",
+      "favoriteRoom": "Standard Matrimonial (102)"
+    },
+    {
+      "id": "CLI-ARH-03",
+      "name": "Fernanda Soto",
+      "rutOrPassport": "17.210.493-8",
+      "phone": "+56975540912",
+      "email": "fsoto.viajes@gmail.com",
+      "origin": "Airbnb",
+      "totalStays": 1,
+      "totalSpent": 159000,
+      "lastStayDate": "2026-11-27",
+      "favoriteRoom": "Familiar con Terraza (204)"
+    },
+    {
+      "id": "CLI-ARH-04",
+      "name": "Cristóbal Navarrete",
+      "rutOrPassport": "15.320.884-7",
+      "phone": "+56982114490",
+      "email": "cnavarrete@ingenieria.cl",
+      "origin": "Web Directa",
+      "totalStays": 3,
+      "totalSpent": 297000,
+      "lastStayDate": "2026-11-28",
+      "favoriteRoom": "Doble Dos Camas (104)",
+      "notes": "Viaja regularmente a Quintero por proyectos navales/portuarios."
+    },
+    {
+      "id": "CLI-ARH-05",
+      "name": "Rodrigo Alarcón",
+      "rutOrPassport": "13.884.129-2",
+      "phone": "+56964492011",
+      "email": "ralarcon@maritima.cl",
+      "origin": "Corporativo",
+      "totalStays": 4,
+      "totalSpent": 197500,
+      "lastStayDate": "2026-11-25",
+      "favoriteRoom": "Single Individual (106)"
+    }
+  ],
+  "parkingRecords": [
+    {
+      "id": "PRK-01",
+      "bookingId": "ARH-2026-1042",
+      "roomNumber": "201",
+      "guestName": "Valentina Contreras",
+      "guestRut": "18.492.103-4",
+      "guestPhone": "+56987451230",
+      "vehiclePlate": "PBYR-94",
+      "vehicleModel": "Mazda CX-5 Gris",
+      "parkingSpot": "Estacionamiento Interior #1 (CCTV)",
+      "entryTime": "2026-11-24 12:18",
+      "status": "estacionado",
+      "notes": "Portón cerrado verificado."
+    },
+    {
+      "id": "PRK-02",
+      "bookingId": "ARH-2026-1041",
+      "roomNumber": "102",
+      "guestName": "Martín Lagos",
+      "guestRut": "16.774.209-1",
+      "guestPhone": "+56993418821",
+      "vehiclePlate": "LZWT-42",
+      "vehicleModel": "Kia Sportage Blanco",
+      "parkingSpot": "Estacionamiento Interior #2 (CCTV)",
+      "entryTime": "2026-11-24 13:05",
+      "status": "estacionado"
+    }
+  ],
+  "solicitudes": [
+    {
+      "id": "SOL-2026-01",
+      "nombre": "Carolina Bustamante",
+      "telefono": "+56991283340",
+      "correo": "cbustamante@empresa.cl",
+      "checkInDeseado": "2026-12-18",
+      "noches": 3,
+      "huespedes": 6,
+      "habitacionInteres": "Familiar con Terraza + Superior Matrimonial",
+      "motivoViaje": "Escapada familiar frente a la playa",
+      "mensaje": "Hola All Rent Hoteles, queremos reservar 2 habitaciones para el fin de semana de diciembre con estacionamiento para 2 autos.",
+      "estado": "nueva",
+      "origen": "formulario_web",
+      "createdAt": "2026-11-24T20:15:00Z",
+      "presupuestoEstimado": 429000
+    },
+    {
+      "id": "SOL-2026-02",
+      "nombre": "Patricio Riquelme",
+      "telefono": "+56978831209",
+      "correo": "priquelme@naviera.cl",
+      "checkInDeseado": "2026-12-02",
+      "noches": 4,
+      "huespedes": 2,
+      "habitacionInteres": "Doble Dos Camas",
+      "motivoViaje": "Convenio empresa / Trabajo en puerto",
+      "mensaje": "Consulto disponibilidad y factura para 2 ingenieros de lunes a viernes.",
+      "estado": "cotizado",
+      "origen": "concierge_ia",
+      "createdAt": "2026-11-23T15:30:00Z",
+      "presupuestoEstimado": 198000
+    }
+  ]
+}

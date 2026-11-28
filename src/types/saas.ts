@@ -32,8 +32,11 @@ export type RoomUnitStatus =
   | 'mantencion'
 
 export interface RoomUnit {
-  id: string // e.g. 'HAB-201'
-  number: string // '201'
+  id: string // e.g. 'HAB-101'
+  number: string // '101' .. '110'
+  customName?: string // Editable room name / label for when the client defines custom names
+  costCenterCode?: string // e.g. 'CC-HAB-101'
+  customRatePerNight?: number // Optional custom rate override per physical room
   floor: 1 | 2
   categorySlug: RoomCategorySlug
   status: RoomUnitStatus
@@ -42,12 +45,47 @@ export interface RoomUnit {
   lastCleanedAt?: string
 }
 
+export interface RoomCostCenterSummary {
+  unit: RoomUnit
+  categoryName: string
+  bathroomLabel: string
+  effectiveRatePerNight: number
+  totalRevenue: number
+  totalExpenses: number
+  netProfit: number
+  bookingsCount: number
+  occupiedNights: number
+  activeBooking?: {
+    id: string
+    clientName: string
+    checkInDate: string
+    checkOutDate: string
+    qrStatus?: BookingQrStatus
+    source: BookingSource
+  }
+}
+
 export type BookingStatus =
   | 'pending_payment'
   | 'confirmed'
   | 'checked_in'
   | 'completed'
   | 'cancelled'
+
+export type BookingQrStatus =
+  | 'issued' // Valid for 1st use: Entry Check-in
+  | 'checked_in_active' // Entry used; valid only for 2nd use: Exit Check-out
+  | 'redeemed_closed' // Both Entry & Exit used; permanently closed/burned
+
+export interface QrScanEventLog {
+  id: string
+  bookingId: string
+  qrToken: string
+  action: 'inspect' | 'checkin_entry' | 'checkout_exit' | 'rejected_reuse'
+  operatorName: string
+  timestamp: string
+  notes?: string
+}
 
 export type BookingSource =
   | 'web_online'
@@ -133,7 +171,7 @@ export interface Booking {
   source: BookingSource
   roomCategory: RoomCategorySlug
   roomCategoryName: string
-  assignedRoomNumber?: string // e.g. '201'
+  assignedRoomNumber?: string // '101' .. '110'
   clientName: string
   clientEmail: string
   clientPhone: string
@@ -144,7 +182,7 @@ export interface Booking {
   guestsCount: number
   ratePerNight: number
   totalAmount: number
-  depositRequired: number // 50% option
+  depositRequired: number // 50% reference
   amountPaid: number
   paymentStatus: PaymentStatus
   paymentMethod?: PaymentMethod
@@ -156,24 +194,59 @@ export interface Booking {
   specialRequests?: string
   createdAt: string
   updatedAt?: string
+  // Cryptographic Single-Cycle QR Engine Fields
+  qrToken?: string
+  qrStatus?: BookingQrStatus
+  qrIssuedAt?: string
+  qrCheckInAt?: string
+  qrCheckOutAt?: string
+  qrScanLogs?: QrScanEventLog[]
+  // Portería Extra Nights / Extra Charge Fields
+  extraDaysAdded?: number
+  extraChargesAmount?: number
+  extraChargesNotes?: string
+  // Automated Email Dispatch Tracking
+  confirmationEmailSent?: boolean
+  confirmationEmailId?: string
   checkin?: CheckInData
   tickets?: InspectionTicket[]
   payments?: PaymentRecord[]
+}
+
+export interface AirbnbEmailAccountConfig {
+  id: 'account_1' | 'account_2'
+  label: string // e.g. 'Cuenta Correo Airbnb #1'
+  holderName: string
+  email: string
+  appPassword?: string
+  appPasswordConfigured: boolean
+  imapHost: string
+  imapPort: number
+  smtpHost: string
+  smtpPort: number
+  enabled: boolean
+  lastSyncAt?: string
+  syncedCount: number
 }
 
 export interface AirbnbEmailSyncLog {
   id: string
   receivedAt: string
   fromEmail: string
+  accountLabel?: string
   subject: string
   airbnbCode: string
   eventType: 'reservation_confirmed' | 'reservation_modified' | 'reservation_cancelled' | 'ignored'
   guestName: string
+  guestEmail?: string
   roomCategoryDetected: RoomCategorySlug
+  assignedRoomNumber?: string
   checkInDate: string
   checkOutDate: string
   totalAmount: number
   bookingIdCreated?: string
+  qrTokenGenerated?: string
+  welcomeEmailSent?: boolean
   status: 'synced' | 'duplicate_skipped' | 'cancelled_updated' | 'error'
   rawSnippet: string
   errorDetail?: string
@@ -189,8 +262,29 @@ export interface AirbnbIntegrationConfig {
   imapPasswordConfigured: boolean
   autoAssignRoom: boolean
   autoRegisterCash: boolean
+  autoSendWelcomeQrEmail: boolean
+  accounts: AirbnbEmailAccountConfig[]
   lastSyncAt?: string
   totalSyncedCount: number
+}
+
+export interface EmailOutboxLog {
+  id: string
+  bookingId: string
+  externalCode?: string
+  toEmail: string
+  clientName: string
+  fromAccountEmail: string
+  subject: string
+  qrToken: string
+  qrDataUrl?: string
+  assignedRoomNumber?: string
+  roomCategoryName: string
+  triggerSource: 'web_booking' | 'airbnb_auto_sync' | 'manual_reception' | 'admin_resend'
+  deliveryStatus: 'sent_smtp' | 'stored_outbox_preview' | 'smtp_error'
+  sentAt: string
+  htmlBody: string
+  errorDetail?: string
 }
 
 export interface BlockedRoomDate {
@@ -210,6 +304,7 @@ export interface CashTransaction {
     | 'pago_online_webpay'
     | 'payout_airbnb'
     | 'pago_recepcion'
+    | 'cobro_extra_porteria'
     | 'transferencia_directa'
     | 'lavanderia_blancos'
     | 'insumos_aseo'
@@ -219,6 +314,7 @@ export interface CashTransaction {
   description: string
   amount: number
   bookingId?: string
+  roomNumber?: string // Cost Center assignment ('101' .. '110')
   receiptNumber?: string
   operator: string
 }
@@ -285,7 +381,7 @@ export interface HotelSettings {
   hostName: string
   checkInTime: string // '12:00'
   checkOutTime: string // '12:00'
-  depositPercentage: number // 50
+  depositPercentage: number // 100 default
   paymentGatewayMode: 'sandbox_interactive' | 'webpay_live' | 'mercadopago_live'
   webpayCommerceCode?: string
   bankTransferDetails: {
