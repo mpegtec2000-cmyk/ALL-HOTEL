@@ -215,14 +215,32 @@ export default function AdminSaaSPage() {
   const [blkCategory, setBlkCategory] = useState<RoomCategorySlug | 'all'>('all')
   const [blkReason, setBlkReason] = useState<'Mantención' | 'Aseo Profundo' | 'Bloqueo Operativo'>('Mantención')
 
-  // Copiloto IA
+  // Copiloto IA (Agent Skills Command Center)
   const [aiInput, setAiInput] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
-  const [aiMessages, setAiMessages] = useState<Array<{ role: 'user' | 'assistant'; content: string }>>([
+  const [aiMessages, setAiMessages] = useState<
+    Array<{
+      role: 'user' | 'assistant'
+      content: string
+      skillName?: string
+      actions?: Array<{
+        label: string
+        tab?: AdminTab
+        qrTokenToScan?: string
+        bookingIdToExtend?: string
+      }>
+    }>
+  >([
     {
       role: 'assistant',
+      skillName: 'Motor de 10 Agent Skills Activo',
       content:
-        '¡Hola! Soy el Copiloto IA de All Rent Hoteles Quintero. Estoy conectado en tiempo real a los 10 Centros de Coste (Hab. 101 a 110), al motor criptográfico de QR de Check-in/Check-out, a las 2 cuentas de correo Airbnb y al Libro de Caja. ¿Qué necesitas consultar?',
+        '¡Hola! Soy el **Copiloto IA Ejecutivo de All Rent Hoteles Quintero**, evolucionado con **10 Agent Skills** conectadas en tiempo real a tu base de datos.\n\nPuedes preguntarme por:\n• **Clientes en deuda y saldos por cobrar**\n• **Reservas activas o ficha 360° de un huésped / patente** (ej. *"Busca a Fernanda Soto"* o *"Patente PBYR-94"*)\n• **Rentabilidad P&L de los 10 Centros de Coste (Hab. 101 a 110)**\n• **Auditoría de Códigos QR (listos para entrada, en hotel o cerrados)**\n• **Comandos directos:** ej. *"Poner Hab. 105 disponible"*',
+      actions: [
+        { label: '💸 Ver Clientes en Deuda', tab: 'reservas' },
+        { label: '🏢 Ver 10 Centros de Coste', tab: 'rack' },
+        { label: '🔒 Abrir Escáner QR', tab: 'checkin' },
+      ],
     },
   ])
 
@@ -845,8 +863,16 @@ export default function AdminSaaSPage() {
       const data = await res.json()
       setAiMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: data.reply || 'Sin respuesta.' },
+        {
+          role: 'assistant',
+          content: data.reply || 'Sin respuesta.',
+          skillName: data.skillName,
+          actions: data.actions,
+        },
       ])
+      if (data.skillId === 'system_operational_command') {
+        await refreshAll()
+      }
     } finally {
       setAiLoading(false)
     }
@@ -3302,67 +3328,232 @@ export default function AdminSaaSPage() {
           </div>
         )}
 
-        {/* 11. COPILOTO IA HOTELERO */}
+        {/* 11. COPILOTO IA HOTELERO (AGENT SKILLS COMMAND CENTER) */}
         {activeTab === 'copiloto' && (
-          <div className="max-w-4xl lux-card rounded-3xl overflow-hidden flex flex-col h-[560px]">
-            <div className="p-4 bg-[#000000] border-b border-white/10 flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-2.5">
-                <Bot className="w-5 h-5 text-[#B0E454]" />
-                <strong className="text-sm text-white">Copiloto IA Ejecutivo All Rent Hoteles</strong>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {['¿Cómo está la ocupación hoy?', 'Resumen de caja y Centros de Coste', 'Últimos correos Airbnb'].map(
-                  (chip) => (
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+            {/* Main Chat & Tool Execution Console */}
+            <div className="xl:col-span-8 lux-card-featured rounded-3xl overflow-hidden flex flex-col h-[660px]">
+              <div className="p-4 bg-[#000000] border-b border-white/10 space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-[#B0E454]/15 border border-[#B0E454]/40 flex items-center justify-center">
+                      <Bot className="w-4 h-4 text-[#B0E454]" />
+                    </div>
+                    <div>
+                      <strong className="text-sm text-white block">
+                        Copiloto IA Ejecutivo All Rent Hoteles
+                      </strong>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#B0E454]">
+                        10 Agent Skills Conectadas en Tiempo Real a Base de Datos PMS
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setAiMessages([
+                        {
+                          role: 'assistant',
+                          skillName: 'Motor de 10 Agent Skills Activo',
+                          content:
+                            'Historial reiniciado. ¿Qué deseas auditar en la base de datos? (Ej: *"¿Qué clientes tienen deuda?"*, *"Rentabilidad de las 10 habitaciones"*, *"Estado de los códigos QR"* o *"Busca a Fernanda Soto"*).',
+                        },
+                      ])
+                    }
+                    className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] text-white/60 hover:text-white cursor-pointer"
+                  >
+                    Limpiar Chat
+                  </button>
+                </div>
+
+                {/* Quick Skill Trigger Pills */}
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    { label: '💸 Clientes en Deuda / Por Cobrar', prompt: '¿Qué clientes tienen deuda o saldo pendiente de pago?' },
+                    { label: '🏨 Reservas & Ocupación Hoy', prompt: 'Muéstrame todas las reservas activas y la ocupación de hoy' },
+                    { label: '🏢 Rentabilidad 10 Centros de Coste', prompt: 'Dame el reporte de rentabilidad de los 10 Centros de Coste (Hab. 101 a 110)' },
+                    { label: '🔒 Auditoría Códigos QR', prompt: '¿Cuál es el estado de todos los códigos QR emitidos, en hotel y cerrados?' },
+                    { label: '💰 Balance Caja & Canales', prompt: 'Resumen financiero de caja, ingresos Webpay, Airbnb y gastos' },
+                    { label: '🚗 Patentes en Estacionamiento', prompt: '¿Qué vehículos y patentes están en el estacionamiento interior ahora?' },
+                    { label: '📬 Correos Airbnb & Outbox QR', prompt: 'Estado de las 2 cuentas de correo Airbnb y últimos correos con QR enviados' },
+                    { label: '📩 Cotizaciones Web Pendientes', prompt: '¿Qué solicitudes web y clientes frecuentes tenemos en el CRM?' },
+                  ].map((chip) => (
                     <button
-                      key={chip}
+                      key={chip.label}
                       type="button"
-                      onClick={() => handleSendCopilot(chip)}
-                      className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] text-white/80 hover:border-[#B0E454] cursor-pointer"
+                      onClick={() => handleSendCopilot(chip.prompt)}
+                      className="px-2.5 py-1 rounded-lg bg-[#090B08] border border-white/12 text-[11px] font-semibold text-white/85 hover:border-[#B0E454] hover:text-[#B0E454] transition cursor-pointer"
                     >
-                      {chip}
+                      {chip.label}
                     </button>
-                  )
+                  ))}
+                </div>
+              </div>
+
+              {/* Conversation Transcript */}
+              <div className="flex-1 overflow-y-auto p-5 space-y-4 text-xs sm:text-sm">
+                {aiMessages.map((m, idx) => (
+                  <div
+                    key={idx}
+                    className={`p-4 rounded-2xl leading-relaxed space-y-2.5 ${
+                      m.role === 'user'
+                        ? 'bg-[#B0E454] text-[#000000] font-bold ml-10 sm:ml-20'
+                        : 'bg-[#070906] border border-white/15 text-white/95 mr-4 sm:mr-10'
+                    }`}
+                  >
+                    {m.role === 'assistant' && m.skillName && (
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#B0E454]/15 border border-[#B0E454]/40 text-[#B0E454] text-[10px] font-black uppercase tracking-wider">
+                        <Sparkles className="w-3 h-3" /> Skill Ejecutada: {m.skillName}
+                      </div>
+                    )}
+
+                    <div className="whitespace-pre-line">{m.content}</div>
+
+                    {/* Interactive Action Buttons Returned by the Agent Skill */}
+                    {m.role === 'assistant' && m.actions && m.actions.length > 0 && (
+                      <div className="flex flex-wrap gap-2 pt-2 border-t border-white/10">
+                        {m.actions.map((act, aIdx) => (
+                          <button
+                            key={aIdx}
+                            type="button"
+                            onClick={() => {
+                              if (act.qrTokenToScan) {
+                                setQrScanInput(act.qrTokenToScan)
+                                handleExecuteQrScan(act.qrTokenToScan, 'inspect')
+                                setActiveTab('checkin')
+                                return
+                              }
+                              if (act.bookingIdToExtend) {
+                                const targetB = bookings.find((b) => b.id === act.bookingIdToExtend)
+                                if (targetB) {
+                                  openExtendStayModal(targetB)
+                                  return
+                                }
+                              }
+                              if (act.tab) {
+                                setActiveTab(act.tab)
+                              }
+                            }}
+                            className="px-3 py-1.5 rounded-xl bg-[#B0E454] text-[#000000] text-[11px] font-black uppercase tracking-wider hover:bg-[#BEEB6B] transition cursor-pointer"
+                          >
+                            {act.label} →
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {aiLoading && (
+                  <div className="p-4 rounded-2xl bg-[#070906] border border-[#B0E454]/30 text-xs text-[#B0E454] flex items-center gap-2 mr-12">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Ejecutando Agent Skill sobre la base de datos de All Rent Hoteles...</span>
+                  </div>
                 )}
               </div>
-            </div>
 
-            <div className="flex-1 overflow-y-auto p-5 space-y-3 text-xs sm:text-sm">
-              {aiMessages.map((m, idx) => (
-                <div
-                  key={idx}
-                  className={`p-4 rounded-2xl whitespace-pre-line leading-relaxed ${
-                    m.role === 'user'
-                      ? 'bg-[#B0E454] text-[#000000] font-bold ml-12'
-                      : 'bg-[#000000] border border-white/10 text-white/90 mr-8'
-                  }`}
-                >
-                  {m.content}
-                </div>
-              ))}
-              {aiLoading && <p className="text-xs text-white/50">Analizando datos del hotel...</p>}
-            </div>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                handleSendCopilot()
-              }}
-              className="p-4 bg-[#000000] border-t border-white/10 flex gap-2"
-            >
-              <input
-                type="text"
-                value={aiInput}
-                onChange={(e) => setAiInput(e.target.value)}
-                placeholder="Pregunta por las 10 habitaciones, QR de reservas, ingresos o Airbnb..."
-                className="flex-1 bg-[#000000] border border-white/15 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:border-[#B0E454] focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="px-5 py-2.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase inline-flex items-center gap-1.5 cursor-pointer"
+              {/* Chat Input Bar */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  handleSendCopilot()
+                }}
+                className="p-4 bg-[#000000] border-t border-white/10 flex gap-2"
               >
-                <Send className="w-4 h-4" /> Consultar
-              </button>
-            </form>
+                <input
+                  type="text"
+                  value={aiInput}
+                  onChange={(e) => setAiInput(e.target.value)}
+                  placeholder="Pregunta por clientes en deuda, un huésped (ej. Fernanda Soto), patente, QR, caja o di 'poner Hab. 105 disponible'..."
+                  className="flex-1 bg-[#000000] border border-white/20 rounded-xl px-4 py-3 text-xs sm:text-sm text-white focus:border-[#B0E454] focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={aiLoading}
+                  className="px-6 py-3 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase inline-flex items-center gap-1.5 hover:bg-[#BEEB6B] cursor-pointer"
+                >
+                  <Send className="w-4 h-4" /> Consultar
+                </button>
+              </form>
+            </div>
+
+            {/* Right Sidebar: Live Agent Skills Catalog & 1-Click Guest Dossier Inspector */}
+            <div className="xl:col-span-4 space-y-5">
+              <div className="lux-card rounded-3xl p-5 space-y-3.5">
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#B0E454]">
+                    ARQUITECTURA AGENT SKILLS
+                  </span>
+                  <h3 className="text-base font-black text-white">
+                    Consultar Ficha 360° de un Huésped
+                  </h3>
+                  <p className="text-xs text-white/65">
+                    Haz clic en cualquier huésped para que el Copiloto IA audite su reserva, estado de deuda, habitación, matrícula y token QR:
+                  </p>
+                </div>
+
+                <div className="space-y-1.5">
+                  {bookings.slice(0, 6).map((b) => {
+                    const debt = Math.max(0, b.totalAmount - (b.amountPaid || 0))
+                    return (
+                      <button
+                        key={b.id}
+                        type="button"
+                        onClick={() =>
+                          handleSendCopilot(`Muéstrame la ficha completa y estado de pago de ${b.clientName} (${b.id})`)
+                        }
+                        className="w-full p-2.5 rounded-xl bg-[#000000] border border-white/10 hover:border-[#B0E454] text-left flex items-center justify-between gap-2 transition cursor-pointer"
+                      >
+                        <div className="min-w-0">
+                          <strong className="text-xs text-white block truncate">
+                            {b.clientName}
+                          </strong>
+                          <span className="text-[10px] text-white/55 font-mono">
+                            {b.id} · Hab. {b.assignedRoomNumber || '-'}
+                          </span>
+                        </div>
+                        <span
+                          className={`px-2 py-0.5 rounded text-[10px] font-black uppercase shrink-0 ${
+                            debt > 0
+                              ? 'bg-red-500/20 text-red-300 border border-red-500/40'
+                              : 'bg-[#B0E454]/15 text-[#B0E454]'
+                          }`}
+                        >
+                          {debt > 0 ? `Debe ${formatCLP(debt)}` : '100% Pagado'}
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div className="lux-card rounded-3xl p-5 space-y-3">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#B0E454]">
+                  COMANDOS OPERATIVOS DESDE EL CHAT
+                </span>
+                <h3 className="text-sm font-black text-white">
+                  Ejecuta Acciones Directas con Lenguaje Natural
+                </h3>
+                <p className="text-xs text-white/65">
+                  Prueba enviar uno de estos comandos al Copiloto IA para modificar el estado de las habitaciones en vivo:
+                </p>
+                <div className="space-y-1.5">
+                  {[
+                    'Poner Hab. 105 disponible',
+                    'Marcar Hab. 103 en aseo',
+                    'Poner Hab. 108 disponible',
+                  ].map((cmd) => (
+                    <button
+                      key={cmd}
+                      type="button"
+                      onClick={() => handleSendCopilot(cmd)}
+                      className="w-full px-3 py-2 rounded-xl bg-[#000000] border border-white/12 hover:border-[#B0E454] text-left text-xs font-mono text-[#B0E454] cursor-pointer"
+                    >
+                      &gt; &ldquo;{cmd}&rdquo;
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </main>

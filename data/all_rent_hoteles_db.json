@@ -201,7 +201,8 @@
       "costCenterCode": "CC-HAB-105",
       "floor": 1,
       "categorySlug": "single_individual",
-      "status": "aseo_pendiente"
+      "status": "disponible",
+      "lastCleanedAt": "2026-11-28T02:48:24.066Z"
     },
     {
       "id": "HAB-106",
