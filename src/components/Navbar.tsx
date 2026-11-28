@@ -13,8 +13,9 @@ import {
   Sun,
   MapPin,
   Clock,
+  UserCheck,
 } from 'lucide-react'
-import { COOKIE_KEYS, fastCachedFetch } from '@/lib/speed-cookies'
+import { COOKIE_KEYS, fastCachedFetch, getClientSessionCookie } from '@/lib/speed-cookies'
 
 const NAV_LINKS = [
   { href: '#espacio', label: 'El Hotel' },
@@ -30,10 +31,16 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [weatherTemp, setWeatherTemp] = useState<number | null>(null)
   const [activeHash, setActiveHash] = useState('#espacio')
+  const [clientName, setClientName] = useState<string | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
     window.addEventListener('scroll', onScroll, { passive: true })
+
+    const clientSession = getClientSessionCookie()
+    if (clientSession?.name) {
+      setClientName(clientSession.name.split(' ')[0])
+    }
 
     fastCachedFetch<{ success?: boolean; data?: { tempC?: number } }>(
       '/api/v1/weather',
@@ -129,6 +136,14 @@ export default function Navbar() {
           )}
 
           <Link
+            href="/registro"
+            className="whitespace-nowrap inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-3.5 py-2.5 rounded-full lux-subcard text-white hover:text-[#B0E454] transition-all"
+          >
+            <UserCheck className="w-3.5 h-3.5 text-[#B0E454] shrink-0" />
+            <span>{clientName ? `Cuenta (${clientName})` : 'Registro / Cliente'}</span>
+          </Link>
+
+          <Link
             href="/mi-reserva"
             className="whitespace-nowrap inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full lux-subcard text-white hover:text-[#B0E454] transition-all"
           >
@@ -202,14 +217,22 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2">
             <Link
               href="/reservar"
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(176,228,84,0.35)]"
             >
               <CalendarCheck className="w-4 h-4" />
-              Reservar con Pago Online
+              Reservar Online
+            </Link>
+            <Link
+              href="/registro"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl border border-[#B0E454]/40 bg-[#B0E454]/10 text-[#B0E454] font-bold text-xs uppercase tracking-wider"
+            >
+              <UserCheck className="w-4 h-4" />
+              {clientName ? `Mi Cuenta (${clientName})` : 'Registro / Cliente'}
             </Link>
             <Link
               href="/mi-reserva"
@@ -217,7 +240,7 @@ export default function Navbar() {
               className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl border border-white/20 bg-white/5 text-white font-bold text-xs uppercase tracking-wider"
             >
               <QrCode className="w-4 h-4 text-[#B0E454]" />
-              Mi Reserva / Pase QR
+              Mi Reserva / QR
             </Link>
           </div>
 

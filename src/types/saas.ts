@@ -165,10 +165,14 @@ export interface PaymentRecord {
   createdAt: string
 }
 
+export type BookingAccountMode = 'invitado' | 'cliente_registrado'
+
 export interface Booking {
   id: string // e.g. 'ARH-2026-1042'
   externalCode?: string // e.g. Airbnb confirmation code 'HM8K9P2Q4R'
   source: BookingSource
+  bookingAccountMode?: BookingAccountMode
+  clientId?: string
   roomCategory: RoomCategorySlug
   roomCategoryName: string
   assignedRoomNumber?: string // '101' .. '110'
@@ -325,7 +329,11 @@ export interface Client {
   rutOrPassport: string
   phone: string
   email: string
-  origin: 'Web Directa' | 'Airbnb' | 'Recepción' | 'Corporativo'
+  passwordHash?: string
+  isRegisteredAccount?: boolean
+  vehiclePlate?: string
+  createdAt?: string
+  origin: 'Web Directa' | 'Airbnb' | 'Recepción' | 'Corporativo' | 'Registro Web'
   totalStays: number
   totalSpent: number
   lastStayDate: string

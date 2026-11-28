@@ -131,12 +131,17 @@ export default function LocationMapFooter() {
               <ul className="space-y-2 text-white/75">
                 <li>
                   <Link href="/reservar" className="hover:text-[#B0E454] transition">
-                    Reservar Online con Pago
+                    Reservar Online (Invitado o Cliente)
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/registro" className="hover:text-[#B0E454] transition">
+                    Registro &amp; Cuenta de Cliente
                   </Link>
                 </li>
                 <li>
                   <Link href="/mi-reserva" className="hover:text-[#B0E454] transition">
-                    Portal Huésped & Check-in QR
+                    Portal Huésped &amp; Check-in QR
                   </Link>
                 </li>
                 <li>

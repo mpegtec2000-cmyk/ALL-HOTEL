@@ -9,7 +9,43 @@ export const COOKIE_KEYS = {
   BOOKING_DRAFT: 'arh_booking_draft',
   LAST_BOOKING_CODE: 'arh_last_booking_code',
   VISITOR_SESSION: 'arh_visitor_fast_session',
+  CLIENT_ACCOUNT_SESSION: 'arh_client_account_session',
 } as const
+
+export interface ClientSessionCookie {
+  id: string
+  name: string
+  email: string
+  phone: string
+  rutOrPassport: string
+  vehiclePlate?: string
+  totalStays?: number
+}
+
+export function saveClientSessionCookie(client: ClientSessionCookie): void {
+  setCachedJsonCookie<ClientSessionCookie>(COOKIE_KEYS.CLIENT_ACCOUNT_SESSION, client, 30)
+  saveBookingDraftCookie({
+    clientName: client.name,
+    clientEmail: client.email,
+    clientPhone: client.phone,
+    clientRut: client.rutOrPassport,
+    ...(client.vehiclePlate ? { vehiclePlate: client.vehiclePlate } : {}),
+  })
+}
+
+export function getClientSessionCookie(): ClientSessionCookie | null {
+  return getCachedJsonCookie<ClientSessionCookie>(COOKIE_KEYS.CLIENT_ACCOUNT_SESSION, 86400 * 30)
+}
+
+export function clearClientSessionCookie(): void {
+  if (typeof window === 'undefined') return
+  setFastCookie(COOKIE_KEYS.CLIENT_ACCOUNT_SESSION, '', -1)
+  try {
+    window.sessionStorage.removeItem(COOKIE_KEYS.CLIENT_ACCOUNT_SESSION)
+  } catch {
+    // ignore
+  }
+}
 
 export interface BookingDraftCookie {
   roomCategory?: RoomCategorySlug

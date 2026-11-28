@@ -48,6 +48,7 @@ export default function SpeedOptimizerAndCookies() {
     const idleHandle = scheduleIdle(() => {
       // Prefetch Next.js app routes so navigation is instantaneous (<25ms)
       router.prefetch('/reservar')
+      router.prefetch('/registro')
       router.prefetch('/mi-reserva')
       router.prefetch('/admin')
 

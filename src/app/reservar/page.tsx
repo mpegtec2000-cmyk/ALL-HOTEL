@@ -25,13 +25,21 @@ import {
   Users,
   Wallet,
   AlertTriangle,
+  UserCheck,
+  UserPlus,
+  LogIn,
+  LogOut,
 } from 'lucide-react'
 import { OFFICIAL_ROOM_CATEGORIES, computeHotelQuote, formatCLP } from '@/lib/pricing'
 import {
+  ClientSessionCookie,
   COOKIE_KEYS,
+  clearClientSessionCookie,
   fastCachedFetch,
   getBookingDraftCookie,
+  getClientSessionCookie,
   saveBookingDraftCookie,
+  saveClientSessionCookie,
   setFastCookie,
 } from '@/lib/speed-cookies'
 import { Booking, PaymentMethod, PaymentRecord, RoomCategory, RoomCategorySlug } from '@/types/saas'
@@ -49,7 +57,17 @@ function ReservarContent() {
   const [checkOutDate, setCheckOutDate] = useState('')
   const [guestsCount, setGuestsCount] = useState(2)
 
-  // Step 2: Guest & Parking
+  // Step 2: Dual Mode (Invitado vs Cliente Registrado) + Guest & Parking
+  const [bookingMode, setBookingMode] = useState<'invitado' | 'cliente'>('invitado')
+  const [loggedClient, setLoggedClient] = useState<ClientSessionCookie | null>(null)
+  const [clientAuthTab, setClientAuthTab] = useState<'login' | 'register'>('login')
+  const [loginEmailInput, setLoginEmailInput] = useState('')
+  const [loginPassInput, setLoginPassInput] = useState('')
+  const [authLoading, setAuthLoading] = useState(false)
+  const [authFeedback, setAuthFeedback] = useState('')
+  const [createAccountOnGuestBooking, setCreateAccountOnGuestBooking] = useState(false)
+  const [guestNewAccountPassword, setGuestNewAccountPassword] = useState('')
+
   const [clientName, setClientName] = useState('')
   const [clientEmail, setClientEmail] = useState('')
   const [clientPhone, setClientPhone] = useState('')
@@ -82,7 +100,25 @@ function ReservarContent() {
     const qRoom = searchParams.get('room') as RoomCategorySlug | null
     const qIn = searchParams.get('checkIn')
     const qOut = searchParams.get('checkOut')
+    const qModo = searchParams.get('modo')
     const draft = getBookingDraftCookie()
+    const clientSession = getClientSessionCookie()
+
+    if (clientSession?.email) {
+      setLoggedClient(clientSession)
+      if (qModo !== 'invitado') {
+        setBookingMode('cliente')
+      }
+      setClientName(clientSession.name)
+      setClientEmail(clientSession.email)
+      setClientPhone(clientSession.phone)
+      setClientRut(clientSession.rutOrPassport)
+      if (clientSession.vehiclePlate) setVehiclePlate(clientSession.vehiclePlate)
+    } else if (qModo === 'cliente') {
+      setBookingMode('cliente')
+    } else {
+      setBookingMode('invitado')
+    }
 
     const initialRoom =
       (qRoom && OFFICIAL_ROOM_CATEGORIES.some((c) => c.slug === qRoom) ? qRoom : null) ||
@@ -224,6 +260,45 @@ function ReservarContent() {
     return digits
   }
 
+  async function handleInlineClientLogin(overrideEmail?: string, overridePass?: string) {
+    const emailToUse = (overrideEmail ?? loginEmailInput).trim()
+    const passToUse = (overridePass ?? loginPassInput).trim()
+    if (!emailToUse || !passToUse) {
+      setErrorMsg('Ingresa tu correo y contraseña de cliente.')
+      return
+    }
+    setAuthLoading(true)
+    setErrorMsg('')
+    setAuthFeedback('')
+    try {
+      const res = await fetch('/api/v1/clientes/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'login',
+          email: emailToUse,
+          password: passToUse,
+        }),
+      })
+      const data = await res.json()
+      if (data.success && data.client) {
+        saveClientSessionCookie(data.client)
+        setLoggedClient(data.client)
+        setBookingMode('cliente')
+        setClientName(data.client.name)
+        setClientEmail(data.client.email)
+        setClientPhone(data.client.phone)
+        setClientRut(data.client.rutOrPassport)
+        if (data.client.vehiclePlate) setVehiclePlate(data.client.vehiclePlate)
+        setAuthFeedback(`✅ Sesión iniciada como ${data.client.name}. Datos autocompletados.`)
+      } else {
+        setErrorMsg(data.error || 'No se pudo iniciar sesión.')
+      }
+    } finally {
+      setAuthLoading(false)
+    }
+  }
+
   async function handleProceedToPayment(e: React.FormEvent) {
     e.preventDefault()
     if (!quote || quote.nightsCount <= 0) return
@@ -231,6 +306,31 @@ function ReservarContent() {
     setErrorMsg('')
 
     try {
+      // If user chose to register their client account during guest checkout or in register tab
+      if (
+        (bookingMode === 'invitado' && createAccountOnGuestBooking && guestNewAccountPassword.trim().length >= 4) ||
+        (bookingMode === 'cliente' && !loggedClient && clientAuthTab === 'register' && guestNewAccountPassword.trim().length >= 4)
+      ) {
+        const regRes = await fetch('/api/v1/clientes/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'register',
+            name: clientName,
+            rutOrPassport: clientRut,
+            email: clientEmail,
+            phone: clientPhone,
+            vehiclePlate: requiresParking ? vehiclePlate : undefined,
+            password: guestNewAccountPassword,
+          }),
+        })
+        const regData = await regRes.json()
+        if (regData.success && regData.client) {
+          saveClientSessionCookie(regData.client)
+          setLoggedClient(regData.client)
+        }
+      }
+
       const res = await fetch('/api/v1/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -352,18 +452,53 @@ function ReservarContent() {
           </div>
         </div>
 
-        {/* Header */}
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#B0E454]/15 border border-[#B0E454]/35 text-[#B0E454] text-xs font-extrabold uppercase tracking-wider mb-3">
-            <Lock className="w-3.5 h-3.5" /> Reserva Online Oficial & Pasarela de Pago Segura
+        {/* Header + Dual Booking Mode Switcher (Invitado vs Cliente) */}
+        <div className="mb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-5">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#B0E454]/15 border border-[#B0E454]/35 text-[#B0E454] text-xs font-extrabold uppercase tracking-wider mb-3">
+              <Lock className="w-3.5 h-3.5" /> Reserva Online Oficial &amp; Pasarela de Pago Segura
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
+              Reserva tu Estadía en <span className="text-[#B0E454]">Quintero</span>
+            </h1>
+            <p className="text-sm text-white/70 mt-1">
+              Av. Bulnes 119, frente a la playa principal · Horario oficial:{' '}
+              <strong className="text-white">Check-in 12:00 hrs a Check-out 12:00 hrs</strong>.
+            </p>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
-            Reserva tu Estadía en <span className="text-[#B0E454]">Quintero</span>
-          </h1>
-          <p className="text-sm text-white/70 mt-1">
-            Av. Bulnes 119, frente a la playa principal · Horario oficial:{' '}
-            <strong className="text-white">Check-in 12:00 hrs a Check-out 12:00 hrs</strong>.
-          </p>
+
+          {/* Top Dual Mode Selector Pill: Invitado vs Cliente */}
+          <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-[#000000] border border-white/15 self-start lg:self-auto">
+            <button
+              type="button"
+              onClick={() => setBookingMode('invitado')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer ${
+                bookingMode === 'invitado'
+                  ? 'bg-[#B0E454] text-[#000000]'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              <Users className="w-3.5 h-3.5" /> Modo Invitado
+            </button>
+            <button
+              type="button"
+              onClick={() => setBookingMode('cliente')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer ${
+                bookingMode === 'cliente'
+                  ? 'bg-[#B0E454] text-[#000000]'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              <UserCheck className="w-3.5 h-3.5" />
+              {loggedClient ? `Cliente (${loggedClient.name.split(' ')[0]})` : 'Modo Cliente / Registro'}
+            </button>
+            <Link
+              href="/registro?returnTo=reservar"
+              className="px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-[11px] font-bold text-[#B0E454] hover:border-[#B0E454]"
+            >
+              Sección Registro →
+            </Link>
+          </div>
         </div>
 
         {/* Stepper */}
@@ -549,18 +684,200 @@ function ReservarContent() {
                   onSubmit={handleProceedToPayment}
                   className="bg-[#000000] border border-white/15 rounded-3xl p-6 sm:p-8 space-y-6"
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
                     <h2 className="text-xl font-black text-white">
-                      2. Datos del Huésped Titular & Estacionamiento
+                      2. Modalidad de Reserva &amp; Datos del Huésped
                     </h2>
                     <button
                       type="button"
                       onClick={() => setStep(1)}
                       className="text-xs font-bold text-white/70 hover:text-[#B0E454] inline-flex items-center gap-1 cursor-pointer"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" /> Cambiar fechas
+                      <ArrowLeft className="w-3.5 h-3.5" /> Cambiar habitación o fechas
                     </button>
                   </div>
+
+                  {/* DUAL BOOKING MODE SELECTOR CARDS: INVITADO VS CLIENTE */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setBookingMode('invitado')}
+                      className={`p-4 rounded-2xl border text-left transition cursor-pointer ${
+                        bookingMode === 'invitado'
+                          ? 'bg-[#090C07] border-[#B0E454] shadow-[0_0_20px_rgba(176,228,84,0.12)]'
+                          : 'bg-[#000000] border-white/15 hover:border-white/30'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black uppercase text-[#B0E454] flex items-center gap-1.5">
+                          <Users className="w-4 h-4" /> Reservar como Invitado
+                        </span>
+                        {bookingMode === 'invitado' && (
+                          <span className="px-2 py-0.5 rounded-full bg-[#B0E454] text-[#000000] text-[10px] font-black">
+                            ACTIVO
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-white/70 mt-1.5">
+                        Reserva express sin necesidad de cuenta. Recibirás tu Código QR Único directamente en tu correo.
+                      </p>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setBookingMode('cliente')}
+                      className={`p-4 rounded-2xl border text-left transition cursor-pointer ${
+                        bookingMode === 'cliente'
+                          ? 'bg-[#090C07] border-[#B0E454] shadow-[0_0_20px_rgba(176,228,84,0.12)]'
+                          : 'bg-[#000000] border-white/15 hover:border-white/30'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black uppercase text-[#B0E454] flex items-center gap-1.5">
+                          <UserCheck className="w-4 h-4" /> Reservar como Cliente
+                        </span>
+                        {bookingMode === 'cliente' && (
+                          <span className="px-2 py-0.5 rounded-full bg-[#B0E454] text-[#000000] text-[10px] font-black">
+                            ACTIVO
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-white/70 mt-1.5">
+                        Inicia sesión o regístrate para autocompletar tus datos, guardar tu patente y acumular tus Pases QR.
+                      </p>
+                    </button>
+                  </div>
+
+                  {/* IF MODO CLIENTE SELECTED: SHOW LOGGED CLIENT BANNER OR INLINE LOGIN/REGISTER */}
+                  {bookingMode === 'cliente' && (
+                    <div className="p-5 rounded-2xl bg-[#080A07] border border-[#B0E454]/45 space-y-4">
+                      {loggedClient ? (
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                          <div className="space-y-1">
+                            <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase text-[#B0E454]">
+                              <CheckCircle2 className="w-4 h-4" /> Sesión de Cliente Activa
+                            </span>
+                            <p className="text-sm font-bold text-white">
+                              {loggedClient.name} · <span className="text-white/70">{loggedClient.email}</span>
+                            </p>
+                            <p className="text-xs text-white/60">
+                              Tus datos de cliente y matrícula fueron cargados automáticamente abajo.
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Link
+                              href="/registro"
+                              className="px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs font-bold text-[#B0E454]"
+                            >
+                              Ver Mi Cuenta
+                            </Link>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                clearClientSessionCookie()
+                                setLoggedClient(null)
+                              }}
+                              className="px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs font-bold text-white/70 hover:text-red-400 inline-flex items-center gap-1 cursor-pointer"
+                            >
+                              <LogOut className="w-3.5 h-3.5" /> Salir
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-4">
+                          <div className="flex flex-wrap items-center justify-between gap-2">
+                            <div className="flex gap-2">
+                              <button
+                                type="button"
+                                onClick={() => setClientAuthTab('login')}
+                                className={`px-3.5 py-1.5 rounded-xl text-xs font-black uppercase cursor-pointer ${
+                                  clientAuthTab === 'login'
+                                    ? 'bg-[#B0E454] text-[#000000]'
+                                    : 'bg-white/5 text-white/70'
+                                }`}
+                              >
+                                <LogIn className="w-3.5 h-3.5 inline mr-1" /> Ya tengo Cuenta
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setClientAuthTab('register')}
+                                className={`px-3.5 py-1.5 rounded-xl text-xs font-black uppercase cursor-pointer ${
+                                  clientAuthTab === 'register'
+                                    ? 'bg-[#B0E454] text-[#000000]'
+                                    : 'bg-white/5 text-white/70'
+                                }`}
+                              >
+                                <UserPlus className="w-3.5 h-3.5 inline mr-1" /> Crear Cuenta Aquí
+                              </button>
+                            </div>
+
+                            <Link
+                              href="/registro?returnTo=reservar"
+                              className="text-xs font-bold text-[#B0E454] hover:underline"
+                            >
+                              Abrir Sección Registro Completa →
+                            </Link>
+                          </div>
+
+                          {clientAuthTab === 'login' ? (
+                            <div className="space-y-3">
+                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                                <input
+                                  type="email"
+                                  value={loginEmailInput}
+                                  onChange={(e) => setLoginEmailInput(e.target.value)}
+                                  placeholder="Correo de cliente..."
+                                  className="bg-[#000000] border border-white/20 rounded-xl px-3.5 py-2.5 text-xs text-white"
+                                />
+                                <input
+                                  type="password"
+                                  value={loginPassInput}
+                                  onChange={(e) => setLoginPassInput(e.target.value)}
+                                  placeholder="Contraseña..."
+                                  className="bg-[#000000] border border-white/20 rounded-xl px-3.5 py-2.5 text-xs text-white"
+                                />
+                                <button
+                                  type="button"
+                                  disabled={authLoading}
+                                  onClick={() => handleInlineClientLogin()}
+                                  className="py-2.5 px-4 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase cursor-pointer"
+                                >
+                                  {authLoading ? 'Ingresando...' : 'Cargar Mis Datos'}
+                                </button>
+                              </div>
+                              <div className="flex flex-wrap items-center gap-2 text-[11px] text-white/60">
+                                <span>Probar cuenta cliente demo:</span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleInlineClientLogin('v.contreras@gmail.com', '123456')}
+                                  className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[#B0E454] font-mono cursor-pointer"
+                                >
+                                  Valentina (v.contreras@gmail.com)
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="space-y-2">
+                              <p className="text-xs text-white/75">
+                                Completa tus datos abajo y define tu contraseña aquí para que tu <strong>Cuenta de Cliente</strong> quede registrada automáticamente al continuar al pago:
+                              </p>
+                              <input
+                                type="password"
+                                value={guestNewAccountPassword}
+                                onChange={(e) => setGuestNewAccountPassword(e.target.value)}
+                                placeholder="Crea tu contraseña de cliente (mín. 4 caracteres) *"
+                                className="w-full sm:w-80 bg-[#000000] border border-[#B0E454]/50 rounded-xl px-3.5 py-2.5 text-xs text-white"
+                              />
+                            </div>
+                          )}
+
+                          {authFeedback && (
+                            <p className="text-xs font-bold text-[#B0E454]">{authFeedback}</p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
@@ -659,6 +976,40 @@ function ReservarContent() {
                       className="w-full bg-[#000000] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-[#B0E454] focus:outline-none"
                     />
                   </div>
+
+                  {/* Option in Guest Mode to also create a Client Account in 1 click */}
+                  {bookingMode === 'invitado' && !loggedClient && (
+                    <div className="p-4 rounded-2xl bg-[#080A07] border border-[#B0E454]/35 space-y-3">
+                      <label className="flex items-center justify-between cursor-pointer">
+                        <span className="flex items-center gap-2 text-xs sm:text-sm font-bold text-white">
+                          <UserPlus className="w-4 h-4 text-[#B0E454]" />
+                          Crear también mi Cuenta de Cliente gratis con estos datos
+                        </span>
+                        <input
+                          type="checkbox"
+                          checked={createAccountOnGuestBooking}
+                          onChange={(e) => setCreateAccountOnGuestBooking(e.target.checked)}
+                          className="w-4 h-4 accent-[#B0E454]"
+                        />
+                      </label>
+                      {createAccountOnGuestBooking && (
+                        <div>
+                          <label className="block text-xs text-white/70 mb-1">
+                            Elige una contraseña para tu nueva Cuenta de Cliente *
+                          </label>
+                          <input
+                            type="password"
+                            required={createAccountOnGuestBooking}
+                            minLength={4}
+                            value={guestNewAccountPassword}
+                            onChange={(e) => setGuestNewAccountPassword(e.target.value)}
+                            placeholder="Mínimo 4 caracteres"
+                            className="w-full sm:w-72 bg-[#000000] border border-white/20 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#B0E454] focus:outline-none"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   <div className="pt-2 flex items-center justify-between gap-4">
                     <button

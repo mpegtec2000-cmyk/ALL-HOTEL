@@ -783,7 +783,9 @@
       "totalSpent": 254000,
       "lastStayDate": "2026-11-24",
       "favoriteRoom": "Superior Matrimonial (Hab. 107)",
-      "notes": "Destaca cercanía a la playa y tranquilidad del barrio marino."
+      "notes": "Destaca cercanía a la playa y tranquilidad del barrio marino.",
+      "isRegisteredAccount": true,
+      "passwordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
     },
     {
       "id": "CLI-ARH-02",
