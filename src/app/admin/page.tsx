@@ -856,12 +856,12 @@ export default function AdminSaaSPage() {
     return (
       <div className="min-h-screen bg-[#000000] text-white flex items-center justify-center p-4">
         <div className="max-w-md w-full lux-card-featured rounded-3xl p-8 space-y-6 shadow-2xl text-center">
-          <div className="relative h-16 w-48 mx-auto">
+          <div className="relative h-24 w-64 mx-auto">
             <Image
               src="/brand/logo-neon.png"
               alt="All Rent Hoteles"
               fill
-              sizes="192px"
+              sizes="256px"
               className="object-contain"
             />
           </div>
@@ -1131,19 +1131,17 @@ export default function AdminSaaSPage() {
       {/* SIDEBAR */}
       <aside className="lg:w-72 bg-[#000000] border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-between shrink-0">
         <div className="p-4 lg:p-5 space-y-5">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="relative h-11 w-36 block">
+          <div className="flex items-center justify-center pb-2 border-b border-white/10">
+            <Link href="/" className="relative h-20 w-60 block">
               <Image
                 src="/brand/logo-neon.png"
                 alt="All Rent Hoteles"
                 fill
-                sizes="144px"
-                className="object-contain object-left"
+                sizes="240px"
+                className="object-contain object-center"
+                priority
               />
             </Link>
-            <span className="px-2 py-0.5 rounded-md bg-[#B0E454]/15 border border-[#B0E454]/40 text-[#B0E454] text-[10px] font-black uppercase">
-              PMS + QR Engine
-            </span>
           </div>
 
           <nav className="flex lg:flex-col gap-1.5 overflow-x-auto pb-2 lg:pb-0">
