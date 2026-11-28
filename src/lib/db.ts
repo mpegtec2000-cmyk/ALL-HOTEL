@@ -57,7 +57,52 @@ interface HotelDatabaseSchema {
 }
 
 const DATA_DIR = path.join(process.cwd(), 'data')
-const DB_FILE = path.join(DATA_DIR, 'all_rent_hoteles_db.json')
+const SEED_DB_FILE = path.join(DATA_DIR, 'all_rent_hoteles_db.json')
+const IS_SERVERLESS_RO = Boolean(
+  process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+)
+const RUNTIME_DIR = IS_SERVERLESS_RO ? '/tmp/arh_pms_data' : DATA_DIR
+const DB_FILE = path.join(RUNTIME_DIR, 'all_rent_hoteles_db.json')
+const SECRETS_FILE = path.join(RUNTIME_DIR, 'secrets.local.json')
+
+interface LocalRuntimeSecrets {
+  webhookSecret?: string
+  account1Email?: string
+  account1Pass?: string
+  account2Email?: string
+  account2Pass?: string
+}
+
+function readRuntimeSecrets(): LocalRuntimeSecrets {
+  const fromEnv: LocalRuntimeSecrets = {
+    webhookSecret: process.env.AIRBNB_WEBHOOK_SECRET || undefined,
+    account1Email: process.env.AIRBNB_ACCOUNT_1_EMAIL || undefined,
+    account1Pass: process.env.AIRBNB_ACCOUNT_1_APP_PASSWORD || undefined,
+    account2Email: process.env.AIRBNB_ACCOUNT_2_EMAIL || undefined,
+    account2Pass: process.env.AIRBNB_ACCOUNT_2_APP_PASSWORD || undefined,
+  }
+  try {
+    if (fs.existsSync(SECRETS_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(SECRETS_FILE, 'utf-8')) as LocalRuntimeSecrets
+      return { ...parsed, ...Object.fromEntries(Object.entries(fromEnv).filter(([, v]) => Boolean(v))) }
+    }
+  } catch {
+    // ignore
+  }
+  return fromEnv
+}
+
+function writeRuntimeSecrets(updates: Partial<LocalRuntimeSecrets>): void {
+  try {
+    if (!fs.existsSync(RUNTIME_DIR)) {
+      fs.mkdirSync(RUNTIME_DIR, { recursive: true })
+    }
+    const existing = readRuntimeSecrets()
+    fs.writeFileSync(SECRETS_FILE, JSON.stringify({ ...existing, ...updates }, null, 2), 'utf-8')
+  } catch (err) {
+    console.error('Error writing runtime secrets:', err)
+  }
+}
 
 const DEFAULT_AIRBNB_ACCOUNTS: AirbnbEmailAccountConfig[] = [
   {
@@ -784,14 +829,63 @@ function normalizeDatabase(parsed: HotelDatabaseSchema): {
   return { data, mutated }
 }
 
+function sanitizeForDiskPersistence(data: HotelDatabaseSchema): HotelDatabaseSchema {
+  return {
+    ...data,
+    airbnbConfig: {
+      ...data.airbnbConfig,
+      // Never persist App Passwords in plain tracked DB JSON
+      accounts: (data.airbnbConfig.accounts || []).map((acc) => ({
+        ...acc,
+        appPassword: '',
+      })),
+    },
+  }
+}
+
+function applySecretsOverlay(data: HotelDatabaseSchema): HotelDatabaseSchema {
+  const sec = readRuntimeSecrets()
+  if (sec.webhookSecret) {
+    data.airbnbConfig.webhookSecret = sec.webhookSecret
+  }
+  data.airbnbConfig.accounts = (data.airbnbConfig.accounts || []).map((acc) => {
+    if (acc.id === 'account_1') {
+      const email = sec.account1Email || acc.email
+      const pass = sec.account1Pass || acc.appPassword || ''
+      return {
+        ...acc,
+        email,
+        appPassword: pass,
+        appPasswordConfigured: Boolean(pass.trim().length >= 8 || acc.appPasswordConfigured),
+      }
+    }
+    if (acc.id === 'account_2') {
+      const email = sec.account2Email || acc.email
+      const pass = sec.account2Pass || acc.appPassword || ''
+      return {
+        ...acc,
+        email,
+        appPassword: pass,
+        appPasswordConfigured: Boolean(pass.trim().length >= 8 || acc.appPasswordConfigured),
+      }
+    }
+    return acc
+  })
+  return data
+}
+
 function readDb(): HotelDatabaseSchema {
   try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true })
+    if (!fs.existsSync(RUNTIME_DIR)) {
+      fs.mkdirSync(RUNTIME_DIR, { recursive: true })
     }
     if (!fs.existsSync(DB_FILE)) {
-      fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_SEED, null, 2), 'utf-8')
-      return structuredClone(INITIAL_SEED)
+      if (IS_SERVERLESS_RO && fs.existsSync(SEED_DB_FILE)) {
+        fs.copyFileSync(SEED_DB_FILE, DB_FILE)
+      } else {
+        fs.writeFileSync(DB_FILE, JSON.stringify(sanitizeForDiskPersistence(INITIAL_SEED), null, 2), 'utf-8')
+        return applySecretsOverlay(structuredClone(INITIAL_SEED))
+      }
     }
     const raw = fs.readFileSync(DB_FILE, 'utf-8')
     const parsed = JSON.parse(raw) as HotelDatabaseSchema
@@ -799,19 +893,23 @@ function readDb(): HotelDatabaseSchema {
     if (mutated) {
       writeDb(data)
     }
-    return data
+    return applySecretsOverlay(data)
   } catch (err) {
     console.error('Error reading All Rent Hoteles DB, using seed:', err)
-    return structuredClone(INITIAL_SEED)
+    return applySecretsOverlay(structuredClone(INITIAL_SEED))
   }
 }
 
 function writeDb(data: HotelDatabaseSchema): void {
   try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true })
+    if (!fs.existsSync(RUNTIME_DIR)) {
+      fs.mkdirSync(RUNTIME_DIR, { recursive: true })
     }
-    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8')
+    fs.writeFileSync(
+      DB_FILE,
+      JSON.stringify(sanitizeForDiskPersistence(data), null, 2),
+      'utf-8'
+    )
   } catch (err) {
     console.error('Error writing All Rent Hoteles DB:', err)
   }
@@ -2136,6 +2234,22 @@ export const db = {
     return readDb().airbnbConfig
   },
 
+  /**
+   * Returns a sanitized Airbnb config safe to send to frontend API responses
+   * (never leaks App Passwords or internal secrets over HTTP GET).
+   */
+  getPublicAirbnbConfig(): AirbnbIntegrationConfig {
+    const cfg = readDb().airbnbConfig
+    return {
+      ...cfg,
+      webhookSecret: cfg.webhookSecret ? '••••••••' : '',
+      accounts: (cfg.accounts || []).map((acc) => ({
+        ...acc,
+        appPassword: '',
+      })),
+    }
+  },
+
   updateAirbnbConfig(updates: Partial<AirbnbIntegrationConfig>): AirbnbIntegrationConfig {
     const data = readDb()
     data.airbnbConfig = {
@@ -2144,7 +2258,7 @@ export const db = {
       accounts: updates.accounts || data.airbnbConfig.accounts,
     }
     writeDb(data)
-    return data.airbnbConfig
+    return this.getPublicAirbnbConfig()
   },
 
   updateAirbnbEmailAccount(
@@ -2159,9 +2273,15 @@ export const db = {
         ...updates,
       }
       if (updates.appPassword !== undefined) {
-        merged.appPasswordConfigured = Boolean(
-          updates.appPassword && updates.appPassword.trim().length >= 8
-        )
+        const cleanPass = (updates.appPassword || '').trim()
+        merged.appPasswordConfigured = Boolean(cleanPass.length >= 8)
+        if (cleanPass.length >= 8) {
+          if (accountId === 'account_1') {
+            writeRuntimeSecrets({ account1Email: merged.email, account1Pass: cleanPass })
+          } else {
+            writeRuntimeSecrets({ account2Email: merged.email, account2Pass: cleanPass })
+          }
+        }
       }
       data.airbnbConfig.accounts[idx] = merged
       if (accountId === 'account_1') {
@@ -2172,7 +2292,7 @@ export const db = {
       }
       writeDb(data)
     }
-    return data.airbnbConfig
+    return this.getPublicAirbnbConfig()
   },
 
   // EMAIL OUTBOX (SENT CONFIRMATION EMAILS WITH QR PREVIEW)

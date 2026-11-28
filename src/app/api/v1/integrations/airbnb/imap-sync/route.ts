@@ -141,7 +141,7 @@ export async function POST(request: Request) {
       processedCount,
       createdBookings,
       accountErrors,
-      config: db.getAirbnbConfig(),
+      config: db.getPublicAirbnbConfig(),
       logs: db.getAirbnbLogs().slice(0, 15),
       emailOutbox: db.getEmailOutbox().slice(0, 15),
     })

@@ -6,7 +6,7 @@ export async function GET() {
   return NextResponse.json({
     success: true,
     data: {
-      config: db.getAirbnbConfig(),
+      config: db.getPublicAirbnbConfig(),
       logs: db.getAirbnbLogs(),
       emailOutbox: db.getEmailOutbox(),
       templates: SAMPLE_AIRBNB_EMAIL_TEMPLATES,

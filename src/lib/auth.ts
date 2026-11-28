@@ -6,32 +6,42 @@ export interface AuthUser {
   phone: string
 }
 
-export const ADMIN_USERS = [
-  {
-    id: 'USR-ARH-01',
-    name: 'Dirección General All Rent Hoteles',
-    email: 'admin@allrenthoteles.cl',
-    username: 'admin',
-    pins: ['2026', '1234', 'admin', 'allrent2026', 'AllRent2026*'],
-    role: 'superadmin' as const,
-    phone: '+56 9 9865 1440',
-  },
-  {
-    id: 'USR-ARH-02',
-    name: 'Recepción Av. Bulnes 119',
-    email: 'recepcion@allrenthoteles.cl',
-    username: 'recepcion',
-    pins: ['recepcion', '1190', 'recepcion2026'],
-    role: 'recepcion' as const,
-    phone: '+56 9 9865 1440',
-  },
-]
-
 export function validateAdminPin(pinOrPassword: string, identifier?: string): AuthUser | null {
   const cleanPin = pinOrPassword.trim()
   const cleanId = identifier?.trim().toLowerCase()
 
-  const found = ADMIN_USERS.find((u) => {
+  const envAdminPin = process.env.ADMIN_PIN?.trim()
+  const envReceptionPin = process.env.RECEPTION_PIN?.trim()
+
+  const adminPins = envAdminPin
+    ? [envAdminPin]
+    : ['2026', '1234', 'admin', 'allrent2026', 'AllRent2026*']
+  const receptionPins = envReceptionPin
+    ? [envReceptionPin]
+    : ['recepcion', '1190', 'recepcion2026']
+
+  const users = [
+    {
+      id: 'USR-ARH-01',
+      name: 'Dirección General All Rent Hoteles',
+      email: 'admin@allrenthoteles.cl',
+      username: 'admin',
+      pins: adminPins,
+      role: 'superadmin' as const,
+      phone: '+56 9 9865 1440',
+    },
+    {
+      id: 'USR-ARH-02',
+      name: 'Recepción Av. Bulnes 119',
+      email: 'recepcion@allrenthoteles.cl',
+      username: 'recepcion',
+      pins: receptionPins,
+      role: 'recepcion' as const,
+      phone: '+56 9 9865 1440',
+    },
+  ]
+
+  const found = users.find((u) => {
     const pinMatches = u.pins.some((p) => p.toLowerCase() === cleanPin.toLowerCase())
     if (!cleanId) return pinMatches
     return (

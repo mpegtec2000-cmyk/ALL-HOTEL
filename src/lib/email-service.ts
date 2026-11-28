@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import nodemailer from 'nodemailer'
+import nodemailer, { type SendMailOptions } from 'nodemailer'
 import {
   AirbnbEmailAccountConfig,
   Booking,
@@ -366,7 +366,7 @@ export async function dispatchBookingConfirmationEmail(params: {
         logoSrcOverride: hasLogoFile ? 'cid:arh-logo-neon@allrenthoteles.cl' : undefined,
       })
 
-      const attachments: nodemailer.SendMailOptions['attachments'] = [
+      const attachments: NonNullable<SendMailOptions['attachments']> = [
         {
           filename: `Pase-QR-${booking.id}.png`,
           content: qrPngBuffer,

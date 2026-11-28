@@ -1031,7 +1031,7 @@ export default function AdminSaaSPage() {
               type="password"
               value={pinInput}
               onChange={(e) => setPinInput(e.target.value)}
-              placeholder="PIN de Acceso (Ej: 2026 o admin)"
+              placeholder="Ingresa tu PIN privado de acceso"
               autoFocus
               className="w-full bg-[#000000] border border-white/20 rounded-xl px-4 py-3.5 text-center text-lg font-bold tracking-widest text-white focus:border-[#B0E454] focus:outline-none"
             />
@@ -1045,8 +1045,7 @@ export default function AdminSaaSPage() {
           </form>
 
           <p className="text-[11px] text-white/45">
-            Acceso rápido habilitado: PIN <strong className="text-[#B0E454]">2026</strong> o{' '}
-            <strong className="text-[#B0E454]">1234</strong>
+            Acceso protegido · Solicita tu PIN al administrador de All Rent Hoteles
           </p>
 
           <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-white/60 hover:text-white">

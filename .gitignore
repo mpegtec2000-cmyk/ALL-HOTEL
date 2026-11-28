@@ -13,4 +13,6 @@ yarn-error.log*
 next-env.d.ts
 /BRADING Y LOGO/
 /imagenes/
+/data/secrets.local.json
+/*.pdf
 
