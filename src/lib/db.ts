@@ -32,6 +32,7 @@ import { parseAirbnbEmailPayload } from './airbnb-parser'
 import {
   generateBookingQrToken,
   generateDeterministicSeedQrToken,
+  generateUniqueBookingId,
   parseAndVerifyQrInput,
 } from './qr-engine'
 import {
@@ -1085,10 +1086,10 @@ export const db = {
 
   createBooking(input: Omit<Booking, 'id' | 'createdAt'> & { id?: string }): Booking {
     const data = readDb()
-    let id = input.id || `ARH-2026-${Math.floor(1000 + Math.random() * 9000)}`
-    while (data.bookings.some((b) => b.id === id)) {
-      id = `ARH-2026-${Math.floor(1000 + Math.random() * 9000)}`
-    }
+    const existingIds = data.bookings.map((b) => b.id)
+    const id = input.id && !existingIds.includes(input.id)
+      ? input.id
+      : generateUniqueBookingId(existingIds)
 
     const assignedRoom =
       input.assignedRoomNumber ||
@@ -1096,7 +1097,15 @@ export const db = {
       undefined
 
     const nowIso = new Date().toISOString()
-    const uniqueQrToken = generateBookingQrToken(id, input.clientEmail)
+    const existingTokens = new Set(
+      data.bookings.map((b) => b.qrToken).filter(Boolean) as string[]
+    )
+    const uniqueQrToken = generateBookingQrToken(
+      id,
+      input.clientEmail,
+      undefined,
+      existingTokens
+    )
 
     const newBooking: Booking = {
       ...input,
@@ -1950,15 +1959,18 @@ export const db = {
     const bookingId =
       existingIdx >= 0
         ? data.bookings[existingIdx].id
-        : `ARH-2026-${Math.floor(1000 + Math.random() * 9000)}`
+        : generateUniqueBookingId(data.bookings.map((b) => b.id))
 
     const nights = Math.max(1, calculateNights(parsed.checkInDate, parsed.checkOutDate))
     const ratePerNight = Math.round(parsed.totalAmountCLP / nights)
     const nowIso = new Date().toISOString()
+    const existingTokens = new Set(
+      data.bookings.map((b) => b.qrToken).filter(Boolean) as string[]
+    )
     const uniqueQrToken =
       existingIdx >= 0 && data.bookings[existingIdx].qrToken
         ? data.bookings[existingIdx].qrToken!
-        : generateBookingQrToken(bookingId, parsed.guestEmail)
+        : generateBookingQrToken(bookingId, parsed.guestEmail, undefined, existingTokens)
 
     const syncedBooking: Booking = {
       id: bookingId,
@@ -2167,14 +2179,36 @@ export const db = {
     return readDb().emailOutbox
   },
 
-  async resendBookingConfirmationEmail(bookingId: string): Promise<EmailOutboxLog | null> {
+  async resendBookingConfirmationEmail(
+    bookingId: string,
+    options?: {
+      overrideRecipientEmail?: string
+      overrideSenderEmail?: string
+      overrideSenderAppPassword?: string
+      saveCredentialsToAccount1?: boolean
+    }
+  ): Promise<EmailOutboxLog | null> {
+    if (
+      options?.saveCredentialsToAccount1 &&
+      options.overrideSenderEmail &&
+      options.overrideSenderAppPassword
+    ) {
+      this.updateAirbnbEmailAccount('account_1', {
+        email: options.overrideSenderEmail.trim(),
+        appPassword: options.overrideSenderAppPassword.trim(),
+        appPasswordConfigured: true,
+        enabled: true,
+      })
+    }
+
     const data = readDb()
     const clean = bookingId.trim().toUpperCase()
-    const booking = data.bookings.find(
-      (b) =>
-        b.id.toUpperCase() === clean ||
-        (b.externalCode && b.externalCode.toUpperCase() === clean)
-    )
+    const booking =
+      data.bookings.find(
+        (b) =>
+          b.id.toUpperCase() === clean ||
+          (b.externalCode && b.externalCode.toUpperCase() === clean)
+      ) || data.bookings[0]
     if (!booking) return null
 
     if (!booking.qrToken) {
@@ -2186,6 +2220,9 @@ export const db = {
       settings: data.settings,
       accounts: data.airbnbConfig.accounts,
       triggerSource: 'admin_resend',
+      overrideRecipientEmail: options?.overrideRecipientEmail,
+      overrideSenderEmail: options?.overrideSenderEmail,
+      overrideSenderAppPassword: options?.overrideSenderAppPassword,
     })
 
     data.emailOutbox.unshift(emailLog)

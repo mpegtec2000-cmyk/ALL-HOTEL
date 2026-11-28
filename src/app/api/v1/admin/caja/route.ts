@@ -29,6 +29,7 @@ export async function POST(request: Request) {
       description: body.description,
       amount: body.type === 'gasto' ? -rawAmt : rawAmt,
       bookingId: body.bookingId || undefined,
+      roomNumber: body.roomNumber ? String(body.roomNumber) : undefined,
       receiptNumber: body.receiptNumber || `MOV-${Date.now().toString().slice(-4)}`,
       operator: body.operator || 'Administración All Rent',
     })

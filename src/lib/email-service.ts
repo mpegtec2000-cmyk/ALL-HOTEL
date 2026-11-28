@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import nodemailer from 'nodemailer'
 import {
   AirbnbEmailAccountConfig,
@@ -6,27 +8,71 @@ import {
   HotelSettings,
 } from '@/types/saas'
 import { formatCLP } from './pricing'
-import { generateQrImageDataUrl } from './qr-engine'
+import { generateQrImageDataUrl, generateQrPngBuffer } from './qr-engine'
 
 /**
- * Builds the branded corporate HTML confirmation email for All Rent Hoteles Quintero
- * with embedded unique QR code, reservation summary, assigned room, 12:00-12:00 schedule,
- * hotel rules, Google Maps location, and Guest Portal access.
+ * Resolves the optimal SMTP host & port automatically based on the sender's email domain
+ * (supports personal Gmail, Outlook/Hotmail/Live, iCloud, Yahoo, Zoho, or custom domain).
+ */
+export function resolveSmtpSettings(
+  email: string,
+  customHost?: string,
+  customPort?: number
+): { host: string; port: number; secure: boolean } {
+  const domain = (email.split('@')[1] || '').toLowerCase().trim()
+
+  if (customHost && customHost.trim() && !customHost.includes('gmail.com')) {
+    const port = customPort || 465
+    return { host: customHost.trim(), port, secure: port === 465 }
+  }
+
+  if (
+    domain.includes('outlook.') ||
+    domain.includes('hotmail.') ||
+    domain.includes('live.') ||
+    domain.includes('msn.')
+  ) {
+    return { host: 'smtp-mail.outlook.com', port: 587, secure: false }
+  }
+
+  if (domain.includes('icloud.com') || domain.includes('me.com') || domain.includes('mac.com')) {
+    return { host: 'smtp.mail.me.com', port: 587, secure: false }
+  }
+
+  if (domain.includes('yahoo.')) {
+    return { host: 'smtp.mail.yahoo.com', port: 465, secure: true }
+  }
+
+  // Default to Gmail SMTP (works for @gmail.com and Google Workspace domains)
+  const host = customHost?.trim() || 'smtp.gmail.com'
+  const port = customPort || 465
+  return { host, port, secure: port === 465 }
+}
+
+/**
+ * Builds the branded corporate HTML confirmation email for All Rent Hoteles Quintero.
+ * Supports both:
+ * - In-browser preview mode (`qrDataUrl` & `/brand/logo-neon.png`)
+ * - Real SMTP CID mode (`cid:arh-qr-pass@allrenthoteles.cl` & `cid:arh-logo-neon@allrenthoteles.cl`)
+ *   so Gmail, Outlook, and Apple Mail never block the QR image.
  */
 export function buildBookingConfirmationEmailHtml(params: {
   booking: Booking
   settings: HotelSettings
   qrDataUrl?: string
+  logoSrcOverride?: string
+  qrSrcOverride?: string
   baseUrl?: string
 }): string {
-  const { booking, settings, qrDataUrl } = params
+  const { booking, settings, qrDataUrl, logoSrcOverride, qrSrcOverride } = params
   const baseUrl = params.baseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
   const qrToken = booking.qrToken || `ARHQR.${booking.id}`
   const portalUrl = `${baseUrl}/mi-reserva?codigo=${encodeURIComponent(booking.id)}`
   const qrFallbackUrl = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=12&data=${encodeURIComponent(
     qrToken
   )}`
-  const qrImgSrc = qrDataUrl || qrFallbackUrl
+  const qrImgSrc = qrSrcOverride || qrDataUrl || qrFallbackUrl
+  const logoImgSrc = logoSrcOverride || `${baseUrl}/brand/logo-neon.png`
 
   const channelLabel =
     booking.source === 'airbnb_email'
@@ -51,26 +97,23 @@ export function buildBookingConfirmationEmailHtml(params: {
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#050605;padding:28px 14px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background-color:#000000;border:1px solid rgba(176,228,84,0.38);border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.9);">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background-color:#000000;border:1px solid rgba(176,228,84,0.42);border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.95);">
           
-          <!-- TOP BRAND HEADER -->
+          <!-- TOP BRAND HEADER WITH OFFICIAL LOGO -->
           <tr>
-            <td style="padding:28px 32px;background:linear-gradient(180deg,rgba(176,228,84,0.14) 0%,rgba(0,0,0,1) 100%);border-bottom:1px solid rgba(176,228,84,0.25);">
-              <table width="100%" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td>
-                    <div style="display:inline-block;padding:4px 12px;border-radius:999px;background-color:rgba(176,228,84,0.15);border:1px solid rgba(176,228,84,0.45);color:#B0E454;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;">
-                      ALL RENT HOTELES · QUINTERO
-                    </div>
-                    <h1 style="margin:12px 0 4px 0;font-size:24px;font-weight:900;color:#FFFFFF;letter-spacing:-0.4px;">
-                      ¡Gracias por reservar en All Rent Hoteles!
-                    </h1>
-                    <p style="margin:0;font-size:13px;color:#A1A1AA;">
-                      Tu reserva y habitación ya están bloqueadas y confirmadas en nuestro sistema central.
-                    </p>
-                  </td>
-                </tr>
-              </table>
+            <td style="padding:28px 32px;background:linear-gradient(180deg,rgba(176,228,84,0.14) 0%,rgba(0,0,0,1) 100%);border-bottom:1px solid rgba(176,228,84,0.25);text-align:center;">
+              <div style="margin-bottom:14px;">
+                <img src="${logoImgSrc}" alt="${settings.name}" width="210" style="display:inline-block;max-width:210px;height:auto;" />
+              </div>
+              <div style="display:inline-block;padding:4px 12px;border-radius:999px;background-color:rgba(176,228,84,0.15);border:1px solid rgba(176,228,84,0.45);color:#B0E454;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;">
+                ALL RENT HOTELES · QUINTERO
+              </div>
+              <h1 style="margin:12px 0 4px 0;font-size:24px;font-weight:900;color:#FFFFFF;letter-spacing:-0.4px;">
+                ¡Gracias por reservar en All Rent Hoteles!
+              </h1>
+              <p style="margin:0;font-size:13px;color:#A1A1AA;">
+                Tu reserva y habitación ya están bloqueadas y confirmadas en nuestro sistema central.
+              </p>
             </td>
           </tr>
 
@@ -233,60 +276,130 @@ export function buildBookingConfirmationEmailHtml(params: {
 }
 
 /**
- * Generates the QR image, builds the branded HTML confirmation email,
- * attempts live SMTP delivery if any of the 2 configured email accounts has an App Password,
- * and returns an EmailOutboxLog record to store in the database.
+ * Dispatches the branded HTML confirmation email with CID inline QR & Brand Logo
+ * (for 100% Gmail/Outlook/iOS compatibility) and stores the preview HTML in EmailOutboxLog.
  */
 export async function dispatchBookingConfirmationEmail(params: {
   booking: Booking
   settings: HotelSettings
   accounts?: AirbnbEmailAccountConfig[]
   triggerSource: 'web_booking' | 'airbnb_auto_sync' | 'manual_reception' | 'admin_resend'
+  overrideRecipientEmail?: string
+  overrideSenderEmail?: string
+  overrideSenderAppPassword?: string
+  overrideSmtpHost?: string
+  overrideSmtpPort?: number
 }): Promise<EmailOutboxLog> {
   const { booking, settings, accounts = [], triggerSource } = params
+  const recipientEmail = (params.overrideRecipientEmail || booking.clientEmail || '').trim()
   const qrToken = booking.qrToken || `ARHQR.${booking.id}`
-  const qrDataUrl = await generateQrImageDataUrl(qrToken)
+
+  const [qrDataUrl, qrPngBuffer] = await Promise.all([
+    generateQrImageDataUrl(qrToken),
+    generateQrPngBuffer(qrToken),
+  ])
 
   const subject =
     booking.source === 'airbnb_email'
       ? `¡Gracias por reservar en All Rent Hoteles! Tu Pase QR de Check-in (${booking.externalCode || booking.id})`
       : `Confirmación de Reserva & Código QR de Check-in (${booking.id}) — All Rent Hoteles Quintero`
 
-  const htmlBody = buildBookingConfirmationEmailHtml({
+  // 1. HTML for Web Admin Preview Iframe (uses data:image/png;base64 and /brand/logo-neon.png)
+  const previewHtmlBody = buildBookingConfirmationEmailHtml({
     booking,
     settings,
     qrDataUrl,
   })
 
-  // Check if either of the 2 configured email accounts has an appPassword ready for SMTP
-  const activeSmtpAccount = accounts.find(
+  // Determine sender credentials: explicit override -> Account #1 / #2 -> env fallback
+  const activeAccount = accounts.find(
     (acc) => acc.enabled && acc.email && acc.appPassword && acc.appPassword.trim().length >= 8
   )
 
+  const senderEmail = (
+    params.overrideSenderEmail ||
+    activeAccount?.email ||
+    process.env.SMTP_USER ||
+    ''
+  ).trim()
+
+  const senderAppPassword = (
+    params.overrideSenderAppPassword ||
+    activeAccount?.appPassword ||
+    process.env.SMTP_PASS ||
+    ''
+  )
+    .replace(/\s+/g, '')
+    .trim()
+
   let deliveryStatus: 'sent_smtp' | 'stored_outbox_preview' | 'smtp_error' =
     'stored_outbox_preview'
-  let senderEmailUsed = settings.email
   let errorDetail: string | undefined
 
-  if (activeSmtpAccount && booking.clientEmail && booking.clientEmail.includes('@')) {
-    senderEmailUsed = activeSmtpAccount.email
+  if (senderEmail && senderAppPassword.length >= 8 && recipientEmail.includes('@')) {
+    const smtpCfg = resolveSmtpSettings(
+      senderEmail,
+      params.overrideSmtpHost || activeAccount?.smtpHost,
+      params.overrideSmtpPort || activeAccount?.smtpPort
+    )
+
     try {
       const transporter = nodemailer.createTransport({
-        host: activeSmtpAccount.smtpHost || 'smtp.gmail.com',
-        port: activeSmtpAccount.smtpPort || 465,
-        secure: (activeSmtpAccount.smtpPort || 465) === 465,
+        host: smtpCfg.host,
+        port: smtpCfg.port,
+        secure: smtpCfg.secure,
         auth: {
-          user: activeSmtpAccount.email,
-          pass: activeSmtpAccount.appPassword!.replace(/\s+/g, ''),
+          user: senderEmail,
+          pass: senderAppPassword,
         },
       })
 
-      await transporter.sendMail({
-        from: `"${settings.name} Quintero" <${activeSmtpAccount.email}>`,
-        to: booking.clientEmail,
-        subject,
-        html: htmlBody,
+      // Check if local brand logo file exists to attach via CID
+      const logoFilePath = path.join(process.cwd(), 'public', 'brand', 'logo-neon.png')
+      const hasLogoFile = fs.existsSync(logoFilePath)
+
+      // 2. HTML for Real Email Clients (Gmail / Outlook / iPhone) using CID inline images
+      const smtpHtmlBody = buildBookingConfirmationEmailHtml({
+        booking,
+        settings,
+        qrSrcOverride: 'cid:arh-qr-pass@allrenthoteles.cl',
+        logoSrcOverride: hasLogoFile ? 'cid:arh-logo-neon@allrenthoteles.cl' : undefined,
       })
+
+      const attachments: nodemailer.SendMailOptions['attachments'] = [
+        {
+          filename: `Pase-QR-${booking.id}.png`,
+          content: qrPngBuffer,
+          cid: 'arh-qr-pass@allrenthoteles.cl',
+          contentType: 'image/png',
+          contentDisposition: 'inline',
+        },
+        {
+          filename: `QR-CheckIn-${booking.id}.png`,
+          content: qrPngBuffer,
+          contentType: 'image/png',
+          contentDisposition: 'attachment',
+        },
+      ]
+
+      if (hasLogoFile) {
+        attachments.push({
+          filename: 'all-rent-hoteles-logo.png',
+          path: logoFilePath,
+          cid: 'arh-logo-neon@allrenthoteles.cl',
+          contentType: 'image/png',
+          contentDisposition: 'inline',
+        })
+      }
+
+      await transporter.sendMail({
+        from: `"${settings.name} Quintero" <${senderEmail}>`,
+        to: recipientEmail,
+        subject,
+        html: smtpHtmlBody,
+        attachments,
+      })
+
       deliveryStatus = 'sent_smtp'
     } catch (err: unknown) {
       deliveryStatus = 'smtp_error'
@@ -298,9 +411,9 @@ export async function dispatchBookingConfirmationEmail(params: {
     id: `MAIL-${Date.now().toString().slice(-5)}-${Math.floor(10 + Math.random() * 89)}`,
     bookingId: booking.id,
     externalCode: booking.externalCode,
-    toEmail: booking.clientEmail,
+    toEmail: recipientEmail,
     clientName: booking.clientName,
-    fromAccountEmail: senderEmailUsed,
+    fromAccountEmail: senderEmail || settings.email,
     subject,
     qrToken,
     qrDataUrl,
@@ -309,7 +422,7 @@ export async function dispatchBookingConfirmationEmail(params: {
     triggerSource,
     deliveryStatus,
     sentAt: new Date().toISOString(),
-    htmlBody,
+    htmlBody: previewHtmlBody,
     errorDetail,
   }
 }

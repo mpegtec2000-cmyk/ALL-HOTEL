@@ -184,6 +184,14 @@ export default function AdminSaaSPage() {
   const [previewEmailLog, setPreviewEmailLog] = useState<EmailOutboxLog | null>(null)
   const [resendingEmailId, setResendingEmailId] = useState<string | null>(null)
 
+  // Personal Email Live SMTP Tester (HTML + CID QR + Logo)
+  const [testSenderEmail, setTestSenderEmail] = useState('')
+  const [testSenderAppPass, setTestSenderAppPass] = useState('')
+  const [testRecipientEmail, setTestRecipientEmail] = useState('')
+  const [testBookingId, setTestBookingId] = useState('ARH-2026-1043')
+  const [sendingTestEmail, setSendingTestEmail] = useState(false)
+  const [testEmailFeedback, setTestEmailFeedback] = useState('')
+
   // Housekeeping Ticket Form
   const [ticketBookingId, setTicketBookingId] = useState('ARH-2026-1042')
   const [ticketType, setTicketType] = useState<'alistamiento_previo' | 'recepcion_checkin' | 'revision_checkout'>('alistamiento_previo')
@@ -710,6 +718,46 @@ export default function AdminSaaSPage() {
       }
     } finally {
       setResendingEmailId(null)
+    }
+  }
+
+  async function handleSendPersonalTestEmail(e: React.FormEvent) {
+    e.preventDefault()
+    setSendingTestEmail(true)
+    setTestEmailFeedback('')
+    try {
+      const targetRecipient = (testRecipientEmail || testSenderEmail).trim()
+      const res = await fetch('/api/v1/admin/emails', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bookingId: testBookingId || bookings[0]?.id || 'ARH-2026-1043',
+          recipientEmail: targetRecipient || undefined,
+          senderEmail: testSenderEmail.trim() || undefined,
+          senderAppPassword: testSenderAppPass.trim() || undefined,
+          saveCredentialsToAccount1: Boolean(testSenderEmail && testSenderAppPass),
+        }),
+      })
+      const data = await res.json()
+      if (data.success && data.data) {
+        await refreshAll()
+        setPreviewEmailLog(data.data)
+        if (data.smtpSent) {
+          setTestEmailFeedback(
+            `✅ ¡CORREO REAL ENVIADO POR SMTP! Revisa la bandeja de entrada de ${data.data.toEmail}. El correo incluye el Logo de All Rent Hoteles y el Código QR Único (${data.data.qrToken}) embebidos por CID.`
+          )
+        } else if (data.deliveryStatus === 'smtp_error') {
+          setTestEmailFeedback(
+            `⚠️ Error SMTP al conectar con el correo (${data.errorDetail || 'Verifica la Contraseña de Aplicación de 16 letras'}). Se abrió la vista previa exacta del HTML + QR generado.`
+          )
+        } else {
+          setTestEmailFeedback(
+            `ℹ️ Vista previa del HTML + QR generada (${data.data.qrToken}). Para que llegue a tu bandeja de entrada real, ingresa tu correo personal y su Contraseña de Aplicación de 16 caracteres.`
+          )
+        }
+      }
+    } finally {
+      setSendingTestEmail(false)
     }
   }
 
@@ -2497,6 +2545,115 @@ export default function AdminSaaSPage() {
                 <code className="text-[#B0E454] font-mono text-[11px]">{webhookEndpointUrl}</code>
               </div>
             </div>
+
+            {/* PERSONAL EMAIL LIVE TESTER (HTML + CID QR + BRAND LOGO) */}
+            <form
+              onSubmit={handleSendPersonalTestEmail}
+              className="lux-card-featured rounded-3xl p-6 space-y-4"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#B0E454]">
+                    LABORATORIO DE PRUEBA SMTP EN VIVO (COMPATIBLE CON GMAIL / OUTLOOK / IPHONE)
+                  </span>
+                  <h3 className="text-base sm:text-lg font-black text-white">
+                    Probar Envío de Correo HTML + Pase QR Único con Tu Correo Personal
+                  </h3>
+                  <p className="text-xs text-white/70">
+                    Ingresa tu correo personal y su Contraseña de Aplicación (16 letras) para enviarte un correo real con el HTML corporativo, el logo de All Rent Hoteles y el QR adjunto por CID listo para escanear desde tu teléfono.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase text-white/65 mb-1">
+                    1. Tu Correo Personal Emisor
+                  </label>
+                  <input
+                    type="email"
+                    value={testSenderEmail}
+                    onChange={(e) => {
+                      setTestSenderEmail(e.target.value)
+                      if (!testRecipientEmail) setTestRecipientEmail(e.target.value)
+                    }}
+                    placeholder="tucorreo@gmail.com"
+                    className="w-full bg-[#000000] border border-white/20 rounded-xl px-3 py-2.5 text-xs text-white focus:border-[#B0E454] focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase text-[#B0E454] mb-1">
+                    2. Contraseña de Aplicación (16 letras)
+                  </label>
+                  <input
+                    type="password"
+                    value={testSenderAppPass}
+                    onChange={(e) => setTestSenderAppPass(e.target.value)}
+                    placeholder="xxxx xxxx xxxx xxxx"
+                    className="w-full bg-[#000000] border border-white/20 rounded-xl px-3 py-2.5 text-xs font-mono text-white focus:border-[#B0E454] focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase text-white/65 mb-1">
+                    3. Correo Destinatario de Prueba
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={testRecipientEmail}
+                    onChange={(e) => setTestRecipientEmail(e.target.value)}
+                    placeholder="Correo que recibirá el QR..."
+                    className="w-full bg-[#000000] border border-white/20 rounded-xl px-3 py-2.5 text-xs text-white focus:border-[#B0E454] focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase text-white/65 mb-1">
+                    4. Reserva / Pase QR a Enviar
+                  </label>
+                  <select
+                    value={testBookingId}
+                    onChange={(e) => setTestBookingId(e.target.value)}
+                    className="w-full bg-[#000000] border border-white/20 rounded-xl px-3 py-2.5 text-xs font-bold text-white"
+                  >
+                    {bookings.map((b) => (
+                      <option key={b.id} value={b.id}>
+                        {b.id} · {b.clientName} (Hab. {b.assignedRoomNumber || '-'})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {testEmailFeedback && (
+                <div className="p-3.5 rounded-2xl bg-[#000000] border border-[#B0E454] text-xs font-bold text-[#B0E454]">
+                  {testEmailFeedback}
+                </div>
+              )}
+
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="text-[11px] text-white/55">
+                  💡 Al enviar con tu correo personal y Contraseña de Aplicación, también quedará guardado automáticamente en la <strong>Cuenta #1</strong> para que todas las reservas nuevas se envíen desde ahí.
+                </span>
+                <button
+                  type="submit"
+                  disabled={sendingTestEmail}
+                  className="px-6 py-3 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider inline-flex items-center gap-2 hover:bg-[#BEEB6B] cursor-pointer"
+                >
+                  {sendingTestEmail ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" /> Enviando Correo HTML + QR...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" /> Enviar Correo de Prueba con QR Ahora
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
 
             {/* Dual Email Accounts Configuration (Account 1 & Account 2 with App Passwords) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">

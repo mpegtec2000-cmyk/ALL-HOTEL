@@ -10,7 +10,7 @@
     "hostName": "All Rent Hoteles",
     "checkInTime": "12:00",
     "checkOutTime": "12:00",
-    "depositPercentage": 50,
+    "depositPercentage": 100,
     "paymentGatewayMode": "sandbox_interactive",
     "webpayCommerceCode": "597055555532",
     "bankTransferDetails": {
@@ -48,7 +48,7 @@
         "/images/salon-comedor-lounge.webp"
       ],
       "badge": "Baño Privado",
-      "totalUnits": 3
+      "totalUnits": 2
     },
     {
       "slug": "standard_matrimonial",
@@ -74,7 +74,7 @@
         "/images/pasillo-madera-tallada.webp",
         "/images/vestibulo-escalera-orquideas.webp"
       ],
-      "totalUnits": 3
+      "totalUnits": 2
     },
     {
       "slug": "doble_dos_camas",
@@ -160,6 +160,8 @@
     {
       "id": "HAB-101",
       "number": "101",
+      "customName": "Hab. 101 · Standard Matrimonial",
+      "costCenterCode": "CC-HAB-101",
       "floor": 1,
       "categorySlug": "standard_matrimonial",
       "status": "disponible"
@@ -167,6 +169,8 @@
     {
       "id": "HAB-102",
       "number": "102",
+      "customName": "Hab. 102 · Standard Matrimonial",
+      "costCenterCode": "CC-HAB-102",
       "floor": 1,
       "categorySlug": "standard_matrimonial",
       "status": "ocupada",
@@ -175,13 +179,17 @@
     {
       "id": "HAB-103",
       "number": "103",
+      "customName": "Hab. 103 · Doble Dos Camas",
+      "costCenterCode": "CC-HAB-103",
       "floor": 1,
-      "categorySlug": "standard_matrimonial",
+      "categorySlug": "doble_dos_camas",
       "status": "disponible"
     },
     {
       "id": "HAB-104",
       "number": "104",
+      "customName": "Hab. 104 · Doble Dos Camas",
+      "costCenterCode": "CC-HAB-104",
       "floor": 1,
       "categorySlug": "doble_dos_camas",
       "status": "disponible"
@@ -189,13 +197,17 @@
     {
       "id": "HAB-105",
       "number": "105",
+      "customName": "Hab. 105 · Single Individual",
+      "costCenterCode": "CC-HAB-105",
       "floor": 1,
-      "categorySlug": "doble_dos_camas",
+      "categorySlug": "single_individual",
       "status": "aseo_pendiente"
     },
     {
       "id": "HAB-106",
       "number": "106",
+      "customName": "Hab. 106 · Single Individual",
+      "costCenterCode": "CC-HAB-106",
       "floor": 1,
       "categorySlug": "single_individual",
       "status": "disponible"
@@ -203,42 +215,36 @@
     {
       "id": "HAB-107",
       "number": "107",
-      "floor": 1,
-      "categorySlug": "single_individual",
-      "status": "disponible"
-    },
-    {
-      "id": "HAB-201",
-      "number": "201",
+      "customName": "Hab. 107 · Superior Matrimonial",
+      "costCenterCode": "CC-HAB-107",
       "floor": 2,
       "categorySlug": "superior_matrimonial",
       "status": "ocupada",
       "currentBookingId": "ARH-2026-1042"
     },
     {
-      "id": "HAB-202",
-      "number": "202",
+      "id": "HAB-108",
+      "number": "108",
+      "customName": "Hab. 108 · Superior Matrimonial",
+      "costCenterCode": "CC-HAB-108",
       "floor": 2,
       "categorySlug": "superior_matrimonial",
       "status": "disponible"
     },
     {
-      "id": "HAB-203",
-      "number": "203",
-      "floor": 2,
-      "categorySlug": "superior_matrimonial",
-      "status": "disponible"
-    },
-    {
-      "id": "HAB-204",
-      "number": "204",
+      "id": "HAB-109",
+      "number": "109",
+      "customName": "Hab. 109 · Familiar con Terraza",
+      "costCenterCode": "CC-HAB-109",
       "floor": 2,
       "categorySlug": "familiar_terraza",
       "status": "disponible"
     },
     {
-      "id": "HAB-205",
-      "number": "205",
+      "id": "HAB-110",
+      "number": "110",
+      "customName": "Hab. 110 · Familiar con Terraza",
+      "costCenterCode": "CC-HAB-110",
       "floor": 2,
       "categorySlug": "familiar_terraza",
       "status": "disponible"
@@ -254,6 +260,39 @@
     "imapPasswordConfigured": false,
     "autoAssignRoom": true,
     "autoRegisterCash": true,
+    "autoSendWelcomeQrEmail": true,
+    "accounts": [
+      {
+        "id": "account_1",
+        "label": "Cuenta Airbnb #1 (Principal)",
+        "holderName": "Cuenta Registrada Airbnb 1",
+        "email": "reservas@allrenthoteles.cl",
+        "appPassword": "",
+        "appPasswordConfigured": false,
+        "imapHost": "imap.gmail.com",
+        "imapPort": 993,
+        "smtpHost": "smtp.gmail.com",
+        "smtpPort": 465,
+        "enabled": true,
+        "lastSyncAt": "2026-11-24T22:15:00-03:00",
+        "syncedCount": 1
+      },
+      {
+        "id": "account_2",
+        "label": "Cuenta Airbnb #2 (Secundaria)",
+        "holderName": "Cuenta Registrada Airbnb 2",
+        "email": "administracion@allrenthoteles.cl",
+        "appPassword": "",
+        "appPasswordConfigured": false,
+        "imapHost": "imap.gmail.com",
+        "imapPort": 993,
+        "smtpHost": "smtp.gmail.com",
+        "smtpPort": 465,
+        "enabled": true,
+        "lastSyncAt": "2026-11-23T18:40:00-03:00",
+        "syncedCount": 1
+      }
+    ],
     "lastSyncAt": "2026-11-24T22:15:00-03:00",
     "totalSyncedCount": 2
   },
@@ -262,33 +301,43 @@
       "id": "AIR-LOG-001",
       "receivedAt": "2026-11-24T22:15:00-03:00",
       "fromEmail": "automated@airbnb.com",
+      "accountLabel": "Cuenta Airbnb #1 (Principal)",
       "subject": "¡Reserva confirmada! Fernanda Soto llega el 27 nov 2026",
       "airbnbCode": "HM8P3K9W2L",
       "eventType": "reservation_confirmed",
       "guestName": "Fernanda Soto",
+      "guestEmail": "fsoto.viajes@gmail.com",
       "roomCategoryDetected": "familiar_terraza",
+      "assignedRoomNumber": "109",
       "checkInDate": "2026-11-27",
       "checkOutDate": "2026-11-29",
       "totalAmount": 159000,
       "bookingIdCreated": "ARH-2026-1043",
+      "qrTokenGenerated": "ARHQR.ARH-2026-1043.58CC4BAA9D79.C65AF45EA8196981",
+      "welcomeEmailSent": true,
       "status": "synced",
-      "rawSnippet": "Código de confirmación: HM8P3K9W2L | Familiar con Terraza (Baño privado) | 2 noches | $159.000 CLP"
+      "rawSnippet": "Código: HM8P3K9W2L | Hab. 109 · Familiar con Terraza | 2 noches | $159.000 CLP | Correo con QR enviado a fsoto.viajes@gmail.com"
     },
     {
       "id": "AIR-LOG-002",
       "receivedAt": "2026-11-23T18:40:00-03:00",
       "fromEmail": "automated@airbnb.com",
-      "subject": "¡Reserva confirmada! Martín Lagos llega el 25 nov 2026",
+      "accountLabel": "Cuenta Airbnb #2 (Secundaria)",
+      "subject": "¡Reserva confirmada! Martín Lagos llega el 24 nov 2026",
       "airbnbCode": "HM4R7T2N8Q",
       "eventType": "reservation_confirmed",
       "guestName": "Martín Lagos",
+      "guestEmail": "martin.lagos@outlook.cl",
       "roomCategoryDetected": "standard_matrimonial",
+      "assignedRoomNumber": "102",
       "checkInDate": "2026-11-24",
       "checkOutDate": "2026-11-26",
       "totalAmount": 107000,
       "bookingIdCreated": "ARH-2026-1041",
+      "qrTokenGenerated": "ARHQR.ARH-2026-1041.2FFD9D68E867.6EA00DFD14AA63C2",
+      "welcomeEmailSent": true,
       "status": "synced",
-      "rawSnippet": "Código de confirmación: HM4R7T2N8Q | Standard Matrimonial (Baño privado exterior) | 2 noches | $107.000 CLP"
+      "rawSnippet": "Código: HM4R7T2N8Q | Hab. 102 · Standard Matrimonial | 2 noches | $107.000 CLP | Correo con QR enviado a martin.lagos@outlook.cl"
     }
   ],
   "blockedDates": [
@@ -296,7 +345,7 @@
       "id": "BLK-01",
       "date": "2026-12-24",
       "roomCategory": "single_individual",
-      "roomNumber": "107",
+      "roomNumber": "105",
       "reason": "Mantención",
       "createdAt": "2026-11-20T10:00:00Z"
     }
@@ -307,7 +356,7 @@
       "source": "web_online",
       "roomCategory": "superior_matrimonial",
       "roomCategoryName": "Superior Matrimonial",
-      "assignedRoomNumber": "201",
+      "assignedRoomNumber": "107",
       "clientName": "Valentina Contreras",
       "clientEmail": "v.contreras@gmail.com",
       "clientPhone": "+56987451230",
@@ -331,6 +380,22 @@
       "requiresParking": true,
       "specialRequests": "Llegada puntual a las 12:15 hrs. Estacionamiento interior.",
       "createdAt": "2026-11-22T16:28:00Z",
+      "qrToken": "ARHQR.ARH-2026-1042.763A781C7E9A.3A5BEE317D74298F",
+      "qrStatus": "checked_in_active",
+      "qrIssuedAt": "2026-11-22T16:30:00Z",
+      "qrCheckInAt": "2026-11-24T12:18:00Z",
+      "confirmationEmailSent": true,
+      "qrScanLogs": [
+        {
+          "id": "QRL-1042-1",
+          "bookingId": "ARH-2026-1042",
+          "qrToken": "ARHQR.ARH-2026-1042.763A781C7E9A.3A5BEE317D74298F",
+          "action": "checkin_entry",
+          "operatorName": "Recepción Portería All Rent",
+          "timestamp": "2026-11-24T12:18:00Z",
+          "notes": "1° Uso QR: Check-in de Entrada verificado. Vehículo PBYR-94 ingresado."
+        }
+      ],
       "checkin": {
         "bookingId": "ARH-2026-1042",
         "estimatedArrival": "12:15",
@@ -371,11 +436,11 @@
       ],
       "tickets": [
         {
-          "id": "TCK-201-A",
+          "id": "TCK-107-A",
           "bookingId": "ARH-2026-1042",
-          "roomNumber": "201",
+          "roomNumber": "107",
           "type": "alistamiento_previo",
-          "title": "Hab. 201 Lista para Check-in 12:00",
+          "title": "Hab. 107 Lista para Check-in 12:00",
           "operatorName": "Equipo Housekeeping All Rent",
           "createdAt": "2026-11-24T11:20:00Z",
           "status": "aprobado",
@@ -436,8 +501,24 @@
         "LZWT-42"
       ],
       "requiresParking": true,
-      "specialRequests": "Sincronizado automáticamente desde correo Airbnb (HM4R7T2N8Q).",
-      "createdAt": "2026-11-23T18:40:00Z"
+      "specialRequests": "Sincronizado automáticamente desde correo Airbnb #2 (HM4R7T2N8Q).",
+      "createdAt": "2026-11-23T18:40:00Z",
+      "qrToken": "ARHQR.ARH-2026-1041.2FFD9D68E867.6EA00DFD14AA63C2",
+      "qrStatus": "checked_in_active",
+      "qrIssuedAt": "2026-11-23T18:40:00Z",
+      "qrCheckInAt": "2026-11-24T13:05:00Z",
+      "confirmationEmailSent": true,
+      "qrScanLogs": [
+        {
+          "id": "QRL-1041-1",
+          "bookingId": "ARH-2026-1041",
+          "qrToken": "ARHQR.ARH-2026-1041.2FFD9D68E867.6EA00DFD14AA63C2",
+          "action": "checkin_entry",
+          "operatorName": "Recepción Portería All Rent",
+          "timestamp": "2026-11-24T13:05:00Z",
+          "notes": "1° Uso QR: Check-in de Entrada desde reserva Airbnb HM4R7T2N8Q."
+        }
+      ]
     },
     {
       "id": "ARH-2026-1043",
@@ -445,10 +526,11 @@
       "source": "airbnb_email",
       "roomCategory": "familiar_terraza",
       "roomCategoryName": "Familiar con Terraza",
-      "assignedRoomNumber": "204",
+      "assignedRoomNumber": "109",
       "clientName": "Fernanda Soto",
       "clientEmail": "fsoto.viajes@gmail.com",
       "clientPhone": "+56975540912",
+      "clientRut": "17.210.493-8",
       "checkInDate": "2026-11-27",
       "checkOutDate": "2026-11-29",
       "nightsCount": 2,
@@ -461,9 +543,18 @@
       "paymentMethod": "airbnb_payout",
       "paidAt": "2026-11-24T22:15:00Z",
       "status": "confirmed",
+      "vehiclesCount": 1,
+      "vehiclePlates": [
+        "RTKP-88"
+      ],
       "requiresParking": true,
-      "specialRequests": "Sincronizado vía Comprobante Email Airbnb (HM8P3K9W2L). Familia con 2 niños.",
-      "createdAt": "2026-11-24T22:15:00Z"
+      "specialRequests": "Sincronizado vía Comprobante Email Airbnb #1 (HM8P3K9W2L). Familia con 2 niños.",
+      "createdAt": "2026-11-24T22:15:00Z",
+      "qrToken": "ARHQR.ARH-2026-1043.58CC4BAA9D79.C65AF45EA8196981",
+      "qrStatus": "issued",
+      "qrIssuedAt": "2026-11-24T22:15:00Z",
+      "confirmationEmailSent": true,
+      "qrScanLogs": []
     },
     {
       "id": "ARH-2026-1044",
@@ -482,8 +573,8 @@
       "ratePerNight": 49500,
       "totalAmount": 99000,
       "depositRequired": 49500,
-      "amountPaid": 49500,
-      "paymentStatus": "deposit_paid",
+      "amountPaid": 99000,
+      "paymentStatus": "paid_full",
       "paymentMethod": "webpay_tarjeta",
       "paidAt": "2026-11-24T19:10:00Z",
       "status": "confirmed",
@@ -492,8 +583,13 @@
         "KTRW-18"
       ],
       "requiresParking": true,
-      "specialRequests": "Abono 50% online aprobado. Saldo al check-in 12:00.",
-      "createdAt": "2026-11-24T19:08:00Z"
+      "specialRequests": "Pago 100% online aprobado. Check-in 12:00 hrs.",
+      "createdAt": "2026-11-24T19:08:00Z",
+      "qrToken": "ARHQR.ARH-2026-1044.B9ECE99767D7.DA048DD7FC1762E8",
+      "qrStatus": "issued",
+      "qrIssuedAt": "2026-11-24T19:10:00Z",
+      "confirmationEmailSent": true,
+      "qrScanLogs": []
     },
     {
       "id": "ARH-2026-1045",
@@ -518,8 +614,77 @@
       "paidAt": "2026-11-24T21:00:00Z",
       "status": "confirmed",
       "requiresParking": false,
-      "specialRequests": "Comisión laboral Bahía Quintero. Check-in hoy 12:00 hrs.",
-      "createdAt": "2026-11-24T20:55:00Z"
+      "specialRequests": "Comisión laboral Bahía Quintero. Check-in 12:00 hrs.",
+      "createdAt": "2026-11-24T20:55:00Z",
+      "qrToken": "ARHQR.ARH-2026-1045.83E568260882.8E6FA4D2A153EA18",
+      "qrStatus": "issued",
+      "qrIssuedAt": "2026-11-24T21:00:00Z",
+      "confirmationEmailSent": true,
+      "qrScanLogs": []
+    }
+  ],
+  "emailOutbox": [
+    {
+      "id": "MAIL-SEED-01",
+      "bookingId": "ARH-2026-1042",
+      "toEmail": "v.contreras@gmail.com",
+      "clientName": "Valentina Contreras",
+      "fromAccountEmail": "reservas@allrenthoteles.cl",
+      "subject": "Confirmación de Reserva & Código QR de Check-in (ARH-2026-1042) — All Rent Hoteles Quintero",
+      "qrToken": "ARHQR.ARH-2026-1042.763A781C7E9A.3A5BEE317D74298F",
+      "assignedRoomNumber": "107",
+      "roomCategoryName": "Superior Matrimonial",
+      "triggerSource": "web_booking",
+      "deliveryStatus": "stored_outbox_preview",
+      "sentAt": "2026-11-22T16:30:00Z",
+      "htmlBody": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>Confirmación de Reserva & Pase QR — All Rent Hoteles</title>\n</head>\n<body style=\"margin:0;padding:0;background-color:#050605;font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#FFFFFF;\">\n  <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#050605;padding:28px 14px;\">\n    <tr>\n      <td align=\"center\">\n        <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"max-width:640px;background-color:#000000;border:1px solid rgba(176,228,84,0.42);border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.95);\">\n          \n          <!-- TOP BRAND HEADER WITH OFFICIAL LOGO -->\n          <tr>\n            <td style=\"padding:28px 32px;background:linear-gradient(180deg,rgba(176,228,84,0.14) 0%,rgba(0,0,0,1) 100%);border-bottom:1px solid rgba(176,228,84,0.25);text-align:center;\">\n              <div style=\"margin-bottom:14px;\">\n                <img src=\"http://localhost:3000/brand/logo-neon.png\" alt=\"All Rent Hoteles\" width=\"210\" style=\"display:inline-block;max-width:210px;height:auto;\" />\n              </div>\n              <div style=\"display:inline-block;padding:4px 12px;border-radius:999px;background-color:rgba(176,228,84,0.15);border:1px solid rgba(176,228,84,0.45);color:#B0E454;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;\">\n                ALL RENT HOTELES · QUINTERO\n              </div>\n              <h1 style=\"margin:12px 0 4px 0;font-size:24px;font-weight:900;color:#FFFFFF;letter-spacing:-0.4px;\">\n                ¡Gracias por reservar en All Rent Hoteles!\n              </h1>\n              <p style=\"margin:0;font-size:13px;color:#A1A1AA;\">\n                Tu reserva y habitación ya están bloqueadas y confirmadas en nuestro sistema central.\n              </p>\n            </td>\n          </tr>\n\n          <!-- GREETING & SUMMARY -->\n          <tr>\n            <td style=\"padding:26px 32px 12px 32px;\">\n              <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.6;color:#E4E4E7;\">\n                Estimado/a <strong style=\"color:#FFFFFF;\">Valentina Contreras</strong>,\n              </p>\n              <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.6;color:#D4D4D8;\">\n                Hemos recibido y confirmado tu reserva a través de <strong style=\"color:#B0E454;\">Sitio Web Oficial All Rent Hoteles</strong>. A continuación encontrarás tu <strong>Código QR Único de Check-in y Check-out</strong>, el detalle de tu habitación asignada, nuestros horarios oficiales y las normas del hotel.\n              </p>\n            </td>\n          </tr>\n\n          <!-- UNIQUE CRYPTOGRAPHIC QR BOX -->\n          <tr>\n            <td style=\"padding:8px 32px 24px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#090B08;border:2px solid #B0E454;border-radius:18px;padding:24px;text-align:center;\">\n                <tr>\n                  <td align=\"center\">\n                    <div style=\"font-size:11px;font-weight:800;letter-spacing:2px;color:#B0E454;text-transform:uppercase;margin-bottom:6px;\">\n                      PASE DIGITAL ÚNICO · CHECK-IN ENTRADA &amp; CHECK-OUT SALIDA\n                    </div>\n                    <div style=\"font-size:13px;color:#D4D4D8;margin-bottom:16px;\">\n                      Presenta este código QR en Portería / Recepción al ingresar y al finalizar tu estadía.\n                    </div>\n                    <div style=\"display:inline-block;background-color:#FFFFFF;padding:14px;border-radius:16px;border:3px solid #B0E454;\">\n                      <img src=\"https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=12&data=ARHQR.ARH-2026-1042.763A781C7E9A.3A5BEE317D74298F\" alt=\"Código QR Check-in ARH-2026-1042\" width=\"220\" height=\"220\" style=\"display:block;width:220px;height:220px;\" />\n                    </div>\n                    <div style=\"margin-top:14px;font-family:monospace;font-size:12px;color:#B0E454;background-color:#000000;padding:8px 14px;border-radius:8px;border:1px solid rgba(176,228,84,0.3);display:inline-block;word-break:break-all;\">\n                      ARHQR.ARH-2026-1042.763A781C7E9A.3A5BEE317D74298F\n                    </div>\n                    <p style=\"margin:12px 0 0 0;font-size:11px;color:#A1A1AA;line-height:1.5;\">\n                      🔒 <strong>Seguridad de Ciclo Único:</strong> Este QR es único e irrepetible. Permite <strong>1 escaneo de Entrada (Check-in)</strong> y <strong>1 escaneo de Salida (Check-out)</strong>, quedando cerrado automáticamente tras tu salida.\n                    </p>\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- RESERVATION DETAILS TABLE -->\n          <tr>\n            <td style=\"padding:0 32px 24px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#0A0C09;border:1px solid rgba(255,255,255,0.12);border-radius:14px;overflow:hidden;\">\n                <tr>\n                  <td colspan=\"2\" style=\"padding:12px 18px;background-color:rgba(176,228,84,0.12);border-bottom:1px solid rgba(176,228,84,0.22);font-size:12px;font-weight:800;color:#B0E454;text-transform:uppercase;letter-spacing:1.2px;\">\n                    Ficha Oficial de Reserva\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Código de Reserva</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:800;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    ARH-2026-1042\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Habitación Asignada</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:800;color:#B0E454;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    Habitación 107 · Superior Matrimonial\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Check-in (Entrada)</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2026-11-24 · Desde las 12:00 hrs\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Check-out (Salida)</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2026-11-26 · Hasta las 12:00 hrs (2 noches)\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Huéspedes &amp; Matrícula</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2 huéspedes · Patente: PBYR-94\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:12px 18px;font-size:13px;color:#A1A1AA;\">Monto Total &amp; Estado</td>\n                  <td style=\"padding:12px 18px;font-size:14px;font-weight:900;color:#B0E454;text-align:right;\">\n                    $127.000 CLP · 100% PAGADO\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- RULES, NORMS & EXTRA NIGHTS AT PORTERIA -->\n          <tr>\n            <td style=\"padding:0 32px 24px 32px;\">\n              <div style=\"background-color:#0A0C09;border:1px solid rgba(176,228,84,0.25);border-radius:14px;padding:18px 20px;\">\n                <div style=\"font-size:12px;font-weight:800;color:#B0E454;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;\">\n                  Normas del Hotel, Horarios &amp; Extensión de Estadía\n                </div>\n                <ul style=\"margin:0;padding-left:18px;font-size:13px;color:#D4D4D8;line-height:1.65;\">\n                  <li><strong>Horario Oficial:</strong> Check-in de entrada desde las <strong>12:00 hrs</strong> y Check-out de salida hasta las <strong>12:00 hrs</strong>.</li>\n                  <li><strong>Ingreso con QR en Portería:</strong> Al llegar a Av. Bulnes 119, muestra tu QR al administrador para validar tus datos, patente de vehículo y entregarte tu habitación.</li>\n                  <li><strong>Estacionamiento Privado Gratuito:</strong> Contamos con estacionamiento cerrado y monitoreado por CCTV dentro del recinto.</li>\n                  <li><strong>¿Deseas quedarte más días?</strong> Si durante tu estadía deseas extender noches adicionales, solicítalo directamente en <strong>Portería / Recepción</strong> para realizar la asignación y cobro extra correspondiente.</li>\n                  <li><strong>Convivencia &amp; Espacios:</strong> Uso libre de kitchenette (refrigerador y microondas) y patio interior, manteniendo un ambiente tranquilo y respetuoso.</li>\n                </ul>\n              </div>\n            </td>\n          </tr>\n\n          <!-- LOCATION, PORTAL & SOCIAL LINKS -->\n          <tr>\n            <td style=\"padding:0 32px 28px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#090B08;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 20px;\">\n                <tr>\n                  <td>\n                    <div style=\"font-size:12px;font-weight:800;color:#FFFFFF;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;\">\n                      📍 Ubicación &amp; Portal de Huésped\n                    </div>\n                    <p style=\"margin:0 0 14px 0;font-size:13px;color:#A1A1AA;line-height:1.5;\">\n                      <strong>Av. Bulnes 119, Quintero, Región de Valparaíso</strong> (Frente a la playa principal de Quintero, al costado de la Armada de Chile y a 10 minutos caminando de la Plaza).\n                    </p>\n                    <table cellspacing=\"0\" cellpadding=\"0\">\n                      <tr>\n                        <td style=\"padding-right:10px;\">\n                          <a href=\"http://localhost:3000/mi-reserva?codigo=ARH-2026-1042\" style=\"display:inline-block;padding:11px 18px;background-color:#B0E454;color:#000000;font-size:12px;font-weight:800;text-decoration:none;border-radius:10px;text-transform:uppercase;letter-spacing:0.6px;\">\n                            Abrir Mi Pase QR Online\n                          </a>\n                        </td>\n                        <td style=\"padding-right:10px;\">\n                          <a href=\"https://maps.google.com/?q=Av.+Bulnes+119,+Quintero,+Chile\" style=\"display:inline-block;padding:11px 16px;background-color:#141712;color:#FFFFFF;border:1px solid rgba(176,228,84,0.35);font-size:12px;font-weight:700;text-decoration:none;border-radius:10px;\">\n                            Ver en Google Maps\n                          </a>\n                        </td>\n                        <td>\n                          <a href=\"https://wa.me/56998651440\" style=\"display:inline-block;padding:11px 16px;background-color:#141712;color:#B0E454;border:1px solid rgba(176,228,84,0.35);font-size:12px;font-weight:700;text-decoration:none;border-radius:10px;\">\n                            WhatsApp Recepción\n                          </a>\n                        </td>\n                      </tr>\n                    </table>\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- FOOTER -->\n          <tr>\n            <td style=\"padding:18px 32px;background-color:#050605;border-top:1px solid rgba(255,255,255,0.08);text-align:center;font-size:11px;color:#71717A;\">\n              © 2026 <strong>All Rent Hoteles</strong> · Av. Bulnes 119, Quintero, Región de Valparaíso · Tel/WhatsApp: +56 9 9865 1440\n            </td>\n          </tr>\n\n        </table>\n      </td>\n    </tr>\n  </table>\n</body>\n</html>"
+    },
+    {
+      "id": "MAIL-SEED-02",
+      "bookingId": "ARH-2026-1041",
+      "externalCode": "HM4R7T2N8Q",
+      "toEmail": "martin.lagos@outlook.cl",
+      "clientName": "Martín Lagos",
+      "fromAccountEmail": "administracion@allrenthoteles.cl",
+      "subject": "¡Gracias por reservar en All Rent Hoteles! Tu Pase QR de Check-in (HM4R7T2N8Q)",
+      "qrToken": "ARHQR.ARH-2026-1041.2FFD9D68E867.6EA00DFD14AA63C2",
+      "assignedRoomNumber": "102",
+      "roomCategoryName": "Standard Matrimonial",
+      "triggerSource": "airbnb_auto_sync",
+      "deliveryStatus": "stored_outbox_preview",
+      "sentAt": "2026-11-23T18:40:00Z",
+      "htmlBody": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>Confirmación de Reserva & Pase QR — All Rent Hoteles</title>\n</head>\n<body style=\"margin:0;padding:0;background-color:#050605;font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#FFFFFF;\">\n  <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#050605;padding:28px 14px;\">\n    <tr>\n      <td align=\"center\">\n        <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"max-width:640px;background-color:#000000;border:1px solid rgba(176,228,84,0.42);border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.95);\">\n          \n          <!-- TOP BRAND HEADER WITH OFFICIAL LOGO -->\n          <tr>\n            <td style=\"padding:28px 32px;background:linear-gradient(180deg,rgba(176,228,84,0.14) 0%,rgba(0,0,0,1) 100%);border-bottom:1px solid rgba(176,228,84,0.25);text-align:center;\">\n              <div style=\"margin-bottom:14px;\">\n                <img src=\"http://localhost:3000/brand/logo-neon.png\" alt=\"All Rent Hoteles\" width=\"210\" style=\"display:inline-block;max-width:210px;height:auto;\" />\n              </div>\n              <div style=\"display:inline-block;padding:4px 12px;border-radius:999px;background-color:rgba(176,228,84,0.15);border:1px solid rgba(176,228,84,0.45);color:#B0E454;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;\">\n                ALL RENT HOTELES · QUINTERO\n              </div>\n              <h1 style=\"margin:12px 0 4px 0;font-size:24px;font-weight:900;color:#FFFFFF;letter-spacing:-0.4px;\">\n                ¡Gracias por reservar en All Rent Hoteles!\n              </h1>\n              <p style=\"margin:0;font-size:13px;color:#A1A1AA;\">\n                Tu reserva y habitación ya están bloqueadas y confirmadas en nuestro sistema central.\n              </p>\n            </td>\n          </tr>\n\n          <!-- GREETING & SUMMARY -->\n          <tr>\n            <td style=\"padding:26px 32px 12px 32px;\">\n              <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.6;color:#E4E4E7;\">\n                Estimado/a <strong style=\"color:#FFFFFF;\">Martín Lagos</strong>,\n              </p>\n              <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.6;color:#D4D4D8;\">\n                Hemos recibido y confirmado tu reserva a través de <strong style=\"color:#B0E454;\">Airbnb Oficial (HM4R7T2N8Q)</strong>. A continuación encontrarás tu <strong>Código QR Único de Check-in y Check-out</strong>, el detalle de tu habitación asignada, nuestros horarios oficiales y las normas del hotel.\n              </p>\n            </td>\n          </tr>\n\n          <!-- UNIQUE CRYPTOGRAPHIC QR BOX -->\n          <tr>\n            <td style=\"padding:8px 32px 24px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#090B08;border:2px solid #B0E454;border-radius:18px;padding:24px;text-align:center;\">\n                <tr>\n                  <td align=\"center\">\n                    <div style=\"font-size:11px;font-weight:800;letter-spacing:2px;color:#B0E454;text-transform:uppercase;margin-bottom:6px;\">\n                      PASE DIGITAL ÚNICO · CHECK-IN ENTRADA &amp; CHECK-OUT SALIDA\n                    </div>\n                    <div style=\"font-size:13px;color:#D4D4D8;margin-bottom:16px;\">\n                      Presenta este código QR en Portería / Recepción al ingresar y al finalizar tu estadía.\n                    </div>\n                    <div style=\"display:inline-block;background-color:#FFFFFF;padding:14px;border-radius:16px;border:3px solid #B0E454;\">\n                      <img src=\"https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=12&data=ARHQR.ARH-2026-1041.2FFD9D68E867.6EA00DFD14AA63C2\" alt=\"Código QR Check-in ARH-2026-1041\" width=\"220\" height=\"220\" style=\"display:block;width:220px;height:220px;\" />\n                    </div>\n                    <div style=\"margin-top:14px;font-family:monospace;font-size:12px;color:#B0E454;background-color:#000000;padding:8px 14px;border-radius:8px;border:1px solid rgba(176,228,84,0.3);display:inline-block;word-break:break-all;\">\n                      ARHQR.ARH-2026-1041.2FFD9D68E867.6EA00DFD14AA63C2\n                    </div>\n                    <p style=\"margin:12px 0 0 0;font-size:11px;color:#A1A1AA;line-height:1.5;\">\n                      🔒 <strong>Seguridad de Ciclo Único:</strong> Este QR es único e irrepetible. Permite <strong>1 escaneo de Entrada (Check-in)</strong> y <strong>1 escaneo de Salida (Check-out)</strong>, quedando cerrado automáticamente tras tu salida.\n                    </p>\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- RESERVATION DETAILS TABLE -->\n          <tr>\n            <td style=\"padding:0 32px 24px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#0A0C09;border:1px solid rgba(255,255,255,0.12);border-radius:14px;overflow:hidden;\">\n                <tr>\n                  <td colspan=\"2\" style=\"padding:12px 18px;background-color:rgba(176,228,84,0.12);border-bottom:1px solid rgba(176,228,84,0.22);font-size:12px;font-weight:800;color:#B0E454;text-transform:uppercase;letter-spacing:1.2px;\">\n                    Ficha Oficial de Reserva\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Código de Reserva</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:800;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    ARH-2026-1041 (Airbnb: HM4R7T2N8Q)\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Habitación Asignada</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:800;color:#B0E454;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    Habitación 102 · Standard Matrimonial\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Check-in (Entrada)</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2026-11-24 · Desde las 12:00 hrs\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Check-out (Salida)</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2026-11-26 · Hasta las 12:00 hrs (2 noches)\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Huéspedes &amp; Matrícula</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2 huéspedes · Patente: LZWT-42\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:12px 18px;font-size:13px;color:#A1A1AA;\">Monto Total &amp; Estado</td>\n                  <td style=\"padding:12px 18px;font-size:14px;font-weight:900;color:#B0E454;text-align:right;\">\n                    $107.000 CLP · 100% PAGADO\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- RULES, NORMS & EXTRA NIGHTS AT PORTERIA -->\n          <tr>\n            <td style=\"padding:0 32px 24px 32px;\">\n              <div style=\"background-color:#0A0C09;border:1px solid rgba(176,228,84,0.25);border-radius:14px;padding:18px 20px;\">\n                <div style=\"font-size:12px;font-weight:800;color:#B0E454;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;\">\n                  Normas del Hotel, Horarios &amp; Extensión de Estadía\n                </div>\n                <ul style=\"margin:0;padding-left:18px;font-size:13px;color:#D4D4D8;line-height:1.65;\">\n                  <li><strong>Horario Oficial:</strong> Check-in de entrada desde las <strong>12:00 hrs</strong> y Check-out de salida hasta las <strong>12:00 hrs</strong>.</li>\n                  <li><strong>Ingreso con QR en Portería:</strong> Al llegar a Av. Bulnes 119, muestra tu QR al administrador para validar tus datos, patente de vehículo y entregarte tu habitación.</li>\n                  <li><strong>Estacionamiento Privado Gratuito:</strong> Contamos con estacionamiento cerrado y monitoreado por CCTV dentro del recinto.</li>\n                  <li><strong>¿Deseas quedarte más días?</strong> Si durante tu estadía deseas extender noches adicionales, solicítalo directamente en <strong>Portería / Recepción</strong> para realizar la asignación y cobro extra correspondiente.</li>\n                  <li><strong>Convivencia &amp; Espacios:</strong> Uso libre de kitchenette (refrigerador y microondas) y patio interior, manteniendo un ambiente tranquilo y respetuoso.</li>\n                </ul>\n              </div>\n            </td>\n          </tr>\n\n          <!-- LOCATION, PORTAL & SOCIAL LINKS -->\n          <tr>\n            <td style=\"padding:0 32px 28px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#090B08;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 20px;\">\n                <tr>\n                  <td>\n                    <div style=\"font-size:12px;font-weight:800;color:#FFFFFF;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;\">\n                      📍 Ubicación &amp; Portal de Huésped\n                    </div>\n                    <p style=\"margin:0 0 14px 0;font-size:13px;color:#A1A1AA;line-height:1.5;\">\n                      <strong>Av. Bulnes 119, Quintero, Región de Valparaíso</strong> (Frente a la playa principal de Quintero, al costado de la Armada de Chile y a 10 minutos caminando de la Plaza).\n                    </p>\n                    <table cellspacing=\"0\" cellpadding=\"0\">\n                      <tr>\n                        <td style=\"padding-right:10px;\">\n                          <a href=\"http://localhost:3000/mi-reserva?codigo=ARH-2026-1041\" style=\"display:inline-block;padding:11px 18px;background-color:#B0E454;color:#000000;font-size:12px;font-weight:800;text-decoration:none;border-radius:10px;text-transform:uppercase;letter-spacing:0.6px;\">\n                            Abrir Mi Pase QR Online\n                          </a>\n                        </td>\n                        <td style=\"padding-right:10px;\">\n                          <a href=\"https://maps.google.com/?q=Av.+Bulnes+119,+Quintero,+Chile\" style=\"display:inline-block;padding:11px 16px;background-color:#141712;color:#FFFFFF;border:1px solid rgba(176,228,84,0.35);font-size:12px;font-weight:700;text-decoration:none;border-radius:10px;\">\n                            Ver en Google Maps\n                          </a>\n                        </td>\n                        <td>\n                          <a href=\"https://wa.me/56998651440\" style=\"display:inline-block;padding:11px 16px;background-color:#141712;color:#B0E454;border:1px solid rgba(176,228,84,0.35);font-size:12px;font-weight:700;text-decoration:none;border-radius:10px;\">\n                            WhatsApp Recepción\n                          </a>\n                        </td>\n                      </tr>\n                    </table>\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- FOOTER -->\n          <tr>\n            <td style=\"padding:18px 32px;background-color:#050605;border-top:1px solid rgba(255,255,255,0.08);text-align:center;font-size:11px;color:#71717A;\">\n              © 2026 <strong>All Rent Hoteles</strong> · Av. Bulnes 119, Quintero, Región de Valparaíso · Tel/WhatsApp: +56 9 9865 1440\n            </td>\n          </tr>\n\n        </table>\n      </td>\n    </tr>\n  </table>\n</body>\n</html>"
+    },
+    {
+      "id": "MAIL-SEED-03",
+      "bookingId": "ARH-2026-1043",
+      "externalCode": "HM8P3K9W2L",
+      "toEmail": "fsoto.viajes@gmail.com",
+      "clientName": "Fernanda Soto",
+      "fromAccountEmail": "reservas@allrenthoteles.cl",
+      "subject": "¡Gracias por reservar en All Rent Hoteles! Tu Pase QR de Check-in (HM8P3K9W2L)",
+      "qrToken": "ARHQR.ARH-2026-1043.58CC4BAA9D79.C65AF45EA8196981",
+      "assignedRoomNumber": "109",
+      "roomCategoryName": "Familiar con Terraza",
+      "triggerSource": "airbnb_auto_sync",
+      "deliveryStatus": "stored_outbox_preview",
+      "sentAt": "2026-11-24T22:15:00Z",
+      "htmlBody": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>Confirmación de Reserva & Pase QR — All Rent Hoteles</title>\n</head>\n<body style=\"margin:0;padding:0;background-color:#050605;font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#FFFFFF;\">\n  <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#050605;padding:28px 14px;\">\n    <tr>\n      <td align=\"center\">\n        <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"max-width:640px;background-color:#000000;border:1px solid rgba(176,228,84,0.42);border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.95);\">\n          \n          <!-- TOP BRAND HEADER WITH OFFICIAL LOGO -->\n          <tr>\n            <td style=\"padding:28px 32px;background:linear-gradient(180deg,rgba(176,228,84,0.14) 0%,rgba(0,0,0,1) 100%);border-bottom:1px solid rgba(176,228,84,0.25);text-align:center;\">\n              <div style=\"margin-bottom:14px;\">\n                <img src=\"http://localhost:3000/brand/logo-neon.png\" alt=\"All Rent Hoteles\" width=\"210\" style=\"display:inline-block;max-width:210px;height:auto;\" />\n              </div>\n              <div style=\"display:inline-block;padding:4px 12px;border-radius:999px;background-color:rgba(176,228,84,0.15);border:1px solid rgba(176,228,84,0.45);color:#B0E454;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;\">\n                ALL RENT HOTELES · QUINTERO\n              </div>\n              <h1 style=\"margin:12px 0 4px 0;font-size:24px;font-weight:900;color:#FFFFFF;letter-spacing:-0.4px;\">\n                ¡Gracias por reservar en All Rent Hoteles!\n              </h1>\n              <p style=\"margin:0;font-size:13px;color:#A1A1AA;\">\n                Tu reserva y habitación ya están bloqueadas y confirmadas en nuestro sistema central.\n              </p>\n            </td>\n          </tr>\n\n          <!-- GREETING & SUMMARY -->\n          <tr>\n            <td style=\"padding:26px 32px 12px 32px;\">\n              <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.6;color:#E4E4E7;\">\n                Estimado/a <strong style=\"color:#FFFFFF;\">Fernanda Soto</strong>,\n              </p>\n              <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.6;color:#D4D4D8;\">\n                Hemos recibido y confirmado tu reserva a través de <strong style=\"color:#B0E454;\">Airbnb Oficial (HM8P3K9W2L)</strong>. A continuación encontrarás tu <strong>Código QR Único de Check-in y Check-out</strong>, el detalle de tu habitación asignada, nuestros horarios oficiales y las normas del hotel.\n              </p>\n            </td>\n          </tr>\n\n          <!-- UNIQUE CRYPTOGRAPHIC QR BOX -->\n          <tr>\n            <td style=\"padding:8px 32px 24px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#090B08;border:2px solid #B0E454;border-radius:18px;padding:24px;text-align:center;\">\n                <tr>\n                  <td align=\"center\">\n                    <div style=\"font-size:11px;font-weight:800;letter-spacing:2px;color:#B0E454;text-transform:uppercase;margin-bottom:6px;\">\n                      PASE DIGITAL ÚNICO · CHECK-IN ENTRADA &amp; CHECK-OUT SALIDA\n                    </div>\n                    <div style=\"font-size:13px;color:#D4D4D8;margin-bottom:16px;\">\n                      Presenta este código QR en Portería / Recepción al ingresar y al finalizar tu estadía.\n                    </div>\n                    <div style=\"display:inline-block;background-color:#FFFFFF;padding:14px;border-radius:16px;border:3px solid #B0E454;\">\n                      <img src=\"https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=12&data=ARHQR.ARH-2026-1043.58CC4BAA9D79.C65AF45EA8196981\" alt=\"Código QR Check-in ARH-2026-1043\" width=\"220\" height=\"220\" style=\"display:block;width:220px;height:220px;\" />\n                    </div>\n                    <div style=\"margin-top:14px;font-family:monospace;font-size:12px;color:#B0E454;background-color:#000000;padding:8px 14px;border-radius:8px;border:1px solid rgba(176,228,84,0.3);display:inline-block;word-break:break-all;\">\n                      ARHQR.ARH-2026-1043.58CC4BAA9D79.C65AF45EA8196981\n                    </div>\n                    <p style=\"margin:12px 0 0 0;font-size:11px;color:#A1A1AA;line-height:1.5;\">\n                      🔒 <strong>Seguridad de Ciclo Único:</strong> Este QR es único e irrepetible. Permite <strong>1 escaneo de Entrada (Check-in)</strong> y <strong>1 escaneo de Salida (Check-out)</strong>, quedando cerrado automáticamente tras tu salida.\n                    </p>\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- RESERVATION DETAILS TABLE -->\n          <tr>\n            <td style=\"padding:0 32px 24px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#0A0C09;border:1px solid rgba(255,255,255,0.12);border-radius:14px;overflow:hidden;\">\n                <tr>\n                  <td colspan=\"2\" style=\"padding:12px 18px;background-color:rgba(176,228,84,0.12);border-bottom:1px solid rgba(176,228,84,0.22);font-size:12px;font-weight:800;color:#B0E454;text-transform:uppercase;letter-spacing:1.2px;\">\n                    Ficha Oficial de Reserva\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Código de Reserva</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:800;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    ARH-2026-1043 (Airbnb: HM8P3K9W2L)\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Habitación Asignada</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:800;color:#B0E454;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    Habitación 109 · Familiar con Terraza\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Check-in (Entrada)</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2026-11-27 · Desde las 12:00 hrs\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Check-out (Salida)</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2026-11-29 · Hasta las 12:00 hrs (2 noches)\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Huéspedes &amp; Matrícula</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    4 huéspedes · Patente: RTKP-88\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:12px 18px;font-size:13px;color:#A1A1AA;\">Monto Total &amp; Estado</td>\n                  <td style=\"padding:12px 18px;font-size:14px;font-weight:900;color:#B0E454;text-align:right;\">\n                    $159.000 CLP · 100% PAGADO\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- RULES, NORMS & EXTRA NIGHTS AT PORTERIA -->\n          <tr>\n            <td style=\"padding:0 32px 24px 32px;\">\n              <div style=\"background-color:#0A0C09;border:1px solid rgba(176,228,84,0.25);border-radius:14px;padding:18px 20px;\">\n                <div style=\"font-size:12px;font-weight:800;color:#B0E454;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;\">\n                  Normas del Hotel, Horarios &amp; Extensión de Estadía\n                </div>\n                <ul style=\"margin:0;padding-left:18px;font-size:13px;color:#D4D4D8;line-height:1.65;\">\n                  <li><strong>Horario Oficial:</strong> Check-in de entrada desde las <strong>12:00 hrs</strong> y Check-out de salida hasta las <strong>12:00 hrs</strong>.</li>\n                  <li><strong>Ingreso con QR en Portería:</strong> Al llegar a Av. Bulnes 119, muestra tu QR al administrador para validar tus datos, patente de vehículo y entregarte tu habitación.</li>\n                  <li><strong>Estacionamiento Privado Gratuito:</strong> Contamos con estacionamiento cerrado y monitoreado por CCTV dentro del recinto.</li>\n                  <li><strong>¿Deseas quedarte más días?</strong> Si durante tu estadía deseas extender noches adicionales, solicítalo directamente en <strong>Portería / Recepción</strong> para realizar la asignación y cobro extra correspondiente.</li>\n                  <li><strong>Convivencia &amp; Espacios:</strong> Uso libre de kitchenette (refrigerador y microondas) y patio interior, manteniendo un ambiente tranquilo y respetuoso.</li>\n                </ul>\n              </div>\n            </td>\n          </tr>\n\n          <!-- LOCATION, PORTAL & SOCIAL LINKS -->\n          <tr>\n            <td style=\"padding:0 32px 28px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#090B08;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 20px;\">\n                <tr>\n                  <td>\n                    <div style=\"font-size:12px;font-weight:800;color:#FFFFFF;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;\">\n                      📍 Ubicación &amp; Portal de Huésped\n                    </div>\n                    <p style=\"margin:0 0 14px 0;font-size:13px;color:#A1A1AA;line-height:1.5;\">\n                      <strong>Av. Bulnes 119, Quintero, Región de Valparaíso</strong> (Frente a la playa principal de Quintero, al costado de la Armada de Chile y a 10 minutos caminando de la Plaza).\n                    </p>\n                    <table cellspacing=\"0\" cellpadding=\"0\">\n                      <tr>\n                        <td style=\"padding-right:10px;\">\n                          <a href=\"http://localhost:3000/mi-reserva?codigo=ARH-2026-1043\" style=\"display:inline-block;padding:11px 18px;background-color:#B0E454;color:#000000;font-size:12px;font-weight:800;text-decoration:none;border-radius:10px;text-transform:uppercase;letter-spacing:0.6px;\">\n                            Abrir Mi Pase QR Online\n                          </a>\n                        </td>\n                        <td style=\"padding-right:10px;\">\n                          <a href=\"https://maps.google.com/?q=Av.+Bulnes+119,+Quintero,+Chile\" style=\"display:inline-block;padding:11px 16px;background-color:#141712;color:#FFFFFF;border:1px solid rgba(176,228,84,0.35);font-size:12px;font-weight:700;text-decoration:none;border-radius:10px;\">\n                            Ver en Google Maps\n                          </a>\n                        </td>\n                        <td>\n                          <a href=\"https://wa.me/56998651440\" style=\"display:inline-block;padding:11px 16px;background-color:#141712;color:#B0E454;border:1px solid rgba(176,228,84,0.35);font-size:12px;font-weight:700;text-decoration:none;border-radius:10px;\">\n                            WhatsApp Recepción\n                          </a>\n                        </td>\n                      </tr>\n                    </table>\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- FOOTER -->\n          <tr>\n            <td style=\"padding:18px 32px;background-color:#050605;border-top:1px solid rgba(255,255,255,0.08);text-align:center;font-size:11px;color:#71717A;\">\n              © 2026 <strong>All Rent Hoteles</strong> · Av. Bulnes 119, Quintero, Región de Valparaíso · Tel/WhatsApp: +56 9 9865 1440\n            </td>\n          </tr>\n\n        </table>\n      </td>\n    </tr>\n  </table>\n</body>\n</html>"
+    },
+    {
+      "id": "MAIL-SEED-04",
+      "bookingId": "ARH-2026-1044",
+      "toEmail": "cnavarrete@ingenieria.cl",
+      "clientName": "Cristóbal Navarrete",
+      "fromAccountEmail": "reservas@allrenthoteles.cl",
+      "subject": "Confirmación de Reserva & Código QR de Check-in (ARH-2026-1044) — All Rent Hoteles Quintero",
+      "qrToken": "ARHQR.ARH-2026-1044.B9ECE99767D7.DA048DD7FC1762E8",
+      "assignedRoomNumber": "104",
+      "roomCategoryName": "Doble Dos Camas",
+      "triggerSource": "web_booking",
+      "deliveryStatus": "stored_outbox_preview",
+      "sentAt": "2026-11-24T19:10:00Z",
+      "htmlBody": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>Confirmación de Reserva & Pase QR — All Rent Hoteles</title>\n</head>\n<body style=\"margin:0;padding:0;background-color:#050605;font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#FFFFFF;\">\n  <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#050605;padding:28px 14px;\">\n    <tr>\n      <td align=\"center\">\n        <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"max-width:640px;background-color:#000000;border:1px solid rgba(176,228,84,0.42);border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.95);\">\n          \n          <!-- TOP BRAND HEADER WITH OFFICIAL LOGO -->\n          <tr>\n            <td style=\"padding:28px 32px;background:linear-gradient(180deg,rgba(176,228,84,0.14) 0%,rgba(0,0,0,1) 100%);border-bottom:1px solid rgba(176,228,84,0.25);text-align:center;\">\n              <div style=\"margin-bottom:14px;\">\n                <img src=\"http://localhost:3000/brand/logo-neon.png\" alt=\"All Rent Hoteles\" width=\"210\" style=\"display:inline-block;max-width:210px;height:auto;\" />\n              </div>\n              <div style=\"display:inline-block;padding:4px 12px;border-radius:999px;background-color:rgba(176,228,84,0.15);border:1px solid rgba(176,228,84,0.45);color:#B0E454;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;\">\n                ALL RENT HOTELES · QUINTERO\n              </div>\n              <h1 style=\"margin:12px 0 4px 0;font-size:24px;font-weight:900;color:#FFFFFF;letter-spacing:-0.4px;\">\n                ¡Gracias por reservar en All Rent Hoteles!\n              </h1>\n              <p style=\"margin:0;font-size:13px;color:#A1A1AA;\">\n                Tu reserva y habitación ya están bloqueadas y confirmadas en nuestro sistema central.\n              </p>\n            </td>\n          </tr>\n\n          <!-- GREETING & SUMMARY -->\n          <tr>\n            <td style=\"padding:26px 32px 12px 32px;\">\n              <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.6;color:#E4E4E7;\">\n                Estimado/a <strong style=\"color:#FFFFFF;\">Cristóbal Navarrete</strong>,\n              </p>\n              <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.6;color:#D4D4D8;\">\n                Hemos recibido y confirmado tu reserva a través de <strong style=\"color:#B0E454;\">Sitio Web Oficial All Rent Hoteles</strong>. A continuación encontrarás tu <strong>Código QR Único de Check-in y Check-out</strong>, el detalle de tu habitación asignada, nuestros horarios oficiales y las normas del hotel.\n              </p>\n            </td>\n          </tr>\n\n          <!-- UNIQUE CRYPTOGRAPHIC QR BOX -->\n          <tr>\n            <td style=\"padding:8px 32px 24px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#090B08;border:2px solid #B0E454;border-radius:18px;padding:24px;text-align:center;\">\n                <tr>\n                  <td align=\"center\">\n                    <div style=\"font-size:11px;font-weight:800;letter-spacing:2px;color:#B0E454;text-transform:uppercase;margin-bottom:6px;\">\n                      PASE DIGITAL ÚNICO · CHECK-IN ENTRADA &amp; CHECK-OUT SALIDA\n                    </div>\n                    <div style=\"font-size:13px;color:#D4D4D8;margin-bottom:16px;\">\n                      Presenta este código QR en Portería / Recepción al ingresar y al finalizar tu estadía.\n                    </div>\n                    <div style=\"display:inline-block;background-color:#FFFFFF;padding:14px;border-radius:16px;border:3px solid #B0E454;\">\n                      <img src=\"https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=12&data=ARHQR.ARH-2026-1044.B9ECE99767D7.DA048DD7FC1762E8\" alt=\"Código QR Check-in ARH-2026-1044\" width=\"220\" height=\"220\" style=\"display:block;width:220px;height:220px;\" />\n                    </div>\n                    <div style=\"margin-top:14px;font-family:monospace;font-size:12px;color:#B0E454;background-color:#000000;padding:8px 14px;border-radius:8px;border:1px solid rgba(176,228,84,0.3);display:inline-block;word-break:break-all;\">\n                      ARHQR.ARH-2026-1044.B9ECE99767D7.DA048DD7FC1762E8\n                    </div>\n                    <p style=\"margin:12px 0 0 0;font-size:11px;color:#A1A1AA;line-height:1.5;\">\n                      🔒 <strong>Seguridad de Ciclo Único:</strong> Este QR es único e irrepetible. Permite <strong>1 escaneo de Entrada (Check-in)</strong> y <strong>1 escaneo de Salida (Check-out)</strong>, quedando cerrado automáticamente tras tu salida.\n                    </p>\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- RESERVATION DETAILS TABLE -->\n          <tr>\n            <td style=\"padding:0 32px 24px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#0A0C09;border:1px solid rgba(255,255,255,0.12);border-radius:14px;overflow:hidden;\">\n                <tr>\n                  <td colspan=\"2\" style=\"padding:12px 18px;background-color:rgba(176,228,84,0.12);border-bottom:1px solid rgba(176,228,84,0.22);font-size:12px;font-weight:800;color:#B0E454;text-transform:uppercase;letter-spacing:1.2px;\">\n                    Ficha Oficial de Reserva\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Código de Reserva</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:800;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    ARH-2026-1044\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Habitación Asignada</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:800;color:#B0E454;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    Habitación 104 · Doble Dos Camas\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Check-in (Entrada)</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2026-11-28 · Desde las 12:00 hrs\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Check-out (Salida)</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2026-11-30 · Hasta las 12:00 hrs (2 noches)\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:11px 18px;font-size:13px;color:#A1A1AA;border-bottom:1px solid rgba(255,255,255,0.06);\">Huéspedes &amp; Matrícula</td>\n                  <td style=\"padding:11px 18px;font-size:13px;font-weight:700;color:#FFFFFF;text-align:right;border-bottom:1px solid rgba(255,255,255,0.06);\">\n                    2 huéspedes · Patente: KTRW-18\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:12px 18px;font-size:13px;color:#A1A1AA;\">Monto Total &amp; Estado</td>\n                  <td style=\"padding:12px 18px;font-size:14px;font-weight:900;color:#B0E454;text-align:right;\">\n                    $99.000 CLP · 100% PAGADO\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- RULES, NORMS & EXTRA NIGHTS AT PORTERIA -->\n          <tr>\n            <td style=\"padding:0 32px 24px 32px;\">\n              <div style=\"background-color:#0A0C09;border:1px solid rgba(176,228,84,0.25);border-radius:14px;padding:18px 20px;\">\n                <div style=\"font-size:12px;font-weight:800;color:#B0E454;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;\">\n                  Normas del Hotel, Horarios &amp; Extensión de Estadía\n                </div>\n                <ul style=\"margin:0;padding-left:18px;font-size:13px;color:#D4D4D8;line-height:1.65;\">\n                  <li><strong>Horario Oficial:</strong> Check-in de entrada desde las <strong>12:00 hrs</strong> y Check-out de salida hasta las <strong>12:00 hrs</strong>.</li>\n                  <li><strong>Ingreso con QR en Portería:</strong> Al llegar a Av. Bulnes 119, muestra tu QR al administrador para validar tus datos, patente de vehículo y entregarte tu habitación.</li>\n                  <li><strong>Estacionamiento Privado Gratuito:</strong> Contamos con estacionamiento cerrado y monitoreado por CCTV dentro del recinto.</li>\n                  <li><strong>¿Deseas quedarte más días?</strong> Si durante tu estadía deseas extender noches adicionales, solicítalo directamente en <strong>Portería / Recepción</strong> para realizar la asignación y cobro extra correspondiente.</li>\n                  <li><strong>Convivencia &amp; Espacios:</strong> Uso libre de kitchenette (refrigerador y microondas) y patio interior, manteniendo un ambiente tranquilo y respetuoso.</li>\n                </ul>\n              </div>\n            </td>\n          </tr>\n\n          <!-- LOCATION, PORTAL & SOCIAL LINKS -->\n          <tr>\n            <td style=\"padding:0 32px 28px 32px;\">\n              <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#090B08;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 20px;\">\n                <tr>\n                  <td>\n                    <div style=\"font-size:12px;font-weight:800;color:#FFFFFF;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;\">\n                      📍 Ubicación &amp; Portal de Huésped\n                    </div>\n                    <p style=\"margin:0 0 14px 0;font-size:13px;color:#A1A1AA;line-height:1.5;\">\n                      <strong>Av. Bulnes 119, Quintero, Región de Valparaíso</strong> (Frente a la playa principal de Quintero, al costado de la Armada de Chile y a 10 minutos caminando de la Plaza).\n                    </p>\n                    <table cellspacing=\"0\" cellpadding=\"0\">\n                      <tr>\n                        <td style=\"padding-right:10px;\">\n                          <a href=\"http://localhost:3000/mi-reserva?codigo=ARH-2026-1044\" style=\"display:inline-block;padding:11px 18px;background-color:#B0E454;color:#000000;font-size:12px;font-weight:800;text-decoration:none;border-radius:10px;text-transform:uppercase;letter-spacing:0.6px;\">\n                            Abrir Mi Pase QR Online\n                          </a>\n                        </td>\n                        <td style=\"padding-right:10px;\">\n                          <a href=\"https://maps.google.com/?q=Av.+Bulnes+119,+Quintero,+Chile\" style=\"display:inline-block;padding:11px 16px;background-color:#141712;color:#FFFFFF;border:1px solid rgba(176,228,84,0.35);font-size:12px;font-weight:700;text-decoration:none;border-radius:10px;\">\n                            Ver en Google Maps\n                          </a>\n                        </td>\n                        <td>\n                          <a href=\"https://wa.me/56998651440\" style=\"display:inline-block;padding:11px 16px;background-color:#141712;color:#B0E454;border:1px solid rgba(176,228,84,0.35);font-size:12px;font-weight:700;text-decoration:none;border-radius:10px;\">\n                            WhatsApp Recepción\n                          </a>\n                        </td>\n                      </tr>\n                    </table>\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n\n          <!-- FOOTER -->\n          <tr>\n            <td style=\"padding:18px 32px;background-color:#050605;border-top:1px solid rgba(255,255,255,0.08);text-align:center;font-size:11px;color:#71717A;\">\n              © 2026 <strong>All Rent Hoteles</strong> · Av. Bulnes 119, Quintero, Región de Valparaíso · Tel/WhatsApp: +56 9 9865 1440\n            </td>\n          </tr>\n\n        </table>\n      </td>\n    </tr>\n  </table>\n</body>\n</html>"
     }
   ],
   "cashTransactions": [
@@ -528,20 +693,22 @@
       "date": "2026-11-24 22:15",
       "type": "ingreso",
       "category": "payout_airbnb",
-      "description": "Reserva Airbnb Email Sync HM8P3K9W2L - Fernanda Soto (Familiar Terraza)",
+      "description": "Reserva Airbnb Email Sync HM8P3K9W2L - Fernanda Soto (Hab. 109 · Familiar Terraza)",
       "amount": 159000,
       "bookingId": "ARH-2026-1043",
+      "roomNumber": "109",
       "receiptNumber": "AIR-HM8P3K9W2L",
-      "operator": "Sync Automático Correo"
+      "operator": "Sync Automático Correo #1"
     },
     {
       "id": "TX-402",
       "date": "2026-11-24 21:00",
       "type": "ingreso",
       "category": "transferencia_directa",
-      "description": "Pago Estadía Single Individual Hab. 106 - Rodrigo Alarcón",
+      "description": "Pago 100% Estadía Single Individual Hab. 106 - Rodrigo Alarcón",
       "amount": 39500,
       "bookingId": "ARH-2026-1045",
+      "roomNumber": "106",
       "receiptNumber": "TRF-99412",
       "operator": "Recepción All Rent"
     },
@@ -550,9 +717,10 @@
       "date": "2026-11-24 19:10",
       "type": "ingreso",
       "category": "pago_online_webpay",
-      "description": "Abono 50% Webpay Tarjeta - Cristóbal Navarrete (Doble Dos Camas)",
-      "amount": 49500,
+      "description": "Pago 100% Webpay Tarjeta - Cristóbal Navarrete (Hab. 104 · Doble Dos Camas)",
+      "amount": 99000,
       "bookingId": "ARH-2026-1044",
+      "roomNumber": "104",
       "receiptNumber": "TBK-773910",
       "operator": "Pasarela Webpay Online"
     },
@@ -561,20 +729,22 @@
       "date": "2026-11-23 18:40",
       "type": "ingreso",
       "category": "payout_airbnb",
-      "description": "Reserva Airbnb Email Sync HM4R7T2N8Q - Martín Lagos (Standard Matrimonial)",
+      "description": "Reserva Airbnb Email Sync HM4R7T2N8Q - Martín Lagos (Hab. 102 · Standard Matrimonial)",
       "amount": 107000,
       "bookingId": "ARH-2026-1041",
+      "roomNumber": "102",
       "receiptNumber": "AIR-HM4R7T2N8Q",
-      "operator": "Sync Automático Correo"
+      "operator": "Sync Automático Correo #2"
     },
     {
       "id": "TX-405",
       "date": "2026-11-22 16:30",
       "type": "ingreso",
       "category": "pago_online_webpay",
-      "description": "Pago 100% Webpay Visa - Valentina Contreras (Superior Matrimonial)",
+      "description": "Pago 100% Webpay Visa - Valentina Contreras (Hab. 107 · Superior Matrimonial)",
       "amount": 127000,
       "bookingId": "ARH-2026-1042",
+      "roomNumber": "107",
       "receiptNumber": "TBK-849201",
       "operator": "Pasarela Webpay Online"
     },
@@ -583,8 +753,9 @@
       "date": "2026-11-23 11:15",
       "type": "gasto",
       "category": "lavanderia_blancos",
-      "description": "Servicio lavandería industrial sábanas y toallas hoteleras blancas",
-      "amount": -34000,
+      "description": "Servicio lavandería industrial sábanas y toallas hoteleras blancas (Hab. 107)",
+      "amount": -18000,
+      "roomNumber": "107",
       "receiptNumber": "FAC-1182",
       "operator": "Administración Central"
     },
@@ -593,8 +764,9 @@
       "date": "2026-11-21 17:40",
       "type": "gasto",
       "category": "insumos_aseo",
-      "description": "Amenities baño privado, jabón líquido, café y suministros kitchenette",
-      "amount": -22500,
+      "description": "Amenities baño privado, sanitización y suministros (Hab. 102)",
+      "amount": -14500,
+      "roomNumber": "102",
       "receiptNumber": "BOL-5509",
       "operator": "Recepción"
     }
@@ -610,7 +782,7 @@
       "totalStays": 2,
       "totalSpent": 254000,
       "lastStayDate": "2026-11-24",
-      "favoriteRoom": "Superior Matrimonial (201)",
+      "favoriteRoom": "Superior Matrimonial (Hab. 107)",
       "notes": "Destaca cercanía a la playa y tranquilidad del barrio marino."
     },
     {
@@ -623,7 +795,7 @@
       "totalStays": 1,
       "totalSpent": 107000,
       "lastStayDate": "2026-11-24",
-      "favoriteRoom": "Standard Matrimonial (102)"
+      "favoriteRoom": "Standard Matrimonial (Hab. 102)"
     },
     {
       "id": "CLI-ARH-03",
@@ -635,7 +807,7 @@
       "totalStays": 1,
       "totalSpent": 159000,
       "lastStayDate": "2026-11-27",
-      "favoriteRoom": "Familiar con Terraza (204)"
+      "favoriteRoom": "Familiar con Terraza (Hab. 109)"
     },
     {
       "id": "CLI-ARH-04",
@@ -647,7 +819,7 @@
       "totalStays": 3,
       "totalSpent": 297000,
       "lastStayDate": "2026-11-28",
-      "favoriteRoom": "Doble Dos Camas (104)",
+      "favoriteRoom": "Doble Dos Camas (Hab. 104)",
       "notes": "Viaja regularmente a Quintero por proyectos navales/portuarios."
     },
     {
@@ -660,14 +832,14 @@
       "totalStays": 4,
       "totalSpent": 197500,
       "lastStayDate": "2026-11-25",
-      "favoriteRoom": "Single Individual (106)"
+      "favoriteRoom": "Single Individual (Hab. 106)"
     }
   ],
   "parkingRecords": [
     {
       "id": "PRK-01",
       "bookingId": "ARH-2026-1042",
-      "roomNumber": "201",
+      "roomNumber": "107",
       "guestName": "Valentina Contreras",
       "guestRut": "18.492.103-4",
       "guestPhone": "+56987451230",
@@ -676,7 +848,7 @@
       "parkingSpot": "Estacionamiento Interior #1 (CCTV)",
       "entryTime": "2026-11-24 12:18",
       "status": "estacionado",
-      "notes": "Portón cerrado verificado."
+      "notes": "Portón cerrado verificado con escaneo QR de entrada."
     },
     {
       "id": "PRK-02",

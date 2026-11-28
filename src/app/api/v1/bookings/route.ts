@@ -115,6 +115,10 @@ export async function POST(request: Request) {
       specialRequests,
     })
 
+    if (isPaidOnCreate && created.clientEmail && created.clientEmail.includes('@')) {
+      db.resendBookingConfirmationEmail(created.id).catch(() => {})
+    }
+
     return NextResponse.json({ success: true, data: created }, { status: 201 })
   } catch (error) {
     console.error('Error creating booking:', error)
