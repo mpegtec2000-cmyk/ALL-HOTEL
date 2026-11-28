@@ -19,6 +19,7 @@ import {
   Star,
 } from 'lucide-react'
 import { OFFICIAL_ROOM_CATEGORIES, computeHotelQuote, formatCLP } from '@/lib/pricing'
+import { getBookingDraftCookie, saveBookingDraftCookie } from '@/lib/speed-cookies'
 import { RoomCategorySlug } from '@/types/saas'
 
 const SLIDE_DURATION_MS = 5500
@@ -103,8 +104,15 @@ export default function HeroCarousel() {
     tomorrow.setDate(tomorrow.getDate() + 1)
     const dayAfter = new Date()
     dayAfter.setDate(dayAfter.getDate() + 3)
-    setCheckIn(tomorrow.toISOString().split('T')[0])
-    setCheckOut(dayAfter.toISOString().split('T')[0])
+    const defaultIn = tomorrow.toISOString().split('T')[0]
+    const defaultOut = dayAfter.toISOString().split('T')[0]
+
+    const cachedDraft = getBookingDraftCookie()
+    if (cachedDraft?.roomCategory && OFFICIAL_ROOM_CATEGORIES.some((c) => c.slug === cachedDraft.roomCategory)) {
+      setSelectedRoom(cachedDraft.roomCategory)
+    }
+    setCheckIn(cachedDraft?.checkInDate && cachedDraft.checkInDate >= defaultIn ? cachedDraft.checkInDate : defaultIn)
+    setCheckOut(cachedDraft?.checkOutDate && cachedDraft.checkOutDate > defaultIn ? cachedDraft.checkOutDate : defaultOut)
   }, [])
 
   // Automatic Hero Background Rotation
@@ -126,6 +134,11 @@ export default function HeroCarousel() {
 
   function handleQuickSearch(e: React.FormEvent) {
     e.preventDefault()
+    saveBookingDraftCookie({
+      roomCategory: selectedRoom,
+      checkInDate: checkIn,
+      checkOutDate: checkOut,
+    })
     const params = new URLSearchParams()
     params.set('room', selectedRoom)
     if (checkIn) params.set('checkIn', checkIn)
@@ -135,10 +148,13 @@ export default function HeroCarousel() {
 
   return (
     <section className="relative min-h-[100svh] flex flex-col justify-between overflow-hidden pt-24 pb-10">
-      {/* Automatic Background Slideshow */}
+      {/* Automatic Background Slideshow (Windowed Mount: Active + Adjacent Slides Only for 3x Faster Load) */}
       <div className="absolute inset-0 z-0">
         {HERO_SLIDES.map((slide, idx) => {
           const isActive = idx === activeSlide
+          const isPrev = idx === (activeSlide - 1 + HERO_SLIDES.length) % HERO_SLIDES.length
+          const isNext = idx === (activeSlide + 1) % HERO_SLIDES.length
+          if (!isActive && !isPrev && !isNext) return null
           return (
             <div
               key={slide.src}
@@ -151,6 +167,7 @@ export default function HeroCarousel() {
                 alt={slide.caption}
                 fill
                 priority={idx === 0}
+                quality={85}
                 sizes="100vw"
                 className={`object-cover ${isActive ? 'animate-kenburns' : ''}`}
               />

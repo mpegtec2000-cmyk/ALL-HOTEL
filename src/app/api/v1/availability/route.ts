@@ -6,5 +6,12 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const category = searchParams.get('category') as RoomCategorySlug | null
   const summary = db.getAvailabilitySummary(category || undefined)
-  return NextResponse.json({ success: true, data: summary })
+  return NextResponse.json(
+    { success: true, data: summary },
+    {
+      headers: {
+        'Cache-Control': 'public, max-age=15, stale-while-revalidate=120',
+      },
+    }
+  )
 }

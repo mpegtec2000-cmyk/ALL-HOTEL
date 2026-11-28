@@ -25,6 +25,7 @@ import {
 } from 'lucide-react'
 import { Booking, GuestInfo } from '@/types/saas'
 import { formatCLP } from '@/lib/pricing'
+import { COOKIE_KEYS, getFastCookie, setFastCookie } from '@/lib/speed-cookies'
 
 function MiReservaInner() {
   const searchParams = useSearchParams()
@@ -48,8 +49,10 @@ function MiReservaInner() {
   const [payingBalance, setPayingBalance] = useState(false)
 
   useEffect(() => {
-    if (initialCode) {
-      lookupBooking(initialCode)
+    const target = initialCode || getFastCookie(COOKIE_KEYS.LAST_BOOKING_CODE) || ''
+    if (target) {
+      setCode(target)
+      lookupBooking(target)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialCode])
@@ -79,6 +82,7 @@ function MiReservaInner() {
       if (data.success && data.data) {
         const b: Booking = data.data
         setBooking(b)
+        setFastCookie(COOKIE_KEYS.LAST_BOOKING_CODE, b.id, 30)
         if (b.checkin) {
           setEstimatedArrival(b.checkin.estimatedArrival || '12:30')
           setVehiclePlate(b.checkin.vehiclePlates?.[0] || b.vehiclePlates?.[0] || '')

@@ -14,6 +14,7 @@ import {
   MapPin,
   Clock,
 } from 'lucide-react'
+import { COOKIE_KEYS, fastCachedFetch } from '@/lib/speed-cookies'
 
 const NAV_LINKS = [
   { href: '#espacio', label: 'El Hotel' },
@@ -34,10 +35,18 @@ export default function Navbar() {
     const onScroll = () => setScrolled(window.scrollY > 24)
     window.addEventListener('scroll', onScroll, { passive: true })
 
-    fetch('/api/v1/weather')
-      .then((r) => r.json())
+    fastCachedFetch<{ success?: boolean; data?: { tempC?: number } }>(
+      '/api/v1/weather',
+      COOKIE_KEYS.WEATHER_CACHE,
+      900,
+      (fresh) => {
+        if (fresh?.success && typeof fresh.data?.tempC === 'number') {
+          setWeatherTemp(fresh.data.tempC)
+        }
+      }
+    )
       .then((res) => {
-        if (res.success && typeof res.data?.tempC === 'number') {
+        if (res?.success && typeof res.data?.tempC === 'number') {
           setWeatherTemp(res.data.tempC)
         }
       })

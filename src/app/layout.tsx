@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Montserrat, Allura } from 'next/font/google'
+import SpeedOptimizerAndCookies from '@/components/SpeedOptimizerAndCookies'
 import './globals.css'
 
 const montserrat = Montserrat({
@@ -46,6 +47,7 @@ export default function RootLayout({
     <html lang="es" className={`${montserrat.variable} ${allura.variable}`}>
       <body className="bg-[#000000] text-white selection:bg-[#B0E454] selection:text-[#000000]">
         {children}
+        <SpeedOptimizerAndCookies />
       </body>
     </html>
   )

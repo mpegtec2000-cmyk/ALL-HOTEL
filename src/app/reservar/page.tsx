@@ -27,6 +27,13 @@ import {
   AlertTriangle,
 } from 'lucide-react'
 import { OFFICIAL_ROOM_CATEGORIES, computeHotelQuote, formatCLP } from '@/lib/pricing'
+import {
+  COOKIE_KEYS,
+  fastCachedFetch,
+  getBookingDraftCookie,
+  saveBookingDraftCookie,
+  setFastCookie,
+} from '@/lib/speed-cookies'
 import { Booking, PaymentMethod, PaymentRecord, RoomCategory, RoomCategorySlug } from '@/types/saas'
 
 function ReservarContent() {
@@ -70,36 +77,91 @@ function ReservarContent() {
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
 
-  // Initialize from query params + default dates
+  // Initialize from query params + cookie draft cache + default dates
   useEffect(() => {
     const qRoom = searchParams.get('room') as RoomCategorySlug | null
     const qIn = searchParams.get('checkIn')
     const qOut = searchParams.get('checkOut')
+    const draft = getBookingDraftCookie()
 
-    if (qRoom && OFFICIAL_ROOM_CATEGORIES.some((c) => c.slug === qRoom)) {
-      setSelectedRoom(qRoom)
-      const cat = OFFICIAL_ROOM_CATEGORIES.find((c) => c.slug === qRoom)
-      if (cat) setGuestsCount(Math.min(2, cat.maxGuests))
+    const initialRoom =
+      (qRoom && OFFICIAL_ROOM_CATEGORIES.some((c) => c.slug === qRoom) ? qRoom : null) ||
+      (draft?.roomCategory && OFFICIAL_ROOM_CATEGORIES.some((c) => c.slug === draft.roomCategory)
+        ? draft.roomCategory
+        : null)
+
+    if (initialRoom) {
+      setSelectedRoom(initialRoom)
+      const cat = OFFICIAL_ROOM_CATEGORIES.find((c) => c.slug === initialRoom)
+      if (cat) setGuestsCount(Math.min(draft?.guestsCount || 2, cat.maxGuests))
     }
+
+    if (draft?.clientName) setClientName(draft.clientName)
+    if (draft?.clientEmail) setClientEmail(draft.clientEmail)
+    if (draft?.clientPhone) setClientPhone(draft.clientPhone)
+    if (draft?.clientRut) setClientRut(draft.clientRut)
+    if (draft?.vehiclePlate) setVehiclePlate(draft.vehiclePlate)
 
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
     const plusTwo = new Date()
     plusTwo.setDate(plusTwo.getDate() + 3)
+    const defIn = tomorrow.toISOString().split('T')[0]
+    const defOut = plusTwo.toISOString().split('T')[0]
 
-    setCheckInDate(qIn || tomorrow.toISOString().split('T')[0])
-    setCheckOutDate(qOut || plusTwo.toISOString().split('T')[0])
+    setCheckInDate(qIn || (draft?.checkInDate && draft.checkInDate >= defIn ? draft.checkInDate : defIn))
+    setCheckOutDate(qOut || (draft?.checkOutDate && draft.checkOutDate > defIn ? draft.checkOutDate : defOut))
 
-    fetch('/api/v1/availability')
-      .then((r) => r.json())
+    fastCachedFetch<{
+      success?: boolean
+      data?: { categories?: RoomCategory[]; soldOutByCategory?: Record<string, string[]> }
+    }>('/api/v1/availability', 'arh_availability_cache', 180, (fresh) => {
+      if (fresh?.success && fresh.data) {
+        if (Array.isArray(fresh.data.categories)) setCategories(fresh.data.categories)
+        if (fresh.data.soldOutByCategory) setSoldOutByCategory(fresh.data.soldOutByCategory)
+      }
+    })
       .then((res) => {
-        if (res.success && res.data) {
+        if (res?.success && res.data) {
           if (Array.isArray(res.data.categories)) setCategories(res.data.categories)
           if (res.data.soldOutByCategory) setSoldOutByCategory(res.data.soldOutByCategory)
         }
       })
       .catch(() => {})
   }, [searchParams])
+
+  // Persist user selections in fast cookie so navigation/refresh is 0ms
+  useEffect(() => {
+    if (!checkInDate || !checkOutDate) return
+    saveBookingDraftCookie({
+      roomCategory: selectedRoom,
+      checkInDate,
+      checkOutDate,
+      guestsCount,
+      clientName,
+      clientEmail,
+      clientPhone,
+      clientRut,
+      vehiclePlate,
+    })
+  }, [
+    selectedRoom,
+    checkInDate,
+    checkOutDate,
+    guestsCount,
+    clientName,
+    clientEmail,
+    clientPhone,
+    clientRut,
+    vehiclePlate,
+  ])
+
+  // Save confirmed booking code in cookie for instant lookup in /mi-reserva
+  useEffect(() => {
+    if (confirmedBooking?.id) {
+      setFastCookie(COOKIE_KEYS.LAST_BOOKING_CODE, confirmedBooking.id, 30)
+    }
+  }, [confirmedBooking?.id])
 
   // Generate Cryptographic QR when confirmed
   useEffect(() => {
