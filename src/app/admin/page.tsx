@@ -128,7 +128,9 @@ export default function AdminSaaSPage() {
 
   // Filters & Manual Reservation Modal
   const [bookingSearch, setBookingSearch] = useState('')
-  const [sourceFilter, setSourceFilter] = useState<'all' | 'web_online' | 'airbnb_email' | 'recepcion_directa'>('all')
+  const [sourceFilter, setSourceFilter] = useState<
+    'all' | 'en_deuda' | 'web_online' | 'airbnb_email' | 'recepcion_directa'
+  >('all')
   const [newBookingOpen, setNewBookingOpen] = useState(false)
   const [walkInName, setWalkInName] = useState('')
   const [walkInRut, setWalkInRut] = useState('')
@@ -139,6 +141,8 @@ export default function AdminSaaSPage() {
   const [walkInRoomNumber, setWalkInRoomNumber] = useState('107')
   const [walkInIn, setWalkInIn] = useState('')
   const [walkInOut, setWalkInOut] = useState('')
+  const [walkInPaymentMode, setWalkInPaymentMode] = useState<'full_100' | 'deposit_50' | 'unpaid_0'>('full_100')
+  const [settlingBookingId, setSettlingBookingId] = useState<string | null>(null)
 
   // Portería Extra Nights / Extra Charge Modal
   const [extendModalBooking, setExtendModalBooking] = useState<Booking | null>(null)
@@ -573,7 +577,8 @@ export default function AdminSaaSPage() {
         vehiclesCount: walkInPlate ? 1 : 0,
         vehiclePlates: walkInPlate ? [walkInPlate.toUpperCase()] : [],
         requiresParking: Boolean(walkInPlate),
-        markAsPaidFull: true,
+        initialPaymentMode: walkInPaymentMode,
+        markAsPaidFull: walkInPaymentMode === 'full_100',
         source: 'recepcion_directa',
       }),
     })
@@ -591,6 +596,75 @@ export default function AdminSaaSPage() {
         handleExecuteQrScan(json.data.qrToken, 'inspect')
       }
     }
+  }
+
+  async function handleSettleBookingDebt(booking: Booking) {
+    setSettlingBookingId(booking.id)
+    try {
+      const res = await fetch('/api/v1/payments/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bookingId: booking.id,
+          gateway: 'efectivo_recepcion',
+          paymentMode: booking.amountPaid > 0 ? 'balance_50' : 'full_100',
+          cardHolder: booking.clientName,
+        }),
+      })
+      if (res.ok) {
+        await refreshAll()
+      }
+    } finally {
+      setSettlingBookingId(null)
+    }
+  }
+
+  async function handleQrImageFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setCameraError('')
+    try {
+      const WinBarcodeDetector = (window as any).BarcodeDetector
+      if (WinBarcodeDetector) {
+        const bitmap = await createImageBitmap(file)
+        const detector = new WinBarcodeDetector({ formats: ['qr_code'] })
+        const codes = await detector.detect(bitmap)
+        if (codes && codes.length > 0 && codes[0].rawValue) {
+          const val = String(codes[0].rawValue).trim()
+          setQrScanInput(val)
+          handleExecuteQrScan(val, 'inspect')
+          return
+        }
+      }
+      // Fallback: check if filename contains booking ID or ARHQR token
+      const match = file.name.match(/(ARH-\d{4}-\d+|HM[A-Z0-9]{6,12}|ARHQR\.[A-Z0-9.-]+)/i)
+      if (match) {
+        setQrScanInput(match[1].toUpperCase())
+        handleExecuteQrScan(match[1].toUpperCase(), 'inspect')
+      } else {
+        setCameraError('No se detectó un código QR en la imagen seleccionada. Asegúrate de que el QR sea nítido.')
+      }
+    } catch {
+      setCameraError('No fue posible procesar la imagen del código QR.')
+    } finally {
+      e.target.value = ''
+    }
+  }
+
+  function exportCsvFile(filename: string, headers: string[], rows: Array<Array<string | number>>) {
+    const escapeCell = (val: string | number) => `"${String(val ?? '').replace(/"/g, '""')}"`
+    const csvContent =
+      '\uFEFF' +
+      [headers.map(escapeCell).join(';'), ...rows.map((r) => r.map(escapeCell).join(';'))].join('\r\n')
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = filename
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   }
 
   // PORTERÍA EXTRA DAYS / EXTRA CHARGE HANDLER
@@ -907,7 +981,13 @@ export default function AdminSaaSPage() {
 
   const filteredBookings = useMemo(() => {
     return bookings.filter((b) => {
-      const matchSource = sourceFilter === 'all' || b.source === sourceFilter
+      const debt = Math.max(0, b.totalAmount - (b.amountPaid || 0))
+      const matchSource =
+        sourceFilter === 'all'
+          ? true
+          : sourceFilter === 'en_deuda'
+          ? b.status !== 'cancelled' && (debt > 0 || b.paymentStatus !== 'paid_full')
+          : b.source === sourceFilter
       const q = bookingSearch.toLowerCase().trim()
       const matchText =
         !q ||
@@ -1566,9 +1646,20 @@ export default function AdminSaaSPage() {
                   }}
                   className="space-y-2.5"
                 >
-                  <label className="block text-xs font-bold uppercase text-white/70">
-                    Token QR Escaneado (`ARHQR...`) o Código de Reserva
-                  </label>
+                  <div className="flex items-center justify-between">
+                    <label className="block text-xs font-bold uppercase text-white/70">
+                      Token QR Escaneado (`ARHQR...`) o Código
+                    </label>
+                    <label className="text-[11px] font-bold text-[#B0E454] hover:underline cursor-pointer">
+                      Subir Captura / Imagen QR
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleQrImageFileUpload}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
                   <div className="flex gap-2">
                     <input
                       type="text"
@@ -2005,7 +2096,7 @@ export default function AdminSaaSPage() {
                     className="bg-[#000000] border border-white/15 rounded-xl pl-9 pr-4 py-2 text-xs text-white w-68 focus:border-[#B0E454] focus:outline-none"
                   />
                 </div>
-                {(['all', 'web_online', 'airbnb_email', 'recepcion_directa'] as const).map((src) => (
+                {(['all', 'en_deuda', 'web_online', 'airbnb_email', 'recepcion_directa'] as const).map((src) => (
                   <button
                     key={src}
                     type="button"
@@ -2013,11 +2104,15 @@ export default function AdminSaaSPage() {
                     className={`px-3 py-2 rounded-xl text-xs font-bold cursor-pointer ${
                       sourceFilter === src
                         ? 'bg-[#B0E454] text-[#000000]'
+                        : src === 'en_deuda'
+                        ? 'bg-red-950/50 text-red-300 border border-red-500/40'
                         : 'bg-[#000000] text-white/70 border border-white/10'
                     }`}
                   >
                     {src === 'all'
                       ? 'Todas'
+                      : src === 'en_deuda'
+                      ? '💸 Clientes en Deuda'
                       : src === 'web_online'
                       ? 'Web Online'
                       : src === 'airbnb_email'
@@ -2027,13 +2122,45 @@ export default function AdminSaaSPage() {
                 ))}
               </div>
 
-              <button
-                type="button"
-                onClick={() => setNewBookingOpen(!newBookingOpen)}
-                className="px-4 py-2.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer"
-              >
-                <Plus className="w-4 h-4" /> Nueva Reserva Manual (Genera QR + Correo)
-              </button>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    exportCsvFile(
+                      'reservas_all_rent_hoteles.csv',
+                      ['Codigo', 'Airbnb', 'Huesped', 'Telefono', 'Correo', 'Habitacion', 'Categoria', 'CheckIn', 'CheckOut', 'Noches', 'Total_CLP', 'Pagado_CLP', 'Deuda_CLP', 'Estado', 'QR_Token', 'QR_Estado'],
+                      bookings.map((b) => [
+                        b.id,
+                        b.externalCode || '',
+                        b.clientName,
+                        b.clientPhone,
+                        b.clientEmail,
+                        b.assignedRoomNumber || '',
+                        b.roomCategoryName,
+                        b.checkInDate,
+                        b.checkOutDate,
+                        b.nightsCount,
+                        b.totalAmount,
+                        b.amountPaid,
+                        Math.max(0, b.totalAmount - (b.amountPaid || 0)),
+                        b.status,
+                        b.qrToken || '',
+                        b.qrStatus || '',
+                      ])
+                    )
+                  }
+                  className="px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/15 text-xs font-bold text-white/85 hover:border-[#B0E454] hover:text-[#B0E454] cursor-pointer"
+                >
+                  Exportar CSV (Excel)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setNewBookingOpen(!newBookingOpen)}
+                  className="px-4 py-2.5 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" /> Nueva Reserva Manual (Genera QR + Correo)
+                </button>
+              </div>
             </div>
 
             {newBookingOpen && (
@@ -2123,7 +2250,19 @@ export default function AdminSaaSPage() {
                     className="bg-[#000000] border border-white/15 rounded-xl px-3 py-2.5 text-xs text-white [color-scheme:dark]"
                   />
                 </div>
-                <div className="flex justify-end">
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-white/70">Modalidad de Pago:</span>
+                    <select
+                      value={walkInPaymentMode}
+                      onChange={(e) => setWalkInPaymentMode(e.target.value as any)}
+                      className="bg-[#000000] border border-white/20 rounded-xl px-3 py-2 text-xs font-bold text-[#B0E454]"
+                    >
+                      <option value="full_100">100% Pagado Total (Sin Deuda)</option>
+                      <option value="deposit_50">Abono 50% (Queda 50% en Deuda por Cobrar)</option>
+                      <option value="unpaid_0">0% Pendiente de Pago (100% en Deuda por Cobrar)</option>
+                    </select>
+                  </div>
                   <button
                     type="submit"
                     className="py-2.5 px-6 rounded-xl bg-[#B0E454] text-[#000000] font-black text-xs uppercase cursor-pointer"
@@ -2187,12 +2326,41 @@ export default function AdminSaaSPage() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2.5">
-                    <div className="text-right mr-2">
-                      <p className="text-base font-black text-[#B0E454]">{formatCLP(b.totalAmount)}</p>
-                      <p className="text-[11px] text-white/60">
-                        Pagado: {formatCLP(b.amountPaid)} (100%)
-                      </p>
-                    </div>
+                    {(() => {
+                      const pendingDebt = Math.max(0, b.totalAmount - (b.amountPaid || 0))
+                      return (
+                        <>
+                          <div className="text-right mr-2">
+                            <p className="text-base font-black text-[#B0E454]">{formatCLP(b.totalAmount)}</p>
+                            {pendingDebt > 0 ? (
+                              <p className="text-[11px] font-black text-red-400">
+                                ⚠️ Deuda: {formatCLP(pendingDebt)} (Pagado: {formatCLP(b.amountPaid)})
+                              </p>
+                            ) : (
+                              <p className="text-[11px] text-white/60">
+                                Pagado: {formatCLP(b.amountPaid)} (100% Al Día)
+                              </p>
+                            )}
+                          </div>
+
+                          {pendingDebt > 0 && (
+                            <button
+                              type="button"
+                              disabled={settlingBookingId === b.id}
+                              onClick={() => handleSettleBookingDebt(b)}
+                              className="px-3 py-2 rounded-xl bg-red-500 text-white text-xs font-black uppercase hover:bg-red-400 inline-flex items-center gap-1 cursor-pointer"
+                              title="Cobrar saldo pendiente e imputar en Caja"
+                            >
+                              {settlingBookingId === b.id ? (
+                                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                              ) : (
+                                `Saldar Deuda (${formatCLP(pendingDebt)})`
+                              )}
+                            </button>
+                          )}
+                        </>
+                      )
+                    })()}
 
                     <button
                       type="button"
@@ -3538,9 +3706,10 @@ export default function AdminSaaSPage() {
                 </p>
                 <div className="space-y-1.5">
                   {[
+                    'Saldar deuda de Cristóbal',
+                    'Registrar gasto de 15000 en Hab. 107 por lavandería',
                     'Poner Hab. 105 disponible',
                     'Marcar Hab. 103 en aseo',
-                    'Poner Hab. 108 disponible',
                   ].map((cmd) => (
                     <button
                       key={cmd}

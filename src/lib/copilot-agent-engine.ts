@@ -58,7 +58,7 @@ export function executeCopilotAgentQuery(
   const clients = db.getClients()
 
   // ============================================================================
-  // SKILL 1: OPERATIONAL COMMAND EXECUTION FROM CHAT (e.g. "poner hab 105 disponible")
+  // SKILL 1A: OPERATIONAL COMMAND EXECUTION FROM CHAT (e.g. "poner hab 105 disponible")
   // ============================================================================
   const roomCmdMatch = q.match(
     /(?:poner|pasar|marcar|cambiar|dejar)\s+(?:la\s+)?(?:hab(?:itacion)?\.?\s*)?(10[1-9]|110)\s+(?:en|como|a)?\s*(disponible|libre|ocupada|aseo|limpieza|mantencion)/i
@@ -80,6 +80,90 @@ export function executeCopilotAgentQuery(
         reply: `✅ **Comando Ejecutado en Tiempo Real:**\n\nLa **Habitación ${roomNum}** (${updated.customName || updated.categorySlug}) fue actualizada inmediatamente al estado **${targetStatus.toUpperCase().replace('_', ' ')}** en la base de datos y en la Matriz de Centros de Coste.`,
         actions: [{ label: `Ver Hab. ${roomNum} en Centros de Coste`, tab: 'rack' }],
         structuredSnapshot: { updatedUnit: updated },
+      }
+    }
+  }
+
+  // ============================================================================
+  // SKILL 1B: SETTLE CLIENT DEBT DIRECTLY FROM CHAT (e.g. "saldar deuda de Cristobal")
+  // ============================================================================
+  if (
+    (q.includes('saldar') || q.includes('cobrar deuda') || q.includes('pagar deuda') || q.includes('marcar pagad')) &&
+    !q.includes('?')
+  ) {
+    const targetDebtor = activeBookings.find((b) => {
+      const pending = Math.max(0, b.totalAmount - (b.amountPaid || 0))
+      if (pending <= 0) return false
+      const nameParts = normalizeText(b.clientName).split(/\s+/).filter((p) => p.length >= 3)
+      return (
+        nameParts.some((p) => q.includes(p)) ||
+        q.includes(b.id.toLowerCase()) ||
+        (b.assignedRoomNumber && q.includes(b.assignedRoomNumber))
+      )
+    })
+
+    if (targetDebtor) {
+      const debtAmount = Math.max(0, targetDebtor.totalAmount - (targetDebtor.amountPaid || 0))
+      const settled = db.processBookingPayment({
+        bookingId: targetDebtor.id,
+        gateway: 'efectivo_recepcion',
+        paymentMode: 'balance_50',
+        cardBrand: 'Pago Saldo en Recepción (Copiloto IA)',
+      })
+      if (settled) {
+        return {
+          skillId: 'system_operational_command',
+          skillName: 'Liquidación de Deuda & Registro en Caja',
+          reply:
+            `✅ **Deuda Saldada e Imputada en Caja en Tiempo Real:**\n\n` +
+            `- **Huésped:** **${settled.booking.clientName}** (\`${settled.booking.id}\` · Hab. **${settled.booking.assignedRoomNumber || '-'}**)\n` +
+            `- **Monto Cobrado Ahora:** **${formatCLP(debtAmount)}**\n` +
+            `- **Nuevo Estado Financiero:** **${formatCLP(settled.booking.amountPaid)} / ${formatCLP(settled.booking.totalAmount)} (100% PAGADO — $0 Deuda)**\n` +
+            `- **Comprobante en Caja:** \`${settled.payment.authorizationCode}\` imputado al Centro de Coste **Hab. ${settled.booking.assignedRoomNumber || '-'}**.`,
+          actions: [
+            { label: 'Ver Movimiento en Caja', tab: 'caja' },
+            { label: 'Ver Reserva 100% Pagada', tab: 'reservas' },
+          ],
+          structuredSnapshot: { settledBooking: settled.booking },
+        }
+      }
+    }
+  }
+
+  // ============================================================================
+  // SKILL 1C: REGISTER COST CENTER EXPENSE FROM CHAT (e.g. "registrar gasto de 15000 en hab 107")
+  // ============================================================================
+  const expenseCmdMatch = q.match(
+    /(?:registrar|imputar|agregar|anotar)\s+gasto\s+(?:de\s+)?\$?(\d[\d.]*)\s+(?:en\s+)?(?:la\s+)?(?:hab(?:itacion)?\.?\s*)(10[1-9]|110)(?:\s+(?:por|de)\s+(.+))?/i
+  )
+  if (expenseCmdMatch) {
+    const rawAmount = Number(expenseCmdMatch[1].replace(/\./g, ''))
+    const roomNum = expenseCmdMatch[2]
+    const reason = (expenseCmdMatch[3] || 'Gasto operativo Centro de Coste').trim()
+    if (rawAmount > 0) {
+      const tx = db.addCashTransaction({
+        date: new Date().toISOString().replace('T', ' ').slice(0, 16),
+        type: 'gasto',
+        category: 'mantencion_hotel',
+        description: `${reason} (Hab. ${roomNum})`,
+        amount: -rawAmount,
+        roomNumber: roomNum,
+        receiptNumber: `CC-${roomNum}-${Date.now().toString().slice(-3)}`,
+        operator: 'Copiloto IA',
+      })
+      return {
+        skillId: 'system_operational_command',
+        skillName: 'Imputación de Gasto en Centro de Coste',
+        reply:
+          `✅ **Gasto Imputado al Centro de Coste Hab. ${roomNum}:**\n\n` +
+          `- **Concepto:** ${tx.description}\n` +
+          `- **Monto:** **-${formatCLP(rawAmount)}**\n` +
+          `- **Comprobante:** \`${tx.receiptNumber}\` registrado en Libro de Caja y descontado del margen neto de la **Habitación ${roomNum}**.`,
+        actions: [
+          { label: `Ver P&L Hab. ${roomNum}`, tab: 'rack' },
+          { label: 'Ver Libro de Caja', tab: 'caja' },
+        ],
+        structuredSnapshot: { transaction: tx },
       }
     }
   }

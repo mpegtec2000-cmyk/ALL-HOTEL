@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       specialRequests = '',
       source = 'web_online',
       markAsPaidFull = false,
+      initialPaymentMode,
       paymentMethod = 'efectivo_recepcion',
       externalCode,
     } = body as {
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
       specialRequests?: string
       source?: BookingSource
       markAsPaidFull?: boolean
+      initialPaymentMode?: 'full_100' | 'deposit_50' | 'unpaid_0'
       paymentMethod?: PaymentMethod
       externalCode?: string
     }
@@ -85,7 +87,23 @@ export async function POST(request: Request) {
       )
     }
 
-    const isPaidOnCreate = Boolean(markAsPaidFull || source === 'recepcion_directa')
+    const effectiveMode =
+      initialPaymentMode ||
+      (markAsPaidFull || source === 'recepcion_directa' ? 'full_100' : 'unpaid_0')
+
+    const initialAmountPaid =
+      effectiveMode === 'full_100'
+        ? quote.totalAmount
+        : effectiveMode === 'deposit_50'
+        ? quote.deposit50Amount
+        : 0
+
+    const initialPaymentStatus =
+      effectiveMode === 'full_100'
+        ? 'paid_full'
+        : effectiveMode === 'deposit_50'
+        ? 'deposit_paid'
+        : 'unpaid'
 
     const created = db.createBooking({
       source,
@@ -104,18 +122,18 @@ export async function POST(request: Request) {
       ratePerNight: quote.ratePerNight,
       totalAmount: quote.totalAmount,
       depositRequired: quote.deposit50Amount,
-      amountPaid: isPaidOnCreate ? quote.totalAmount : 0,
-      paymentStatus: isPaidOnCreate ? 'paid_full' : 'unpaid',
-      paymentMethod: isPaidOnCreate ? paymentMethod : undefined,
-      paidAt: isPaidOnCreate ? new Date().toISOString() : undefined,
-      status: isPaidOnCreate ? 'confirmed' : 'pending_payment',
+      amountPaid: initialAmountPaid,
+      paymentStatus: initialPaymentStatus,
+      paymentMethod: initialAmountPaid > 0 ? paymentMethod : undefined,
+      paidAt: initialAmountPaid > 0 ? new Date().toISOString() : undefined,
+      status: source === 'recepcion_directa' || initialAmountPaid > 0 ? 'confirmed' : 'pending_payment',
       vehiclesCount,
       vehiclePlates,
       requiresParking,
       specialRequests,
     })
 
-    if (isPaidOnCreate && created.clientEmail && created.clientEmail.includes('@')) {
+    if (created.status === 'confirmed' && created.clientEmail && created.clientEmail.includes('@')) {
       db.resendBookingConfirmationEmail(created.id).catch(() => {})
     }
 
